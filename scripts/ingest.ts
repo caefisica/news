@@ -13,7 +13,7 @@ const { results: sources } = await env.DB.prepare(
 ).all<Source>();
 
 if (sources.length === 0) {
-  console.log("No enabled sources found. Run `bun run migrate:local` first.");
+  console.log("No enabled sources found. Run `bun run db:migrate:local` first.");
 } else {
   console.log(`Processing ${sources.length} source(s)…`);
   await Promise.allSettled(sources.map((s) => processSource(s, env.DB)));

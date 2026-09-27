@@ -1,10 +1,6 @@
 import { processSource } from "@news-reader/feeds";
 import type { Source } from "@news-reader/feeds";
 
-export interface Env {
-  DB: D1Database;
-}
-
 interface QueueMessage {
   sources: Source[];
 }

@@ -1,10 +1,5 @@
 import type { Source } from "@news-reader/feeds";
 
-export interface Env {
-  DB: D1Database;
-  FEED_QUEUE: Queue;
-}
-
 interface QueueMessage {
   sources: Source[];
 }

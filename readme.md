@@ -45,7 +45,7 @@ git clone https://github.com/caefisica/rss-reader.git
 cd rss-reader
 
 bun install
-bun run migrate:local
+bun run db:migrate:local
 bun run dev
 ```
 
@@ -55,5 +55,7 @@ Para ejecutar la ingesta localmente:
 bun run ingest
 ```
 
-Cada worker tiene su propio `wrangler.toml`. El `wrangler.json` raíz configura
-los bindings compartidos de D1 y la cola.
+Cada worker tiene su propio `wrangler.json`. Los tipos del runtime y de los
+bindings se generan con `bun run types` (`wrangler types`) y `bun run typecheck`
+los regenera antes de comprobar. El `wrangler.json` raíz configura los bindings
+compartidos de D1 y la cola.

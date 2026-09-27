@@ -4,10 +4,7 @@ import type { RawItem } from "./types";
 // Handles both RSS 2.0 (<item>) and Atom 1.0 (<entry>) feeds.
 
 function extractText(xml: string, tag: string): string | undefined {
-  const re = new RegExp(
-    `<${tag}[^>]*>(?:<\\!\\[CDATA\\[)?([\\s\\S]*?)(?:\\]\\]>)?<\\/${tag}>`,
-    "iu",
-  );
+  const re = new RegExp(`<${tag}[^>]*>(?:<!\\[CDATA\\[)?([\\s\\S]*?)(?:\\]\\]>)?<\\/${tag}>`, "iu");
   return re.exec(xml)?.[1]?.trim();
 }
 
