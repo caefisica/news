@@ -12,6 +12,6 @@ const registry: Record<string, Parser> = {
 };
 
 export function parseItem(item: RawItem, parserKey: string | null): NormalizedArticle {
-  const parser = (parserKey && registry[parserKey]) ?? registry.identity;
+  const parser = (parserKey ? registry[parserKey] : undefined) ?? identityParser;
   return parser(item);
 }
