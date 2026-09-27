@@ -16,7 +16,8 @@
     "dev": "nuxt dev",
     "build": "nuxt build",
     "preview": "nuxt preview",
-    "typecheck": "nuxt typecheck",
+    "types": "wrangler types -c wrangler.json && wrangler types -c workers/consumer/wrangler.json workers/consumer/worker-configuration.d.ts && wrangler types -c workers/coordinator/wrangler.json workers/coordinator/worker-configuration.d.ts",
+    "typecheck": "bun run types && nuxt typecheck && tsc -p packages/feeds && tsc -p workers/consumer && tsc -p workers/coordinator",
     "ingest": "bun run scripts/ingest.ts",
     "db:migrate": "wrangler d1 migrations apply news-reader --remote",
     "db:migrate:local": "wrangler d1 migrations apply news-reader --local",
@@ -26,19 +27,19 @@
   },
   "dependencies": {
     "@news-reader/feeds": "workspace:*",
-    "@nuxt/icon": "^2.2.2",
-    "gsap": "^3.12.5",
-    "nuxt": "^4.0.0"
+    "@nuxt/icon": "^2.5.1",
+    "gsap": "^3.15.0",
+    "nuxt": "^4.5.2"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240925.0",
     "@nuxt/fonts": "^0.14.0",
-    "@nuxtjs/color-mode": "^4.0.0",
+    "@nuxtjs/color-mode": "^4.0.1",
     "nitro-cloudflare-dev": "^0.2.2",
-    "oxfmt": "^0.50.0",
-    "oxlint": "^1.65.0",
-    "typescript": "^6.0.3",
-    "wrangler": "^4.92.0"
+    "oxfmt": "^0.70.0",
+    "oxlint": "^1.85.0",
+    "typescript": "npm:typescript-native-bridge@6.0.3-bridge.17.tsgo.7.0.2",
+    "vue-tsc": "^3.3.11",
+    "wrangler": "^4.141.0"
   },
   "engines": {
     "node": ">=24.0.0"
