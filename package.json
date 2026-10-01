@@ -39,7 +39,7 @@
     "oxlint": "^1.85.0",
     "typescript": "npm:typescript-native-bridge@6.0.3-bridge.17.tsgo.7.0.2",
     "vue-tsc": "^3.3.11",
-    "wrangler": "^4.141.0"
+    "wrangler": "^4.143.0"
   },
   "engines": {
     "node": ">=24.0.0"
