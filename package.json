@@ -35,7 +35,7 @@
     "@nuxt/fonts": "^0.14.0",
     "@nuxtjs/color-mode": "^4.0.1",
     "nitro-cloudflare-dev": "^0.2.2",
-    "oxfmt": "^0.70.0",
+    "oxfmt": "^0.71.0",
     "oxlint": "^1.85.0",
     "typescript": "npm:typescript-native-bridge@6.0.3-bridge.17.tsgo.7.0.2",
     "vue-tsc": "^3.3.11",
