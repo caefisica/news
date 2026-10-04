@@ -53,5 +53,11 @@ export async function fetchFeed(url: string): Promise<RawItem[]> {
   }
 
   const xml = await res.text();
+
+  // Reject HTML bot-check pages that return 200 instead of feed XML.
+  if (!/<(?:rss|feed|rdf:RDF)[\s>]/iu.test(xml)) {
+    throw new Error(`Not a feed: ${url}`);
+  }
+
   return parseItems(xml);
 }
