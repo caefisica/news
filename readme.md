@@ -35,6 +35,39 @@ Los feeds se parsean sin dependencias externas. Cada fuente define su parser en
 la base de datos. Actualmente existen parsers para feeds estándar, Blogger y
 algunos feeds inconsistentes de `gob.pe`.
 
+## Cuentas de Instagram
+
+Varias instituciones peruanas publican solo en Instagram, así que una fuente
+también puede ser una cuenta. La columna `kind` de `sources` dice cómo se
+obtiene: `feed` lee RSS o Atom e `instagram` lee las últimas publicaciones de la
+cuenta. El parser sigue indicando cómo se leen los artículos.
+
+Para agregar una cuenta basta una fila en una migración nueva:
+
+```sql
+INSERT OR IGNORE INTO sources (name, url, kind, parser, category, language) VALUES
+  ('@cuenta', 'https://www.instagram.com/cuenta/', 'instagram', 'instagram', 'institucional', 'es');
+```
+
+La consulta es anónima: no usa inicio de sesión, cookies ni tokens. Pide una vez
+por cuenta y por revisión las 12 publicaciones más recientes.
+
+- Una publicación pertenece a la cuenta solo si su autor es la cuenta. Se omiten
+  las publicaciones en colaboración de otras cuentas.
+- El título es la primera línea del texto, cortada en un fin de oración o en una
+  palabra. Sin texto, es «Publicación de @cuenta». El resumen es el texto
+  completo y la imagen es la portada.
+- La fecha sale del código de la publicación, que contiene la hora de creación.
+  En un reel puede quedar hasta un minuto antes de la hora que muestra
+  Instagram.
+- Instagram limita las IP de centros de datos, y un Worker usa una. Por eso las
+  cuentas se revisan cada hora (`INSTAGRAM_INTERVAL_MINUTES` en
+  `packages/feeds/src/schedule.ts`) y no en cada ejecución del cron.
+- Un bloqueo, una redirección al inicio de sesión, un límite de frecuencia o una
+  respuesta vacía no borran los artículos guardados ni cuentan como revisión
+  correcta. El motivo se guarda en `sources.last_error` y se muestra en
+  `/sources`.
+
 El frontend usa Nuxt 4 sobre Cloudflare Workers (`cloudflare_module`). Las rutas
 `/api/articles` y `/api/sources` leen datos desde D1 y los sirven al cliente.
 
