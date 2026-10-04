@@ -1,10 +1,12 @@
+import type { LocationQuery } from "vue-router";
+
 import type { Source } from "~/types/news";
 
 export const CATEGORIES = [
-  { id: "becas", label: "Becas" },
-  { id: "institucional", label: "Institucional" },
-  { id: "divulgacion", label: "Divulgación" },
-  { id: "ciencia", label: "Ciencia" },
+  { id: "becas", label: "Becas", icon: "solar:diploma-linear" },
+  { id: "institucional", label: "Institucional", icon: "solar:buildings-2-linear" },
+  { id: "divulgacion", label: "Divulgación", icon: "solar:book-2-linear" },
+  { id: "ciencia", label: "Ciencia", icon: "solar:atom-linear" },
 ] as const;
 
 export function categoryLabel(id: string | null): string | null {
@@ -17,8 +19,19 @@ function list(value: unknown): string[] {
   return typeof raw === "string" ? raw.split(",").filter(Boolean) : [];
 }
 
-function toggle<T>(current: T[], value: T): T[] {
-  return current.includes(value) ? current.filter((item) => item !== value) : [...current, value];
+export function queryCategories(query: LocationQuery): string[] {
+  return list(query.categoria);
+}
+
+export function querySourceIds(query: LocationQuery): number[] {
+  return list(query.fuente).map(Number).filter(Boolean);
+}
+
+// The sidebar opens one view at a time: everything, one category or one source.
+export function viewQuery(view: { category?: string; sourceId?: number }) {
+  if (view.category) return { categoria: view.category };
+  if (view.sourceId) return { fuente: String(view.sourceId) };
+  return {};
 }
 
 // Return null when no source filter is active. Return an empty list when active
@@ -48,8 +61,8 @@ export function useFeedFilters(sources: Ref<Source[]>) {
     const raw = Array.isArray(route.query.q) ? route.query.q[0] : route.query.q;
     return (raw ?? "").trim();
   });
-  const categories = computed(() => list(route.query.categoria));
-  const sourceIds = computed(() => list(route.query.fuente).map(Number).filter(Boolean));
+  const categories = computed(() => queryCategories(route.query));
+  const sourceIds = computed(() => querySourceIds(route.query));
 
   const active = computed(
     () => q.value !== "" || categories.value.length > 0 || sourceIds.value.length > 0,
@@ -59,13 +72,19 @@ export function useFeedFilters(sources: Ref<Source[]>) {
     allowedSources(sources.value, categories.value, sourceIds.value),
   );
 
-  function update(next: { q?: string; categories?: string[]; sourceIds?: number[] }) {
-    const query = {
-      q: (next.q ?? q.value) || undefined,
-      categoria: (next.categories ?? categories.value).join(",") || undefined,
-      fuente: (next.sourceIds ?? sourceIds.value).join(",") || undefined,
-    };
-    return router.replace({ query });
+  // Names the open view: one source, one category, or everything.
+  const title = computed(() => {
+    const names = [
+      ...categories.value.map((id) => categoryLabel(id) ?? id),
+      ...sourceIds.value.map(
+        (id) => sources.value.find((source) => source.id === id)?.name ?? `Fuente ${id}`,
+      ),
+    ];
+    return names.length > 0 ? names.join(" · ") : "Todo";
+  });
+
+  function setQuery(value: string) {
+    return router.replace({ query: { ...route.query, q: value.trim() || undefined } });
   }
 
   return {
@@ -74,9 +93,8 @@ export function useFeedFilters(sources: Ref<Source[]>) {
     sourceIds,
     active,
     allowedSourceIds,
-    setQuery: (value: string) => update({ q: value.trim() }),
-    toggleCategory: (id: string) => update({ categories: toggle(categories.value, id) }),
-    toggleSource: (id: number) => update({ sourceIds: toggle(sourceIds.value, id) }),
-    clear: () => update({ q: "", categories: [], sourceIds: [] }),
+    title,
+    setQuery,
+    clear: () => router.replace({ query: {} }),
   };
 }
