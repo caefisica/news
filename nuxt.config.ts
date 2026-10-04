@@ -28,7 +28,7 @@ export default defineNuxtConfig({
   },
 
   fonts: {
-    families: [{ name: "Inter", weights: [300, 400, 500] }],
+    families: [{ name: "Inter", weights: [400, 500] }],
   },
 
   app: {
@@ -46,10 +46,4 @@ export default defineNuxtConfig({
   },
 
   css: ["~/assets/css/main.css"],
-
-  vite: {
-    optimizeDeps: {
-      include: ["gsap", "gsap/ScrollTrigger"],
-    },
-  },
 });
