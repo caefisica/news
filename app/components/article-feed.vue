@@ -16,7 +16,7 @@ const params = computed(() => ({
   source_id: allowedSourceIds.value?.join(","),
 }));
 
-// A category and a source that exclude each other leave nothing to ask the API for.
+// If the active category and source filters have no intersection, skip the API request.
 const nothingAllowed = computed(() => allowedSourceIds.value?.length === 0);
 
 function fetchPage(page: number, query = params.value) {
@@ -29,7 +29,7 @@ const { data, status, error, refresh } = useAsyncData(
   { watch: [params] },
 );
 
-// The first page comes from useAsyncData (server-rendered); later pages are appended here.
+// useAsyncData provides the server-rendered first page. Later pages are appended here.
 const laterArticles = ref<Article[]>([]);
 const nextPage = ref(2);
 const exhausted = ref(false);
@@ -178,7 +178,7 @@ const statusText = computed(() => {
 
 <style scoped>
 .stale {
-  opacity: 0.6;
+  opacity: var(--opacity-pending);
 }
 
 .sentinel {

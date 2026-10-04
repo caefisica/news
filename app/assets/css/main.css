@@ -50,6 +50,9 @@
   --duration-base: 150ms;
   --ease: ease-out;
 
+  /* Content that is reloading */
+  --opacity-pending: 0.6;
+
   --focus-ring: 2px solid var(--accent);
   --focus-offset: 2px;
 
