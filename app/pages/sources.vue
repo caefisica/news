@@ -1,183 +1,124 @@
 <script setup lang="ts">
-interface Source {
-  id: number;
-  name: string;
-  category: string | null;
-  last_fetched_at: number | null;
-  article_count: number;
-}
+import type { Source } from "~/types/news";
 
-const { data } = await useAsyncData("sources-page", () =>
-  $fetch<{ sources: Source[] }>("/api/sources"),
+useSeoMeta({
+  title: "Fuentes",
+  description: "De dónde salen los artículos de RSS para Físicos.",
+});
+
+// SSR uses request-scoped fetch to forward Cloudflare bindings to API handlers.
+const requestFetch = useRequestFetch();
+
+const { data, error, refresh } = await useAsyncData("sources-page", () =>
+  requestFetch<{ sources: Source[] }>("/api/sources"),
 );
 
 const sources = computed(() => data.value?.sources ?? []);
-const { isVisible, toggle } = useSourcePrefs();
 
-function formatDate(ts: number | null): string {
-  if (!ts) return "nunca";
-  return new Intl.DateTimeFormat("es-PE", {
-    day: "numeric",
-    month: "short",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(new Date(ts * 1000));
+const formatter = new Intl.DateTimeFormat("es-PE", {
+  day: "numeric",
+  month: "short",
+  hour: "2-digit",
+  minute: "2-digit",
+  timeZone: "America/Lima",
+});
+
+function updated(ts: number | null): string {
+  return ts ? formatter.format(new Date(ts * 1000)) : "todavía no";
+}
+
+function count(n: number): string {
+  return `${n} ${n === 1 ? "artículo" : "artículos"}`;
 }
 </script>
 
 <template>
-  <div class="container sources-page">
+  <div class="container page">
     <header class="page-header">
       <h1 class="page-title">Fuentes</h1>
-      <p class="page-subtitle">Tu selección se guarda en el navegador.</p>
+      <p class="page-lead">Los sitios de donde salen los artículos. Se revisan cada 15 minutos.</p>
     </header>
 
-    <div class="sources-grid">
-      <div v-for="source in sources" :key="source.id" class="card-shell">
-        <div class="card source-card">
-          <div class="source-info">
-            <span class="source-name">{{ source.name }}</span>
-            <span v-if="source.category" class="label category-badge">{{ source.category }}</span>
-          </div>
-          <div class="source-meta label">
-            {{ source.article_count }} artículos · {{ formatDate(source.last_fetched_at) }}
-          </div>
-          <button
-            class="toggle label"
-            :class="{ on: isVisible(source.id) }"
-            :aria-label="`${isVisible(source.id) ? 'Ocultar' : 'Mostrar'} ${source.name}`"
-            @click="toggle(source.id)"
-          >
-            {{ isVisible(source.id) ? "Visible" : "Oculto" }}
-          </button>
-        </div>
-      </div>
-    </div>
+    <StatePanel
+      v-if="error"
+      tone="danger"
+      title="No se pudieron cargar las fuentes"
+      text="Revisa tu conexión e inténtalo de nuevo."
+    >
+      <button type="button" class="btn btn-primary" @click="refresh()">Reintentar</button>
+    </StatePanel>
 
-    <footer class="suggest-footer">
+    <StatePanel v-else-if="sources.length === 0" title="Todavía no hay fuentes" />
+
+    <ul v-else class="card-grid sources-list">
+      <li v-for="source in sources" :key="source.id" class="surface source-card">
+        <div class="source-head">
+          <h2 class="source-name">{{ source.name }}</h2>
+          <span v-if="categoryLabel(source.category)" class="tag">
+            {{ categoryLabel(source.category) }}
+          </span>
+        </div>
+        <p class="source-meta">
+          {{ count(source.article_count) }} · actualizada {{ updated(source.last_fetched_at) }}
+        </p>
+        <NuxtLink :to="{ path: '/', query: { fuente: source.id } }" class="btn source-link">
+          Ver artículos
+          <span class="sr-only">de {{ source.name }}</span>
+        </NuxtLink>
+      </li>
+    </ul>
+
+    <p class="suggest">
+      ¿Falta una fuente?
       <a
         href="https://github.com/caefisica/news/issues/new?template=suggest-source.md"
         target="_blank"
         rel="noopener noreferrer"
-        class="suggest-link label"
+        class="link"
+        >Sugiérela en GitHub<span class="sr-only"> (se abre en una pestaña nueva)</span></a
       >
-        + Sugerir una fuente
-      </a>
-    </footer>
+    </p>
   </div>
 </template>
 
 <style scoped>
-.sources-page {
-  padding-block: var(--spacing-3xl);
-}
-
-.page-header {
-  margin-bottom: var(--spacing-3xl);
-}
-
-.page-title {
-  font-size: 24px;
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  margin-bottom: var(--spacing-sm);
-}
-
-.page-subtitle {
-  color: var(--color-text-muted);
-  font-size: 13px;
-}
-
-.sources-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--spacing-sm);
+.sources-list {
+  list-style: none;
 }
 
 .source-card {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
-  padding: var(--spacing-xl);
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
 }
 
-.source-info {
+.source-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: var(--space-3);
 }
 
 .source-name {
-  font-size: 14px;
-  font-weight: 400;
-}
-
-.category-badge {
-  color: var(--color-text-muted);
-  border: 1px solid var(--color-border);
-  padding: 2px var(--spacing-xs);
-  border-radius: var(--radius);
+  font-size: var(--text-md);
+  font-weight: 500;
+  line-height: var(--leading-tight);
 }
 
 .source-meta {
-  color: var(--color-text-muted);
+  color: var(--text-2);
+  font-size: var(--text-sm);
 }
 
-.toggle {
-  align-self: flex-start;
-  padding: var(--spacing-xs) var(--spacing-lg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  background: transparent;
-  color: var(--color-text-muted);
-  cursor: pointer;
-  transition:
-    color var(--duration-fast) var(--ease-out),
-    border-color var(--duration-fast) var(--ease-out),
-    background var(--duration-fast) var(--ease-out),
-    transform var(--duration-fast) var(--ease-out);
+.source-link {
+  margin-top: var(--space-1);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .toggle:hover {
-    color: var(--color-text);
-    border-color: var(--color-text-secondary);
-  }
-}
-
-.toggle:active {
-  transform: scale(0.95);
-}
-
-.toggle.on {
-  color: var(--color-text);
-  border-color: var(--color-accent);
-  background: var(--color-surface-hover);
-}
-
-.suggest-footer {
-  margin-top: var(--spacing-4xl);
-  text-align: center;
-}
-
-.suggest-link {
-  color: var(--color-text-muted);
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: 2px;
-  transition:
-    color var(--duration-fast) var(--ease-out),
-    border-color var(--duration-fast) var(--ease-out),
-    opacity var(--duration-fast) var(--ease-out);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .suggest-link:hover {
-    color: var(--color-text);
-    border-color: var(--color-text);
-  }
-}
-
-.suggest-link:active {
-  opacity: 0.5;
+.suggest {
+  margin-top: var(--space-7);
+  color: var(--text-2);
+  font-size: var(--text-sm);
 }
 </style>

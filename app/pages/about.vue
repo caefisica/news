@@ -6,142 +6,85 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="container about-page">
-    <section class="hero mask-text">
-      <div>
-        <h1 class="hero-title">RSS para Físicos</h1>
-      </div>
-      <div>
-        <p class="hero-sub">
-          Noticias curadas de física, ciencia y oportunidades académicas para la comunidad
-          científica peruana.
+  <div class="container page">
+    <header class="page-header">
+      <h1 class="page-title">RSS para Físicos</h1>
+      <p class="page-lead">
+        Becas, convocatorias y lecturas de física y ciencia para la comunidad científica peruana.
+      </p>
+    </header>
+
+    <div class="card-grid">
+      <section class="surface about-card">
+        <h2 class="about-title">Cómo funciona</h2>
+        <p>
+          Un sistema automático revisa las fuentes cada 15 minutos, lee los artículos y los guarda
+          en una base de datos. La página principal los muestra directamente, sin que tu navegador
+          tenga que contactar cada fuente por separado.
         </p>
-      </div>
-    </section>
+      </section>
 
-    <section class="about-grid">
-      <div class="card-shell">
-        <div class="card about-card">
-          <h2 class="about-card-title label">Cómo funciona</h2>
-          <p>
-            Un sistema automatizado verifica las fuentes cada 15 minutos, parsea los artículos y los
-            almacena en base de datos. La página principal los muestra directamente, sin que tu
-            navegador tenga que contactar cada fuente por separado.
-          </p>
-        </div>
-      </div>
+      <section class="surface about-card">
+        <h2 class="about-title">Las fuentes</h2>
+        <p>
+          Elegimos las fuentes una por una. Si quieres sugerir una nueva, abre un issue en GitHub.
+          Evaluamos cada sugerencia y, si hace falta, añadimos un lector específico antes de
+          activarla.
+        </p>
+      </section>
 
-      <div class="card-shell">
-        <div class="card about-card">
-          <h2 class="about-card-title label">Las fuentes</h2>
-          <p>
-            Las fuentes son curadas manualmente. Si deseas sugerir una fuente nueva, abre un issue
-            en GitHub. Evaluamos cada sugerencia y, si es necesario, añadimos un parser específico
-            antes de habilitarla.
-          </p>
-        </div>
-      </div>
-
-      <div class="card-shell">
-        <div class="card about-card">
-          <h2 class="about-card-title label">Privacidad</h2>
-          <p>
-            No se recopilan datos de usuario. Las preferencias de fuentes visibles se guardan
-            únicamente en tu navegador (localStorage).
-          </p>
-        </div>
-      </div>
-    </section>
+      <section class="surface about-card">
+        <h2 class="about-title">Privacidad</h2>
+        <p>
+          No recopilamos datos de usuario. Los artículos que guardas se quedan solo en tu navegador
+          (localStorage).
+        </p>
+      </section>
+    </div>
 
     <footer class="about-footer">
       <a
         href="https://github.com/caefisica/news"
         target="_blank"
         rel="noopener noreferrer"
-        class="footer-link label"
-        >GitHub</a
+        class="btn"
+        >GitHub<span class="sr-only"> (se abre en una pestaña nueva)</span></a
       >
       <a
         href="https://github.com/caefisica/news/issues/new?template=suggest-source.md"
         target="_blank"
         rel="noopener noreferrer"
-        class="footer-link label"
-        >Sugerir fuente</a
+        class="btn"
+        >Sugerir fuente<span class="sr-only"> (se abre en una pestaña nueva)</span></a
       >
     </footer>
   </div>
 </template>
 
 <style scoped>
-.about-page {
-  padding-block: var(--spacing-4xl) var(--spacing-3xl);
-}
-
-.hero {
-  margin-bottom: var(--spacing-4xl);
-}
-
-.hero-title {
-  font-size: clamp(32px, 5vw, 60px);
-  font-weight: 300;
-  letter-spacing: -0.05em;
-  line-height: 1;
-  margin-bottom: var(--spacing-xl);
-}
-
-.hero-sub {
-  font-size: 16px;
-  font-weight: 300;
-  color: var(--color-text-muted);
-  max-width: 520px;
-  line-height: 26px;
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-4xl);
-}
-
 .about-card {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
-  height: 100%;
+  gap: var(--space-3);
+  padding: var(--space-5);
 }
 
-.about-card-title {
-  color: var(--color-text-secondary);
+.about-title {
+  font-size: var(--text-md);
+  font-weight: 500;
+  line-height: var(--leading-tight);
 }
 
 .about-card p {
-  color: var(--color-text-muted);
-  font-size: 13px;
-  line-height: 20px;
+  color: var(--text-2);
 }
 
 .about-footer {
   display: flex;
-  gap: var(--spacing-2xl);
-  padding-top: var(--spacing-2xl);
-  border-top: 1px solid var(--color-border);
-}
-
-.footer-link {
-  color: var(--color-text-muted);
-  transition:
-    color var(--duration-fast) var(--ease-out),
-    opacity var(--duration-fast) var(--ease-out);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .footer-link:hover {
-    color: var(--color-text);
-  }
-}
-
-.footer-link:active {
-  opacity: 0.5;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-7);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border);
 }
 </style>
