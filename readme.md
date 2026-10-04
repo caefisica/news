@@ -55,7 +55,24 @@ Para ejecutar la ingesta localmente:
 bun run ingest
 ```
 
-Cada worker tiene su propio `wrangler.json`. Los tipos del runtime y de los
-bindings se generan con `bun run types` (`wrangler types`) y `bun run typecheck`
-los regenera antes de comprobar. El `wrangler.json` raíz configura los bindings
-compartidos de D1 y la cola.
+`bun run dev` vuelve a compilar la app en cada cambio y la sirve con los
+bindings locales. La base local se guarda en `.wrangler/state`, la misma que
+usan `db:migrate:local` e `ingest`.
+
+El proyecto usa el CLI [`cf`](https://developers.cloudflare.com/cf/) de
+Cloudflare. Cada worker tiene su propio `cloudflare.config.ts`: el de la raíz
+configura la app web y los de `workers/consumer` y `workers/coordinator`
+configuran los workers de ingesta. El `wrangler.config.ts` raíz indica cómo
+compilar Nuxt. Los tipos del runtime y de los bindings se generan con
+`bun run types` (`cf workers types`) en `.cloudflare/types`, y
+`bun run typecheck` los regenera antes de comprobar.
+
+## Despliegue
+
+GitHub Actions despliega los tres workers con `cf deploy` en cada push a
+`master`. Necesita los secretos `CLOUDFLARE_API_TOKEN` y
+`CLOUDFLARE_ACCOUNT_ID`. Para aplicar las migraciones en D1 remoto:
+
+```sh
+bun run db:migrate
+```
