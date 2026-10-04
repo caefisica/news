@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="grain-overlay" aria-hidden="true" />
+    <a href="#contenido" class="skip-link">Saltar al contenido</a>
     <LayoutAppHeader />
-    <main>
+    <main id="contenido" tabindex="-1">
       <slot />
     </main>
   </div>
