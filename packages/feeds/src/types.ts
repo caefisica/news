@@ -1,7 +1,10 @@
+export type SourceKind = "feed" | "instagram";
+
 export interface Source {
   id: number;
   name: string;
   url: string;
+  kind: SourceKind;
   parser: string | null;
   category: string | null;
 }
@@ -19,6 +22,7 @@ export interface RawItem {
   description?: string;
   summary?: string;
   content?: string;
+  image?: string;
   [key: string]: unknown;
 }
 
@@ -28,6 +32,7 @@ export interface NormalizedArticle {
   link: string;
   description: string | null;
   author: string | null;
+  image: string | null;
   published_at: number | null;
 }
 

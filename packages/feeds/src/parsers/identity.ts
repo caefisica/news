@@ -36,6 +36,7 @@ export function identityParser(item: RawItem): NormalizedArticle {
     link: item.link ?? "",
     description: description || null,
     author: item.author ?? item["dc:creator"] ?? null,
+    image: null,
     published_at: published ? Math.floor(new Date(published).getTime() / 1000) : null,
   };
 }

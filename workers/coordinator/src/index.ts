@@ -1,3 +1,4 @@
+import { dueSources, listEnabledSources } from "@news-reader/feeds";
 import type { Source } from "@news-reader/feeds";
 
 interface QueueMessage {
@@ -15,10 +16,8 @@ function chunk<T>(arr: T[], size: number): T[][] {
 }
 
 export default {
-  async scheduled(_event: ScheduledEvent, env: Env, _ctx: ExecutionContext) {
-    const { results: sources } = await env.DB.prepare(
-      "SELECT id, name, url, parser, category FROM sources WHERE enabled = 1",
-    ).all<Source>();
+  async scheduled(event: ScheduledEvent, env: Env, _ctx: ExecutionContext) {
+    const sources = dueSources(await listEnabledSources(env.DB), event.scheduledTime);
 
     if (sources.length === 0) return;
 

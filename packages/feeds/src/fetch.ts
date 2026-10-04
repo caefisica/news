@@ -1,3 +1,4 @@
+import { SourceError } from "./errors";
 import type { RawItem } from "./types";
 
 // Minimal XML → object extraction without a DOM parser dependency.
@@ -49,14 +50,14 @@ export async function fetchFeed(url: string): Promise<RawItem[]> {
   });
 
   if (!res.ok) {
-    throw new Error(`HTTP ${res.status} for ${url}`);
+    throw new SourceError(`La fuente respondió con el código ${res.status}.`);
   }
 
   const xml = await res.text();
 
   // Reject HTML bot-check pages that return 200 instead of feed XML.
   if (!/<(?:rss|feed|rdf:RDF)[\s>]/iu.test(xml)) {
-    throw new Error(`Not a feed: ${url}`);
+    throw new SourceError("La respuesta no es un feed RSS ni Atom.");
   }
 
   return parseItems(xml);

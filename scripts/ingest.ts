@@ -1,8 +1,7 @@
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { processSource } from "@news-reader/feeds";
-import type { Source } from "@news-reader/feeds";
+import { listEnabledSources, processSource } from "@news-reader/feeds";
 import { getPlatformProxy } from "wrangler";
 
 import config from "../cloudflare.config";
@@ -25,9 +24,7 @@ const { env, dispose } = await getPlatformProxy<{ DB: D1Database }>({
   remoteBindings: false,
 });
 
-const { results: sources } = await env.DB.prepare(
-  "SELECT id, name, url, parser, category FROM sources WHERE enabled = 1",
-).all<Source>();
+const sources = await listEnabledSources(env.DB);
 
 if (sources.length === 0) {
   console.log("No enabled sources found. Run `bun run db:migrate:local` first.");
