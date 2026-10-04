@@ -6,6 +6,11 @@ useSeoMeta({
 
 const { saved, ready } = useSavedArticles();
 
+// Day headings need the list newest first, whatever order the articles were saved in.
+const articles = computed(() =>
+  saved.value.toSorted((a, b) => (b.published_at ?? 0) - (a.published_at ?? 0)),
+);
+
 const statusText = computed(() => {
   if (!ready.value) return "Cargando guardados.";
   const count = saved.value.length;
@@ -15,28 +20,35 @@ const statusText = computed(() => {
 </script>
 
 <template>
-  <div class="container page">
-    <header class="page-header">
-      <h1 class="page-title">Guardados</h1>
-      <p class="page-lead">Se guardan solo en este navegador, no en una cuenta.</p>
-    </header>
+  <div class="view">
+    <ViewToolbar title="Guardados">
+      <p class="toolbar-note">Solo en este navegador</p>
+    </ViewToolbar>
 
     <p class="sr-only" role="status" aria-live="polite" aria-atomic="true">{{ statusText }}</p>
 
-    <div v-if="!ready" class="card-grid">
-      <ArticleSkeleton v-for="n in 3" :key="n" />
-    </div>
+    <ArticleBrowser :articles="articles">
+      <template v-if="!ready" #state>
+        <ArticleSkeleton :rows="3" />
+      </template>
 
-    <StatePanel
-      v-else-if="saved.length === 0"
-      title="Todavía no guardaste nada"
-      text="Usa el marcador de cada artículo para guardarlo y encontrarlo aquí."
-    >
-      <NuxtLink to="/" class="btn btn-primary">Ver artículos</NuxtLink>
-    </StatePanel>
-
-    <div v-else class="card-grid">
-      <ArticleCard v-for="article in saved" :key="article.id" :article="article" />
-    </div>
+      <template v-else-if="saved.length === 0" #state>
+        <StatePanel
+          icon="solar:bookmark-linear"
+          title="Todavía no guardaste nada"
+          text="Usa el marcador de un artículo, o la tecla S, para guardarlo y encontrarlo aquí. Los guardados se quedan en este navegador."
+        >
+          <NuxtLink to="/" class="btn btn-primary">Ver artículos</NuxtLink>
+        </StatePanel>
+      </template>
+    </ArticleBrowser>
   </div>
 </template>
+
+<style scoped>
+.toolbar-note {
+  color: var(--text-3);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+}
+</style>

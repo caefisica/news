@@ -2,9 +2,10 @@
 import type { Article, Source } from "~/types/news";
 
 const PAGE_SIZE = 20;
-const SKELETON_COUNT = 6;
+const SKELETON_ROWS = 12;
 
 const props = defineProps<{ sources: Source[] }>();
+const emit = defineEmits<{ escape: [] }>();
 
 const requestFetch = useRequestFetch();
 const { q, categories, sourceIds, active, allowedSourceIds, clear } = useFeedFilters(
@@ -87,20 +88,20 @@ function retryMore() {
 // so a short page that does not fill the screen still loads the next one.
 function watchSentinel(el: HTMLElement | null) {
   observer?.disconnect();
-  if (el) observer?.observe(el);
+  if (!el) return;
+  // The list scrolls inside its pane, so the margin must apply to the pane, not the viewport.
+  observer ??= new IntersectionObserver(
+    (entries) => {
+      if (entries[0]?.isIntersecting) void loadMore();
+    },
+    { root: el.closest("[data-scroll]"), rootMargin: "200px" },
+  );
+  observer.observe(el);
 }
 
 watch(sentinel, watchSentinel);
 
-onMounted(() => {
-  observer = new IntersectionObserver(
-    (entries) => {
-      if (entries[0]?.isIntersecting) void loadMore();
-    },
-    { rootMargin: "200px" },
-  );
-  watchSentinel(sentinel.value);
-});
+onMounted(() => watchSentinel(sentinel.value));
 
 onBeforeUnmount(() => observer?.disconnect());
 
@@ -125,7 +126,9 @@ const emptyText = computed(() => {
     parts.push(`${names.length === 1 ? "la fuente" : "las fuentes"} ${listFormat.format(names)}`);
   }
   if (parts.length === 0) return "Las fuentes se actualizan cada 15 minutos.";
-  return `No hay artículos para ${listFormat.format(parts)}. Prueba con menos filtros.`;
+  const hint =
+    parts.length === 1 && q.value ? "Prueba con otras palabras." : "Prueba con menos filtros.";
+  return `No hay artículos para ${listFormat.format(parts)}. ${hint}`;
 });
 
 const statusText = computed(() => {
@@ -142,27 +145,27 @@ const statusText = computed(() => {
   <div class="feed" :aria-busy="pending">
     <p class="sr-only" role="status" aria-live="polite" aria-atomic="true">{{ statusText }}</p>
 
-    <StatePanel
-      v-if="failed"
-      tone="danger"
-      title="No se pudieron cargar los artículos"
-      text="Revisa tu conexión e inténtalo de nuevo."
-    >
-      <button type="button" class="btn btn-primary" @click="refresh()">Reintentar</button>
-    </StatePanel>
+    <ArticleBrowser :articles="articles" :stale="pending" @escape="emit('escape')">
+      <template v-if="failed" #state>
+        <StatePanel
+          tone="danger"
+          icon="solar:cloud-cross-linear"
+          title="No se pudieron cargar los artículos"
+          text="Revisa tu conexión e inténtalo de nuevo."
+        >
+          <button type="button" class="btn btn-primary" @click="refresh()">Reintentar</button>
+        </StatePanel>
+      </template>
 
-    <div v-else-if="firstLoad" class="card-grid">
-      <ArticleSkeleton v-for="n in SKELETON_COUNT" :key="n" />
-    </div>
+      <template v-else-if="firstLoad" #state>
+        <ArticleSkeleton :rows="SKELETON_ROWS" />
+      </template>
 
-    <StatePanel v-else-if="articles.length === 0" title="Sin resultados" :text="emptyText">
-      <button v-if="active" type="button" class="btn" @click="clear">Limpiar filtros</button>
-    </StatePanel>
-
-    <template v-else>
-      <div class="card-grid" :class="{ stale: pending }">
-        <ArticleCard v-for="article in articles" :key="article.id" :article="article" />
-      </div>
+      <template v-else-if="articles.length === 0" #state>
+        <StatePanel icon="solar:inbox-line-linear" title="Sin resultados" :text="emptyText">
+          <button v-if="active" type="button" class="btn" @click="clear">Ver todo</button>
+        </StatePanel>
+      </template>
 
       <div ref="sentinel" class="sentinel" />
 
@@ -172,13 +175,16 @@ const statusText = computed(() => {
         <button type="button" class="btn" @click="retryMore">Reintentar</button>
       </div>
       <p v-else-if="!hasMore" class="feed-note">No hay más artículos.</p>
-    </template>
+    </ArticleBrowser>
   </div>
 </template>
 
 <style scoped>
-.stale {
-  opacity: var(--opacity-pending);
+.feed {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .sentinel {
@@ -190,9 +196,9 @@ const statusText = computed(() => {
   align-items: center;
   justify-content: center;
   gap: var(--space-4);
-  padding-block: var(--space-6);
-  color: var(--text-2);
-  font-size: var(--text-sm);
+  padding-block: var(--space-5);
+  color: var(--text-3);
+  font-size: var(--text-xs);
   text-align: center;
 }
 
