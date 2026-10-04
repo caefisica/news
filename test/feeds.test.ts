@@ -77,7 +77,7 @@ function ingest(path: string) {
     "INSERT INTO sources (name, url, parser, category) VALUES ('Prueba', ?, 'gobpe', 'institucional')",
   ).run(`${base}${path}`);
   const source = db
-    .prepare("SELECT id, name, url, parser, category FROM sources WHERE name = 'Prueba'")
+    .prepare("SELECT id, name, url, kind, parser, category FROM sources WHERE name = 'Prueba'")
     .get();
   return processSource(source as unknown as Source, d1(db)).then(() => db);
 }
@@ -92,6 +92,7 @@ describe("gobpe parser", () => {
       guid: "https://www.gob.pe/institucion/igp/noticias/1450000-sismo-arequipa",
       description: "El IGP informó que el sismo",
       author: null,
+      image: null,
       published_at: Date.parse("2026-09-29T13:30:00Z") / 1000,
     });
   });
@@ -123,6 +124,7 @@ describe("WordPress feed", () => {
       link: "https://home.cern/want-to-develop-your-skills/",
       description: "Courses and workshops across a broad range of topics […]",
       author: "Anais Schaeffer",
+      image: null,
       published_at: Date.parse("2026-10-01T13:05:59Z") / 1000,
     });
   });
@@ -130,18 +132,21 @@ describe("WordPress feed", () => {
 
 describe("fetchFeed", () => {
   it("rejects on an HTTP error", async () => {
-    await expect(fetchFeed(`${base}/missing`)).rejects.toThrow("HTTP 404");
+    await expect(fetchFeed(`${base}/missing`)).rejects.toThrow("código 404");
   });
 
   it("rejects a 200 page that is not a feed", async () => {
-    await expect(fetchFeed(`${base}/challenge`)).rejects.toThrow("Not a feed");
+    await expect(fetchFeed(`${base}/challenge`)).rejects.toThrow("no es un feed");
   });
 
-  it("records a page that is not a feed as the source error", async () => {
+  it("records a page that is not a feed as the source error and not as a fetch", async () => {
     const db = await ingest("/challenge");
 
-    expect(db.prepare("SELECT last_error FROM sources WHERE name = 'Prueba'").get()).toEqual({
-      last_error: expect.stringContaining("Not a feed"),
+    expect(
+      db.prepare("SELECT last_error, last_fetched_at FROM sources WHERE name = 'Prueba'").get(),
+    ).toEqual({
+      last_error: expect.stringContaining("no es un feed"),
+      last_fetched_at: null,
     });
   });
 

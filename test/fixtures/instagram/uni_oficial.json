@@ -1,0 +1,306 @@
+{
+  "data": {
+    "xig_user_by_username": {
+      "pk": "6955276518",
+      "polaris_ordered_timeline_connection": {
+        "edges": [
+          {
+            "node": {
+              "__typename": "XIGPolarisVideoMedia",
+              "__isXIGPolarisMedia": "XIGPolarisVideoMedia",
+              "pk": "3999249070443253963",
+              "code": "DeAL9c0FNDL",
+              "accessibility_caption": "Video by UNI on October 02, 2026. May be an image of one or more people, hair and text.",
+              "caption": {
+                "text": "#Top5 | Descubre las noticias más destacadas de la semana 📰\n\nUna semana de reconocimientos, investigación, innovación y nuevos logros que siguen marcando nuestra comunidad UNI.\n\n💬 ¿Qué noticia sumarías a nuestro Top 5?\n\n#NoticiasUNI #ComunidadUNI #UNI"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/833363157_18386606890228519_4672765839989317671_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=SHEwNuv-qMkQ7kNvwEVh_0w&_nc_oc=AdrvVhSyh9zA4yeRPb7I1s8n3rxqjPpA-n3kSE2ZAYSNcEf5GlCfQVDCFs6NtlzRsPA&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=iOoVGzB3twDaeWuykD6HqA&_nc_ss=70689&oh=00_AQNAzrO3n50K81Qpwb5po83lLKNfBKx9djKL3G6Px0LEAQ&oe=6AC7D652",
+              "media_type": 2,
+              "product_type": "clips",
+              "user": {
+                "pk": "6955276518",
+                "username": "uni_oficial",
+                "id": "17841406855569409"
+              },
+              "id": "POLARIS_3999249070443253963"
+            },
+            "cursor": "AQHTolj4CTzMoeGKeKFriEbqz56KSYSVI_o_Oi-UNJMICJ93Vr43VXADy3FZSjoz2kEaGyERzdASLHXLunE5phhh2g"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisCarouselMedia",
+              "__isXIGPolarisMedia": "XIGPolarisCarouselMedia",
+              "pk": "3999913081036347585",
+              "code": "DeCi8E3nBjB",
+              "accessibility_caption": "Photo by Centro Cultural UNI on October 03, 2026.",
+              "caption": {
+                "text": "🌿✨ ¡Así vivimos nuestro Paseo de Integración 2026! ✨🌿\n\nUn día para salir de la rutina, compartir, conocernos y, sobre todo, fortalecer los lazos que nos unen como Elencos Culturales de la UNI. 💛❤️\n\nEl pasado domingo 27 de septiembre, nos reunimos para disfrutar de una jornada llena de alegría, juegos, dinámicas y mucha energía en el Club Campestre “Las Retamas”. 🏞️🎶\n\nMás que un paseo, fue una oportunidad para compartir nuevas experiencias y seguir construyendo una comunidad donde el arte y la cultura nos unen. 🤝✨\n\nPorque detrás de cada presentación hay personas, historias y una gran familia cultural. ❤️\n\n📸 Les compartimos la primera parte de las fotografías de este día.\n\n#CentroCulturalUNI #ElencosCulturalesUNI #PaseoDeIntegración2026 #CulturaUNI #SomosUNI MásArteMásCienciaMásCultura"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/832777556_18379262587233172_1009159243376536849_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=McN-362w--kQ7kNvwGLxnlT&_nc_oc=AdqgNiYkji_QV9hyIaNkYqHCAeupqqv-C1XOGdACLt5u3VcliyUdTrwx3BPKPVf4oII&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=iOoVGzB3twDaeWuykD6HqA&_nc_ss=70689&oh=00_AQPD5XtQ0oc63m3_RqiCnmkfmB0DpCmQqAygW5tk_WSQcQ&oe=6AC7E415",
+              "media_type": 8,
+              "product_type": "carousel_container",
+              "user": {
+                "pk": "7001249171",
+                "username": "ceculturaluni",
+                "id": "17841406995135156"
+              },
+              "carousel_media_count": 20,
+              "id": "POLARIS_3999913081036347585"
+            },
+            "cursor": "AQHTGeXDSwDORhJIneG8fn8oVHXsVToibgc-zxJKvi4EP5oji00qLRLBpjiSyYxNXXavTpO703jb5i7QePy1SqYEcw"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisCarouselMedia",
+              "__isXIGPolarisMedia": "XIGPolarisCarouselMedia",
+              "pk": "3999218496038607140",
+              "code": "DeAFAiLjZkk",
+              "accessibility_caption": "Photo by UNI on October 02, 2026.",
+              "caption": {
+                "text": "#OrgulloUNI | 🏆 Primer puesto para estudiantes UNI en IDEATECH\n\nAlexandra Peralta, de Ingeniería de Sistemas (FIIS), y Kevin Pinto, de Ingeniería de Telecomunicaciones (FIEE), lograron el primer puesto en la categoría Universidades de IDEATECH, iniciativa del Women in Technology Council desarrollada en el marco del Women in Technology Summit LATAM 2026.\n\nJunto a su equipo, presentaron HEROW, una propuesta que busca ayudar a jóvenes, especialmente mujeres, a reconocer sus talentos, explorar caminos profesionales y conectar sus habilidades con oportunidades reales.\n\n🥇 Este reconocimiento destaca el talento, la creatividad y la capacidad de nuestros estudiantes para llevar una propuesta desarrollada desde la UNI a un espacio internacional y competir junto a talento universitario de Latinoamérica.\n\n🙌 ¡Felicitaciones, Alexandra y Kevin! Este logro también es motivo de orgullo para nuestra comunidad UNI.\n\n#TalentoUNI #InnovaciónUNI #ComunidadUNI"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t39.30808-6/834392759_1445392894351881_5380248374502743913_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=107&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=dtXl-xvofLQQ7kNvwF7Jc2t&_nc_oc=AdrfM3dcQyWMfRmtpspxV6ARQgy705G7wfOXyajdVj_NxkpOIOWMOhPgo6WETatotIw&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=iOoVGzB3twDaeWuykD6HqA&_nc_ss=70689&oh=00_AQPcUdyB-X0bnUUSohAKhoVWGV1NBvB_z6CmjrutpUvkkw&oe=6AC7E160",
+              "media_type": 8,
+              "product_type": "carousel_container",
+              "user": {
+                "pk": "6955276518",
+                "username": "uni_oficial",
+                "id": "17841406855569409"
+              },
+              "carousel_media_count": 3,
+              "id": "POLARIS_3999218496038607140"
+            },
+            "cursor": "AQHTb7-UCaEEdN38c_ZKHRoPPV3Oh3WKEjAWLl1eYOvxgYcI4iBG2xdBJ-W4Xkc7H4WC9BJ5H1pZXc2nGBRycNXNJw"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisVideoMedia",
+              "__isXIGPolarisMedia": "XIGPolarisVideoMedia",
+              "pk": "3999128225516050189",
+              "code": "Dd_we7NH1cN",
+              "accessibility_caption": "Video by UNI on October 02, 2026. May be an image of one or more people, hair, people smiling, pie, top and text.",
+              "caption": {
+                "text": "👀 ¿Ya adivinaste qué carreras son? \nAhora cuéntanos la tuya sin decirlo. 👇🎓\n\n#ComunidadUNI #UNI #SomosUNI"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/832836350_18386571304228519_4356639024893672455_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=108&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=DEyWQ0URtvsQ7kNvwEvgf_b&_nc_oc=AdolW457jzcciAn3KJg-3QinoooKMHw551SJtx_EdHHQBmpa7pR6NPEvxFnm2qb9rdg&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=iOoVGzB3twDaeWuykD6HqA&_nc_ss=70689&oh=00_AQPa4wzKkcvu4FUIucdL8f1UWDqaIcK09qBu8VEKwSiqig&oe=6AC7F5A3",
+              "media_type": 2,
+              "product_type": "clips",
+              "user": {
+                "pk": "6955276518",
+                "username": "uni_oficial",
+                "id": "17841406855569409"
+              },
+              "id": "POLARIS_3999128225516050189"
+            },
+            "cursor": "AQHTKoKFLMew1z4qjeflA4X-78mnRGIpZgiREcuPZx05Le1nopWyPG3vR_qKVPApyFkPdujt5R1xdjWMamQLWzpSxw"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisVideoMedia",
+              "__isXIGPolarisMedia": "XIGPolarisVideoMedia",
+              "pk": "3998663495543751233",
+              "code": "Dd-G0NsNQJB",
+              "accessibility_caption": "Video by Grupo Yuyai UNI on October 01, 2026. May be an image of bust, sculpture, statue and text.",
+              "caption": {
+                "text": "El Álbum de las UNIfotos forma parte del proyecto de investigación: “¡Repensar la UNI como paisaje! Estudio de caso de valoración cultural del paisaje del campus de la Universidad Nacional de Ingeniería y su entorno urbano, Lima-Perú (2026)”, financiado por el Vicerrectorado de Investigación de la UNI.\n¡Construyamos juntos el álbum de las UNIfotos!\n\nBases: https://drive.google.com/file/d/1VFIJPHGw3vfZfINCX1sumXhxjkq_Cw6r/view?usp=sharing\n\nParticipa completando este formulario: https://docs.google.com/forms/d/e/1FAIpQLSfQ8rTM6hM3rW0drZd_CLUvYe8ewQd4SNAWPCiakNP5mK3ydg/viewform?usp=header"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.71878-15/834130692_1354007636569776_1747371725878171913_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=104&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=7m2wvwGlTvEQ7kNvwH5qRwY&_nc_oc=Adqh5pCHnJMxVwcwIrQf8iBS5eP1K2w3i0FGjGO31GVhUNFTceDRkcA_BcVK_c2ZfF4&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=iOoVGzB3twDaeWuykD6HqA&_nc_ss=70689&oh=00_AQN7mJ863B93LZ3N2nyWjXn9lfK1cTJuLuo7c0UdZTfeoQ&oe=6AC7E01D",
+              "media_type": 2,
+              "product_type": "clips",
+              "user": {
+                "pk": "52390870297",
+                "username": "grupoyuyai_uni",
+                "id": "17841452508918858"
+              },
+              "id": "POLARIS_3998663495543751233"
+            },
+            "cursor": "AQHTg23sQuKQXPJRDTT5QLe4vpi-Cp6jXWd8m9zdTpzeFupojtNL5EAlxFya5GdsRgr17MMr8o3AIJBvqQa8mWrBaA"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisCarouselMedia",
+              "__isXIGPolarisMedia": "XIGPolarisCarouselMedia",
+              "pk": "3998623737415295015",
+              "code": "Dd99xqDFWAn",
+              "accessibility_caption": "Photo by UNI on October 01, 2026.",
+              "caption": {
+                "text": "#EventosUNI | 🎓 Un reconocimiento a nuestras agrupaciones estudiantiles\n\nEn el marco del Sesquicentenario de la UNI, 13 agrupaciones estudiantiles recibieron diplomas por su participación en proyectos, congresos, ferias y diversas actividades que aportaron desde la ciencia, la tecnología y la cultura.\n\n👏Celebramos su iniciativa, talento y el aporte que realizan a la sociedad desde la UNI.\n\n#OrgulloUNI #UNI #ReconocimientoUNI"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t39.30808-6/831641572_1444652864425884_4115493799172344389_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=oL1QHWhgCQUQ7kNvwF94qQq&_nc_oc=Adrpvju2fyKiwuUXbQ-_b8dNW8mJ7d9JXUOntLcLhOhOqwtjdjxb4w6A_n05Uv-rXPw&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=iOoVGzB3twDaeWuykD6HqA&_nc_ss=70689&oh=00_AQN7niwqAuIYEtx_tdSCZ-asBPf03_IArSbRvl70NR0pdQ&oe=6AC7EDC9",
+              "media_type": 8,
+              "product_type": "carousel_container",
+              "user": {
+                "pk": "6955276518",
+                "username": "uni_oficial",
+                "id": "17841406855569409"
+              },
+              "carousel_media_count": 10,
+              "id": "POLARIS_3998623737415295015"
+            },
+            "cursor": "AQHTdPkmmU_akoh3YuUPPBCTtDcAbpxYW--vTV5oziqkbJUJ7_rH2OxHIFcxyViUC4GuPQTcFED4RxMemoeg-f7sDA"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisImageMedia",
+              "__isXIGPolarisMedia": "XIGPolarisImageMedia",
+              "pk": "3998567000023982111",
+              "code": "Dd9w4BPB2Af",
+              "accessibility_caption": "Photo by BIENESTAR UNI on October 01, 2026. May be an image of one or more people, poster, pie and text.",
+              "caption": {
+                "text": "📢 COMUNICADO | COMEDOR UNIVERSITARIO UNI\n\nEstimados estudiantes, les informamos que, de acuerdo con el comunicado del Órgano Oficial de la UNI (La Gaceta N.° 197), las actividades académicas y administrativas se desarrollarán en modalidad virtual los días viernes 2 y lunes 5 de octubre de 2026.\n\nPor este motivo, el Comedor Universitario suspenderá sus atenciones desde el viernes 2 hasta el lunes 5 de octubre, reanudando sus servicios con normalidad el martes 6 de octubre. 🍽️\n\nAgradecemos su comprensión y les invitamos a tomar las precauciones necesarias.\n\nDBUUNI – Dirección de Bienestar Universitario\nBienestar en cada etapa.\n\n#DBUUNI #BienestarUNI #ComedorUniversitario #UNI #ComunicadoOficial"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/829381141_18108407081064356_2441846613411878415_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=ElGzWtO2KUUQ7kNvwGBGNUd&_nc_oc=AdrUu1XBP9TKi_eFvn6zb5M3w-4u0oKMziyo4RhIasNUOLfKCj6I3QNPXi8H7mxhwCk&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=iOoVGzB3twDaeWuykD6HqA&_nc_ss=70689&oh=00_AQMl9_d9GxpzGZ9mcCExoQyuEJQZu3nvHceB-mJMS-xYYw&oe=6AC7D05F",
+              "media_type": 1,
+              "product_type": "feed",
+              "user": {
+                "pk": "32009072355",
+                "username": "bienestar.uni",
+                "id": "17841431930661134"
+              },
+              "id": "POLARIS_3998567000023982111"
+            },
+            "cursor": "AQHT2SM94-jwRSwpYqFrZRILjV6urWpRITqNDjLgj8HrJdVmLxs8FsSS3Y2EKqJArSFW_ROyfrXuGXjzRy38pzv3MQ"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisCarouselMedia",
+              "__isXIGPolarisMedia": "XIGPolarisCarouselMedia",
+              "pk": "3998473458329171244",
+              "code": "Dd9bmzvibUs",
+              "accessibility_caption": "Photo by Banco Central de Reserva del Perú on October 01, 2026.",
+              "caption": {
+                "text": "🎓 𝐉𝐮𝐥𝐢𝐨 𝐕𝐞𝐥𝐚𝐫𝐝𝐞 𝐫𝐞𝐜𝐢𝐛𝐞 𝐃𝐨𝐜𝐭𝐨𝐫 𝐇𝐨𝐧𝐨𝐫𝐢𝐬 𝐂𝐚𝐮𝐬𝐚 𝐝𝐞 𝐥𝐚 𝐔𝐍𝐈\nHay reconocimientos que trascienden a una persona porque también reflejan el valor de las instituciones, el trabajo en equipo y el compromiso con el país.\nLa Universidad Nacional de Ingeniería distinguió a Julio Velarde con el grado de Doctor Honoris Causa, en reconocimiento a su trayectoria profesional y a su aporte al desarrollo económico del Perú.\nDurante la ceremonia, destacó que los logros alcanzados en materia de estabilidad monetaria son resultado del trabajo de generaciones de profesionales del BCRP y resaltó la importancia de seguir construyendo un país con más oportunidades para todos.\nAsimismo, felicitó a la UNI por sus 150 años de historia y destacó el rol que tendrán las nuevas generaciones de ingenieros en el desarrollo y prosperidad del Perú.\n🇵🇪 Un reconocimiento que nos recuerda que el conocimiento, la excelencia y la vocación de servicio pueden dejar huella en el país.\n#BCRP #JulioVelarde #DoctorHonorisCausa #UNI150"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/828506842_18583001380070772_8220148851106296579_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=100&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=D3rNhtvp_GgQ7kNvwFvqLml&_nc_oc=Adoz8JR8DSCwWbyNxHqufkKaSfGuSHcTCXDW8tkUGuhwJ7fwr_KbRzs9724_o3j8Ucw&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=iOoVGzB3twDaeWuykD6HqA&_nc_ss=70689&oh=00_AQPpK2zatZ3V0emW4pc_mr-RLGztzExLraNKZ_At_8Ed1A&oe=6AC7F2E9",
+              "media_type": 8,
+              "product_type": "carousel_container",
+              "user": {
+                "pk": "1952126771",
+                "username": "bcrpoficial",
+                "id": "17841402123134015"
+              },
+              "carousel_media_count": 5,
+              "id": "POLARIS_3998473458329171244"
+            },
+            "cursor": "AQHT9WgpBIM0H55speRUBbyWTxJLSJ4d3iqlrotigh7e5on-0_gbzxUxzl1wFEn5HIM49nc1Fh-RKopW4QbCXDKGWQ"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisVideoMedia",
+              "__isXIGPolarisMedia": "XIGPolarisVideoMedia",
+              "pk": "3998433721946281774",
+              "code": "Dd9SkkWjRcu",
+              "accessibility_caption": "Video by UNI on October 01, 2026. May be an image of one or more people and text.",
+              "caption": {
+                "text": "#NoticiasUNI | La UNI llega a Huacho 🌱 \n\nFirmamos un convenio para impulsar el futuro Centro UNI Norte chico, un espacio de 10 000 m² dedicado a la investigación, innovación y formación especializada.\n\n🎥 Conoce los detalles de esta nueva etapa de la UNI en el Norte Chico."
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/830594128_18386416519228519_804905305452518932_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=105&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=vajUTtbSTFIQ7kNvwHWashh&_nc_oc=AdqcVGt0OrcS9hdZpICcWCotj3HnwKBlQUaWJ70Eh1sx2j4cR0Acw13alEwua8x0BrE&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=iOoVGzB3twDaeWuykD6HqA&_nc_ss=70689&oh=00_AQN-R7C6m61XZUFevEE5sAbBE5wZ59k585VlNGTnwKDLHg&oe=6AC7E225",
+              "media_type": 2,
+              "product_type": "clips",
+              "user": {
+                "pk": "6955276518",
+                "username": "uni_oficial",
+                "id": "17841406855569409"
+              },
+              "id": "POLARIS_3998433721946281774"
+            },
+            "cursor": "AQHT4a6YJ-6b50rdJYGLna1H6LIXwuMn9OtwNwbOi48cqcTV1rgciX2wCPq-1UfJlQmvOrAoeGOKiRkbLAj62g3cwg"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisCarouselMedia",
+              "__isXIGPolarisMedia": "XIGPolarisCarouselMedia",
+              "pk": "3997806350025712766",
+              "code": "Dd7D7GuFWR-",
+              "accessibility_caption": "Photo by UNI on September 30, 2026.",
+              "caption": {
+                "text": "#ReconocimientoUNI | 🎓 La UNI otorgó el grado honorífico de Doctor Honoris Causa al Dr. Julio Velarde, presidente del Directorio del Banco Central de Reserva del Perú, en reconocimiento a su trayectoria profesional y aporte al ámbito económico del país.\n\nLa ceremonia contó con la participación del vicerrector Académico, Dr. José Carlos Matías León; el vicerrector de Investigación, Dr. Warren Reátegui Romero; la secretaria general, Abog. Catterine Anco Alarcón; el decano de la FIEECS, Dr. Luis Américo Cabezas Vega; y decanos de las facultades de la UNI.\n\nDurante su intervención, el rector, Dr. Arturo Talledo Coronado, recordó el paso del Dr. Julio Velarde por la UNI y destacó su trayectoria. Por su parte, el homenajeado resaltó el talento de la comunidad UNI y su aporte al desarrollo del país.\n\nUn reconocimiento que celebra una trayectoria vinculada a la UNI y reafirma el valor de quienes, desde nuestra comunidad, contribuyen al desarrollo del Perú. 🇵🇪"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t39.30808-6/828051546_1443542041203633_7548055046326631987_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=RSjSFGOcm6AQ7kNvwH33nUL&_nc_oc=AdptPq8f1SiHGXMxjNlzwv4Bn5H1xP1PotgPCmS0vAskFkpvR0_AoKb0u3b_uHOr2Gk&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=iOoVGzB3twDaeWuykD6HqA&_nc_ss=70689&oh=00_AQMrQlka_qtkKtzyi0MsfDaopTTAjGSOOhg7mIvEIzh97g&oe=6AC805D9",
+              "media_type": 8,
+              "product_type": "carousel_container",
+              "user": {
+                "pk": "6955276518",
+                "username": "uni_oficial",
+                "id": "17841406855569409"
+              },
+              "carousel_media_count": 10,
+              "id": "POLARIS_3997806350025712766"
+            },
+            "cursor": "AQHTVEYu7KNYGHg24BXPQSqhN15FgUuDM-pbtbTcSzeEdd7dfQKroE-ZZOZ6x_unUd2mRP-rjg6M8hjzVM2zbUrHHw"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisCarouselMedia",
+              "__isXIGPolarisMedia": "XIGPolarisCarouselMedia",
+              "pk": "3997195306370193357",
+              "code": "Dd44_P-DdfN",
+              "accessibility_caption": "Photo by UNI on September 29, 2026.",
+              "caption": {
+                "text": "#ComunidadUNI | ¿Y tú? ¿Cómo recuerdas a la UNI?"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/825325686_18386151487228519_799638943405272073_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=FHucuDCBaq4Q7kNvwHW6e2J&_nc_oc=AdqELUWSsboUODpILtnvDed80Kj01_J-U7jU9WIRuqFpGGQytlY0skF4jw5ZxCOj73U&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=iOoVGzB3twDaeWuykD6HqA&_nc_ss=70689&oh=00_AQNpwaW3egRCKUlpmTwTIwsEyaRmJLTchbesCmsUb4GOgQ&oe=6AC7EB89",
+              "media_type": 8,
+              "product_type": "carousel_container",
+              "user": {
+                "pk": "6955276518",
+                "username": "uni_oficial",
+                "id": "17841406855569409"
+              },
+              "carousel_media_count": 6,
+              "id": "POLARIS_3997195306370193357"
+            },
+            "cursor": "AQHTEwV2PaEs3cificDCJgIFTX54tP0xOIs3_d3uYgRiFOoIqN6j9ikaEjiErMBupJgBCQmfojw6qvdULVLE2ET4rg"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisCarouselMedia",
+              "__isXIGPolarisMedia": "XIGPolarisCarouselMedia",
+              "pk": "3997136047564770297",
+              "code": "Dd4rg66Acv5",
+              "accessibility_caption": "Photo by BIENESTAR UNI on September 29, 2026.",
+              "caption": {
+                "text": "❤️🩺 Así vivimos la Feria de la Salud en el Centro Médico UNI\n\nNuestra comunidad universitaria participó en una jornada dedicada a la prevención, el cuidado y la promoción de la salud, compartiendo información y experiencias que nos recuerdan que cuidar de nosotros también es parte de nuestro bienestar. 🩺✨\n\nAgradecemos a todos los estudiantes y miembros de la comunidad UNI que fueron parte de esta actividad. 🙌\n\nDesde DBU – Dirección de Bienestar Universitario, continuamos generando espacios que contribuyen a una vida universitaria más saludable e integral. ❤️\n\n📸 ¡Mira algunos momentos de lo que vivimos en esta jornada!\n\n#DBUUNI #BienestarUNI #FeriaDeLaSalud #CentroMédicoUNI #SaludYBienestar BienestarEnCadaEtapa"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/829647701_18107945906064356_4368155768449150562_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=iH8pdScTHVcQ7kNvwFehxnm&_nc_oc=AdrZ5gn-CUBZNyM0mBWBtLQBilRvEv0-R7b8KrwgaClZRjbW120darfg-9eTIrwcgoA&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=iOoVGzB3twDaeWuykD6HqA&_nc_ss=70689&oh=00_AQMJKNAMtAqQ85RShZstG34FOzua1QBKIvjFckSeyZHDdA&oe=6AC7F2A1",
+              "media_type": 8,
+              "product_type": "carousel_container",
+              "user": {
+                "pk": "32009072355",
+                "username": "bienestar.uni",
+                "id": "17841431930661134"
+              },
+              "carousel_media_count": 14,
+              "id": "POLARIS_3997136047564770297"
+            },
+            "cursor": "AQHTbH1qD0KHNtSgq_I51111LWWqDr66jwg5oQuWyw4AvYVfs9AFw6mVZCzq54GCH58MvgULAoyI9tOe_HPw3o-d6w"
+          }
+        ],
+        "page_info": {
+          "end_cursor": "AQHTQL6MJ_ZB1Dp6Sb2DQjfHQCa_oCSJf3I_RGJ-NehyxvF5_ZAuORhpbdivPQ-IdVFTrsk2t774RNu9c0j_Yyxl0Q",
+          "has_next_page": true
+        }
+      },
+      "id": "17841406855569409"
+    }
+  },
+  "extensions": {
+    "server_metadata": {
+      "request_start_time_ms": 1791105476757,
+      "time_at_flush_ms": 1791105476905
+    },
+    "is_final": true
+  }
+}

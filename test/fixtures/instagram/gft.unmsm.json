@@ -1,0 +1,299 @@
+{
+  "data": {
+    "xig_user_by_username": {
+      "pk": "63020638491",
+      "polaris_ordered_timeline_connection": {
+        "edges": [
+          {
+            "node": {
+              "__typename": "XIGPolarisImageMedia",
+              "__isXIGPolarisMedia": "XIGPolarisImageMedia",
+              "pk": "3971795758357589058",
+              "code": "DcepzLhTqxC",
+              "accessibility_caption": "Photo by Física Teórica UNMSM on August 25, 2026. May be an image of poster, magazine and text that says 'ANÁLISIS DE LA INTERACCIÓN DE CDM y ENERGIA OSCURA EN MODELOS wCDM SPEAKER: NELSON MECHÁN AFILIATION: GRACOCC, UNIVERSIDAD NACIONAL DE TRUJILLO, PERÚ MODALIDAD VIRTUAL MIERCOLES 2 DE SETIEMBRE- 16:00 H (PERÚ) LLINK: K:HTPS://FE.GO.OM.ML Más información GFT CAUPODE CHPOBEMS LNMEA TEÓNICA GRACOCC'.",
+              "caption": {
+                "text": "¡Continuamos con la segunda charla de los Peruvian Theoretical Physics Seminars 2026-2 (Peruvian TPS 2026)!\n\nTítulo: Análisis de la interacción de CDM y energía oscura en modelos 𝜔CDM\n\nSpeaker: Nelson Mechán (GRACCOC, Universidad Nacional de Trujillo, Perú)\n\n🗓️ Fecha: Miércoles 2 de Setiembre de 2026\n🗓️ Horario: 16:00 pm (Hora de Lima, Perú)\n📌 Ubicación (En línea): https://meet.google.com/nft-upct-ddv\n\n🔗 Más información de los Peruvian TPS 2026: https://sites.google.com/view/peruviantps2026/home\n\nInscripciones al mailing list para asistir a los seminarios: https://forms.gle/TRYX74dVv9J9jtmPA\n\n¡Comparte esta publicación y ayuda a difundir el conocimiento científico en nuestro país!"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/785776041_17986239804102492_589192130445848825_n.webp?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=108&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=pRWXecZXwMQQ7kNvwH6X_vt&_nc_oc=AdpTfsVYdqknSKhW6urdeNhrtSK7Piv6JLElAF8jwhSvNDtR_697kxfYJX-mJlB_Oh0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=w_6hO49igft0wTP5cZGm6Q&_nc_ss=70689&oh=00_AQN1cs-WI-4amtOkBwoXnRz62ncXJGWqe_x8HJGpG7R6ng&oe=6AC8086C",
+              "media_type": 1,
+              "product_type": "feed",
+              "user": {
+                "pk": "63020638491",
+                "username": "gft.unmsm",
+                "id": "17841463074747579"
+              },
+              "id": "POLARIS_3971795758357589058"
+            },
+            "cursor": "AQHTw8AUL_30mK28MieiZ_pbavphnqQHeIPH_sOb677YLUEW_IkVOLzjWPx0vztgQpQwgskc-M_k1NsEcYA54njmwQ"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisImageMedia",
+              "__isXIGPolarisMedia": "XIGPolarisImageMedia",
+              "pk": "3962948735319619721",
+              "code": "Db_OODPzziJ",
+              "accessibility_caption": "Photo by Física Teórica UNMSM on August 13, 2026. May be an image of poster and text that says 'INTERACCIÓN DEL SECTOR OSCURO EN GRAVEDAD DE RASTALL GENERALIZADA SPEAKER: CARLOS RODRIGUEZ BENITES AFILIATION: GRACOCC, UNIVERSIDAD NACIONAL DE TRUJILLO, PERÚ MODALIDAD VIRTUAL MARTES 18 DE AGOSTO- 16:00 H (PERÚ) LLINK: HTPS://MET.GOGOE.COM/MF-UPCF-DD Más información GFT CUPOD CRPODEFISIC เอ TEONICA GRACOCC'.",
+              "caption": {
+                "text": "¡Empezamos con la primera charla de los Peruvian Theoretical Physics Seminars 2026-2 (Peruvian TPS 2026)!\n\nTítulo: Interacción del sector oscuro en gravedad de Rastall generalizada\n\nSpeaker: Carlos Rodriguez Benites (GRACOCC, Universidad Nacional de Trujillo, Perú)\n\n🗓️ Fecha: Martes 18 de agosto de 2026\n🗓️ Horario: 16:00 pm (Hora de Lima, Perú)\n📌 Ubicación (En línea): https://meet.google.com/nft-upct-ddv\n\n🔗 Más información de los Peruvian TPS 2026: https://sites.google.com/view/peruviantps2026/home\n\nInscripciones al mailing list: https://forms.gle/TRYX74dVv9J9jtmPA\n\n¡Comparte esta publicación y ayuda a difundir el conocimiento científico en nuestro país!"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/773155684_17984277471102492_4772902346177702671_n.webp?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=105&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=ptjdUEnrNHwQ7kNvwHt47gW&_nc_oc=AdoT3kCJPChe6I0hG5UmrgmSz0_Y_O4zpXL6jX6JCcuzQKD626EPJkatjIvDJTJ3w-4&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=w_6hO49igft0wTP5cZGm6Q&_nc_ss=70689&oh=00_AQOGB1suDvmH2A0OzNzg7KsE7wzS9gzPEBqTn9kcuPKn8g&oe=6AC7DF5C",
+              "media_type": 1,
+              "product_type": "feed",
+              "user": {
+                "pk": "63020638491",
+                "username": "gft.unmsm",
+                "id": "17841463074747579"
+              },
+              "id": "POLARIS_3962948735319619721"
+            },
+            "cursor": "AQHTyA9b5qeJ5by8URDykf6aGXBbdY8ea4K3B9ouPry2UYtXqS3aAVoDnBpJ4-S544xZUCfaedYiiMAGQrS1SnFPKg"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisImageMedia",
+              "__isXIGPolarisMedia": "XIGPolarisImageMedia",
+              "pk": "3918298349648577292",
+              "code": "DZgl5bGzYMM",
+              "accessibility_caption": "Photo by Física Teórica UNMSM on June 12, 2026.",
+              "caption": {
+                "text": "¡Continuamos con la quinta charla de los Peruvian Theoretical Physics Seminars 2026-1 (Peruvian TPS 2026)!\n\nTítulo: Deformaciones integrables en teoría de cuerdas y AdS/CFT\n\nSpeaker: Renato Sánchez (Universidad de Ingeniería y Tecnología - UTEC, Perú)\n\n🗓️ Fecha: 16 de Junio de 2026\n🗓️ Horario: 16:30 pm (Hora de Lima, Perú)\n📌 Ubicación: En línea\n🔗 Más información de los Peruvian TPS 2026: https://sites.google.com/view/peruviantps2026/home\n\nInscripciones al mailing list para asistir a los seminarios: https://forms.gle/TRYX74dVv9J9jtmPA\n\n¡Comparte esta publicación y ayuda a difundir el conocimiento científico en nuestro país!"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/723111231_17974635285102492_6089771036219809184_n.webp?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=zpyNpnlWzMIQ7kNvwGcI4cW&_nc_oc=Adq3KkhRJfnAMOMkHPZHPfHvzDwN58mN355DpprfU7wgLrSI5llgtbSQTDjngWiAw6w&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=w_6hO49igft0wTP5cZGm6Q&_nc_ss=70689&oh=00_AQMf7M1brgmOTls2FCvZShfaIZZ7NYpNu1nDGp80oJJ6PQ&oe=6AC806A9",
+              "media_type": 1,
+              "product_type": "feed",
+              "user": {
+                "pk": "63020638491",
+                "username": "gft.unmsm",
+                "id": "17841463074747579"
+              },
+              "id": "POLARIS_3918298349648577292"
+            },
+            "cursor": "AQHTO4EITKiB3bLR9nhymFcksxHpLpOz1v0xWokzhQbr4zzsT0rZOHC9D0rsKHSiTEw5kdi85_tlVtnUK7osuphuHQ"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisImageMedia",
+              "__isXIGPolarisMedia": "XIGPolarisImageMedia",
+              "pk": "3908872212212244648",
+              "code": "DY_GpEhTmCo",
+              "accessibility_caption": "Photo by Física Teórica UNMSM on May 30, 2026.",
+              "caption": {
+                "text": "¡Continuamos con la cuarta charla de los Peruvian Theoretical Physics Seminars 2026-1 (Peruvian TPS 2026)!\n\nTítulo: Compact stars in $f(R,T,L_m)$ gravity\n\nSpeaker: Juan Zárate (Centro Brasileiro de Pesquisas Físicas, Brazil )\n\n🗓️ Fecha: 2 de Junio de 2026\n🗓️ Horario: 16:30 pm (Hora de Lima, Perú)\n📌 Ubicación: En línea\n🔗 Más información de los Peruvian TPS 2026: https://sites.google.com/view/peruviantps2026/home\n\nInscripciones al mailing list para asistir a los seminarios: https://forms.gle/TRYX74dVv9J9jtmPA\n\n¡Comparte esta publicación y ayuda a difundir el conocimiento científico en nuestro país!"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/712523424_17972183925102492_6209810623167222131_n.webp?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=a2jcFfmSF2kQ7kNvwFVD8nS&_nc_oc=Adp-IwMNnhiWlvap_bT0tDSbcKECiP1fOIR4wKA5vx5Co1rlkSkAAVeqZ90Nz7MRrxY&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=w_6hO49igft0wTP5cZGm6Q&_nc_ss=70689&oh=00_AQPY3L5jxORZ6au6rzkiSV-XyjNorobLDZFiTQtb2CIPWw&oe=6AC7F225",
+              "media_type": 1,
+              "product_type": "feed",
+              "user": {
+                "pk": "63020638491",
+                "username": "gft.unmsm",
+                "id": "17841463074747579"
+              },
+              "id": "POLARIS_3908872212212244648"
+            },
+            "cursor": "AQHTFRe2k6H6PZWxAhdO5KFi4xQC0shZd3yvLLF9HG03khpNU-uRYBZwt72WOgPH9h97p6Qk1yr6s6IByiAu_1KOCQ"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisImageMedia",
+              "__isXIGPolarisMedia": "XIGPolarisImageMedia",
+              "pk": "3904227036806129572",
+              "code": "DYumc3zTiek",
+              "accessibility_caption": "Photo by Física Teórica UNMSM on May 24, 2026.",
+              "caption": {
+                "text": "¡Continuamos con la tercera charla de los Peruvian Theoretical Physics Seminars 2026-1 (Peruvian TPS 2026)!\n\nTítulo: Transiciones de fase cosmológicas como fábricas de materia oscura: producción de partículas y ondas gravitacionales\n\nSpeaker: Martín Arteaga Tupia (Pontificia Universidad Católica del Perú y Universidad de Lima)\n\n🗓️ Fecha: 26 de Mayo de 2026\n🗓️ Horario: 16:30 pm (Hora de Lima, Perú)\n📌 Ubicación: En línea\n🔗 Más información de los Peruvian TPS 2026: https://sites.google.com/view/peruviantps2026/home\n\nInscripciones al mailing list para asistir a los seminarios: https://forms.gle/TRYX74dVv9J9jtmPA\n\n¡Comparte esta publicación y ayuda a difundir el conocimiento científico en nuestro país!"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/705771719_17970743775102492_3410590317789992511_n.webp?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=108&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=Fgc--0tbR9wQ7kNvwHeMCAO&_nc_oc=AdoAjXCJNMmVyFhxQfRJf_4lq2OjKA4oz7PzhBrC9rZ7pc8E2hQ8QVvFwDMz-4v5uko&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=w_6hO49igft0wTP5cZGm6Q&_nc_ss=70689&oh=00_AQMdNPcvIz5RTU1mclXQ-0zAv_7Go2tz-sf3DJedyIkf6A&oe=6AC7D9B9",
+              "media_type": 1,
+              "product_type": "feed",
+              "user": {
+                "pk": "63020638491",
+                "username": "gft.unmsm",
+                "id": "17841463074747579"
+              },
+              "id": "POLARIS_3904227036806129572"
+            },
+            "cursor": "AQHT_SsW4IVtLL76T7LpfRYHyJ48g7rMHaxyAKberX4Qcj4gYxF0YJld6WpldNbDGj3tXQUtPChFz_iX2YkYshKWkg"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisImageMedia",
+              "__isXIGPolarisMedia": "XIGPolarisImageMedia",
+              "pk": "3887095590396592047",
+              "code": "DXxvNhBk3-v",
+              "accessibility_caption": "Photo by Física Teórica UNMSM on April 30, 2026.",
+              "caption": {
+                "text": "¡Continuamos con la segunda charla de los Peruvian Theoretical Physics Seminars 2026-1 (Peruvian TPS 2026)!\n\nTítulo: From Cosmological Puzzles To Inflationary Reconstruction: An E-fold Approach In Rastall Gravity\n\nSpeaker: Carlos Ríos Morales (Universidad Católica del Norte, Chile)\n\n🗓️ Fecha: 5 de Mayo de 2026\n🗓️ Horario: 16:30 pm (Hora de Lima, Perú)\n📌 Ubicación: En línea\n🔗 Más información de los Peruvian TPS 2026: https://sites.google.com/view/peruviantps2026/home\n\nInscripciones al mailing list para asistir a los seminarios: https://forms.gle/TRYX74dVv9J9jtmPA\n\n¡Comparte esta publicación y ayuda a difundir el conocimiento científico en nuestro país!"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/681983315_17965414512102492_1201213649124173326_n.webp?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=108&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=sj3xP-SkQTMQ7kNvwFU6EEI&_nc_oc=AdqzUV803Nk3gm_H5atOsiZ-v4B24ItfcqH6x9RY2KLO8me-FoAqwqme3F_dXSYmefY&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=w_6hO49igft0wTP5cZGm6Q&_nc_ss=70689&oh=00_AQNq22nanirjvL6ytKSGwQty0viH6LM9gKQ_Ow_kqDVwyQ&oe=6AC7FAFD",
+              "media_type": 1,
+              "product_type": "feed",
+              "user": {
+                "pk": "63020638491",
+                "username": "gft.unmsm",
+                "id": "17841463074747579"
+              },
+              "id": "POLARIS_3887095590396592047"
+            },
+            "cursor": "AQHTTlHmAg4UcyfNC_vYYADm0rY5dTpp2SSTcz5-UbIOeIzZ3eO27PWMMg32gl6uJZ1pX1WbFGp6wD3BGQ8USunYZA"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisImageMedia",
+              "__isXIGPolarisMedia": "XIGPolarisImageMedia",
+              "pk": "3879740957646778092",
+              "code": "DXXm9hhEe7s",
+              "accessibility_caption": "Photo by Física Teórica UNMSM on April 20, 2026.",
+              "caption": {
+                "text": "Invitación para el Día Internacional de la Cuántica.\n\nEl GFT complace invitar a la comunidad, a este evento sobre computación cuántica.\n\nEntrada libre. \n\n#fisica #quantum #unmsm"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/671181528_17963043627102492_5784499939890738216_n.webp?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=108&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=M0BFtaer7JEQ7kNvwFMVD-2&_nc_oc=AdpppAgQkVGQdcedPpSBgzpxwMfPk57HBK9v0luczlC4_GgEFkNyyKdBubKteIteCQw&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=w_6hO49igft0wTP5cZGm6Q&_nc_ss=70689&oh=00_AQOMmSJ6MRQFlMneuTcjd7oPC4NhHNn7XKk1T78XHoYblw&oe=6AC807F6",
+              "media_type": 1,
+              "product_type": "feed",
+              "user": {
+                "pk": "63020638491",
+                "username": "gft.unmsm",
+                "id": "17841463074747579"
+              },
+              "id": "POLARIS_3879740957646778092"
+            },
+            "cursor": "AQHTbBHEnisO5RykJY8ezBE-G-6UUIsNlTD32F6nABc2-1sMyAJwrVIqPVy9WqM1UYNvIAYeY0wS0cflsli8ppli7g"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisImageMedia",
+              "__isXIGPolarisMedia": "XIGPolarisImageMedia",
+              "pk": "3875233461511088346",
+              "code": "DXHmE0nE2ja",
+              "accessibility_caption": "Photo by Física Teórica UNMSM on April 14, 2026.",
+              "caption": {
+                "text": "¡Empezamos con la primera charla de los Peruvian Theoretical Physics Seminars 2026-1 (Peruvian TPS 2026)!\n\nTítulo: QED actions for (Anti-)de Sitter in 2D\n\nSpeaker: Cristian Rivera (National Central University. Taiwan)\n\n🗓️ Fecha: 21 de abril de 2026\n🗓️ Horario: 16:30 pm (Hora de Lima, Perú)\n📌 Ubicación: En línea\n🔗 Más informacion de los Peruvian TPS 2026: https://sites.google.com/view/peruviantps2026/home\n\nInscripciones al mailing list para asistir a los seminarios: https://forms.gle/TRYX74dVv9J9jtmPA\n\n¡Comparte esta publicación y ayuda a difundir el conocimiento científico en nuestro país!"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/669927745_17961580665102492_6867080958090217038_n.webp?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=103&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=sUVoCZIWuPcQ7kNvwG4IQAD&_nc_oc=AdrqgicQDYybZ5fxovNxolcBdCeqXGi-TXpxOpq5aR23YsmtY2tPaFPMVTe3W9oks1Q&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=w_6hO49igft0wTP5cZGm6Q&_nc_ss=70689&oh=00_AQM1nZatc9dU7iaUv0xT0zmkfb_BRcrJxse0vo225kiNOQ&oe=6AC7FF82",
+              "media_type": 1,
+              "product_type": "feed",
+              "user": {
+                "pk": "63020638491",
+                "username": "gft.unmsm",
+                "id": "17841463074747579"
+              },
+              "id": "POLARIS_3875233461511088346"
+            },
+            "cursor": "AQHTHh8laemuilm_9WXiTHlLCLRkiCYecaq9w95nzf7jg0aW8_p2lH29nBPB6KMBaCN25kdt6CK_9B3Jnz716oupRA"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisImageMedia",
+              "__isXIGPolarisMedia": "XIGPolarisImageMedia",
+              "pk": "3850109577723752084",
+              "code": "DVuVkMeja6U",
+              "accessibility_caption": "Photo by Física Teórica UNMSM on March 10, 2026.",
+              "caption": {
+                "text": "El GFT invita a la comunidad al:\nCurso introductorio a la física teórica.\n\nIngreso libre a los cuatro cursos que se desarrollarán desde el 16 hasta el 20 de marzo. \nMás información en el código QR.\n\nLos esperamos\n\n#fisica\n#clases"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/649894125_17952936354102492_1867861027527073121_n.webp?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=107&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=H0D5L3vBYP4Q7kNvwHGfUIN&_nc_oc=Adq1mBgzrtFWmP7nBNDVMys9XrL2jZ7lgs4L1xEWe8GghbRrY6P9Z76nsyIhwypZeg4&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=w_6hO49igft0wTP5cZGm6Q&_nc_ss=70689&oh=00_AQM6rock2tFi7GHWhOfK6E28aWtXMAsPTHaF_zdNmHgLHw&oe=6AC7E45D",
+              "media_type": 1,
+              "product_type": "feed",
+              "user": {
+                "pk": "63020638491",
+                "username": "gft.unmsm",
+                "id": "17841463074747579"
+              },
+              "id": "POLARIS_3850109577723752084"
+            },
+            "cursor": "AQHTRsxMc-4iW_Lonr-OgNCavf7BuIXBf4XsTgUqh6ckrZmS0rrB7eb5MeBVe9cBic2O9yCOTU7x08lIq9zRn5AH5w"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisImageMedia",
+              "__isXIGPolarisMedia": "XIGPolarisImageMedia",
+              "pk": "3841244255491405611",
+              "code": "DVO10xwEzcr",
+              "accessibility_caption": "Photo by Física Teórica UNMSM on February 26, 2026.",
+              "caption": {
+                "text": "[LINK CHARLA MAGISTRAL]\n\nAcompáñanos en la Charla Magistral abierta al público en general (presencial y virtual)!\n\nTítulo: \"Lo que sabemos y lo que no sabemos del universo\"\n\nPonente invitado: Guillem Domènech (Institute for Theoretical Physics, Leibniz University Hannover, Germany)\n\nEsta Charla Magistral es un evento especial parte del Workshop Verano TINKUY 2026: \"Un Panorama de la Física Teórica en el Perú\"🌎\n\nEste evento local reúne a estudiantes y expertos en Física de diversas regiones peruanas para exponer sus investigaciones y desarrollos recientes en Física Teórica. El workshop se viene realizando tanto en línea como presencialmente en el auditorio del Instituto de Investigación de Posgrado de la Facultad de Ciencias Físicas de la Universidad Nacional Mayor de San Marcos, Lima, Perú.\n\n🗓️ Fecha Charla Magistral: Jueves 26 de febrero de 2026\n📌 Ubicación: Lima, Perú / En línea\n🔗 Link Charla Magistral: https://meet.google.com/hts-hnbk-fjf\n🔗 Más información: https://sites.google.com/unmsm.edu.pe/tinkuy-2026-summer-workshop/home\n\n¡Comparte esta publicación y ayuda a difundir el conocimiento científico en nuestro país!"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/641227075_17949848004102492_5668237571272535027_n.webp?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=bZFQ7TLnl9cQ7kNvwEJvdoL&_nc_oc=AdqoKYMXvnoQpDPbAW1lX1qMuyDfn7mzsSy31SLFgFComLKpUQXhiOJaUE0OzLnM5Z8&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=w_6hO49igft0wTP5cZGm6Q&_nc_ss=70689&oh=00_AQOj1iNXDO-AP5mIN-iMBiXRW_jDhi8xEOjKuBCZnHyKPw&oe=6AC80697",
+              "media_type": 1,
+              "product_type": "feed",
+              "user": {
+                "pk": "63020638491",
+                "username": "gft.unmsm",
+                "id": "17841463074747579"
+              },
+              "id": "POLARIS_3841244255491405611"
+            },
+            "cursor": "AQHTEPUtng4U-1HKrn5L1-gRc7joTIR-SQlon1YpOaocDFk7koBxead-vFb9dROg945o2Z3O_t73k5XFwvC3F-WK3A"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisImageMedia",
+              "__isXIGPolarisMedia": "XIGPolarisImageMedia",
+              "pk": "3834710045263909040",
+              "code": "DU3oHgQk9Cw",
+              "accessibility_caption": "Photo by Física Teórica UNMSM on February 17, 2026.",
+              "caption": {
+                "text": "🌌 Charla Magistral: \"Lo que sabemos y lo que no sabemos del universo\"\n\n¿Qué hemos logrado entender y cuáles son los grandes misterios que aún desafían a la cosmología moderna?\n\nTe invitamos a esta charla magistral a cargo del Profesor Guillem Domènech, investigador del Institute for Theoretical Physics, Leibniz University Hannover (Germany), quien nos guiará a través de las fronteras del conocimiento en cosmología y física teórica.\n\n📍 Auditorio del Instituto de Investigación de la Unidad de Posgrado\nFacultad de Ciencias Físicas – Ciudad Universitaria, UNMSM\n📅 Jueves 26 de febrero\n🕖 7:00 p.m.\n\nUna oportunidad única para reflexionar sobre el universo que habitamos: lo que ya comprendemos… y lo que aún nos falta por descubrir.\n\nIngreso Libre\n\n✨ ¡Los esperamos!\n\n¡Comparte esta publicación y ayuda a difundir el conocimiento científico en nuestro país!\n\n#CharlaMagistral #Cosmología #FísicaTeórica #Universo #UNMSM"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/632859432_17947992450102492_8395249379550642213_n.webp?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=MVMZuRYpa-wQ7kNvwEKl-3l&_nc_oc=AdqwpAwzupxhsRQms5Q-wPzqwHl0WxuHQ3oB_p5BIjVzlvmylnCN1XXKEDX71hANTJI&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=w_6hO49igft0wTP5cZGm6Q&_nc_ss=70689&oh=00_AQOxiuuFF1P9_znm_TLw-PA138Vb4WQq1ceS2AHgq8sq3A&oe=6AC7F5CE",
+              "media_type": 1,
+              "product_type": "feed",
+              "user": {
+                "pk": "63020638491",
+                "username": "gft.unmsm",
+                "id": "17841463074747579"
+              },
+              "id": "POLARIS_3834710045263909040"
+            },
+            "cursor": "AQHTbNFisRUUOB3zwPjtr6duIxDccrmTpzXexinPQ_0GHbsvVqzbB4QDVel4yg-kymFOOU07TjPKmqG2MM8PA6_wGA"
+          },
+          {
+            "node": {
+              "__typename": "XIGPolarisImageMedia",
+              "__isXIGPolarisMedia": "XIGPolarisImageMedia",
+              "pk": "3833733956232250482",
+              "code": "DU0KLigk4Ry",
+              "accessibility_caption": "Photo by Física Teórica UNMSM on February 16, 2026.",
+              "caption": {
+                "text": "[Lista de ponentes, lista de participantes y cronograma del workshop actualizados!]\n\nSi estudias Física y estás interesado en conocer la investigación de expertos y estudiantes peruanos trabajando en diversas áreas de la Física Teórica acompáñanos al workshop de verano TINKUY 2026: \"Un Panorama de la Física Teórica en el Perú\"🌎 \n\nInscríbete ya! Las inscripciones se cierran el 23 de febrero! \n\nInscripciones: https://shorturl.at/Djn5x\n\n🔗 Más información: https://sites.google.com/unmsm.edu.pe/tinkuy-2026-summer-workshop/home\n\n🗓️ Fechas: 25, 26 y 27 de febrero de 2026\n🗓️ Horario: 14:00 pm a 18:40 pm\n📌 Ubicación: Lima, Perú / En línea\n\n¡Comparte esta publicación y ayuda a difundir el conocimiento científico en nuestro país!"
+              },
+              "seo_canonical_url": null,
+              "display_uri": "https://scontent.cdninstagram.com/v/t51.82787-15/634386422_17947709388102492_6623468552059514422_n.webp?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=103&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=S9BnAyilK3UQ7kNvwH4_N40&_nc_oc=AdqSJZVubRVNl2smH32sRDZZrcGXqdt6gNayrHTt2P9sdaXwjTNWxg8rlti141bsr9Y&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=w_6hO49igft0wTP5cZGm6Q&_nc_ss=70689&oh=00_AQPVyKE19704x_5BsUugYxRk4gK9qhTs6Sdrd8g-Vyz_rg&oe=6AC7EF21",
+              "media_type": 1,
+              "product_type": "feed",
+              "user": {
+                "pk": "63020638491",
+                "username": "gft.unmsm",
+                "id": "17841463074747579"
+              },
+              "id": "POLARIS_3833733956232250482"
+            },
+            "cursor": "AQHTUQFpwnkWS6kXFOF9rQA0aPuaWo7XCJcmusBKbfv5KmmFLzewAvezJmd4d7CAkR8CZ6EUKtZh4kWqF1y4_lVAlg"
+          }
+        ],
+        "page_info": {
+          "end_cursor": "AQHT0cufq8C94JBIPLUQOoudo7tl9ntaOOh8iUgCkGHS3JWVPgmue4_NM0tmLPde359QEoHghW_KXFR06wUu4AtR3A",
+          "has_next_page": true
+        }
+      },
+      "id": "17841463074747579"
+    }
+  },
+  "extensions": {
+    "server_metadata": {
+      "request_start_time_ms": 1791105476433,
+      "time_at_flush_ms": 1791105476514
+    },
+    "is_final": true
+  }
+}

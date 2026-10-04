@@ -1,0 +1,34 @@
+{
+  "data": { "xig_user_by_username": null },
+  "errors": [
+    {
+      "message": "A server error field_exception occured. Check server logs for details.",
+      "severity": "CRITICAL",
+      "mids": ["9a563af1be83e85269a9057ea9363f6e"],
+      "debug_link": "https://www.meta.com/debug/?mid=9a563af1be83e85269a9057ea9363f6e",
+      "code": 1675030,
+      "api_error_code": -1,
+      "summary": "Query Error",
+      "description": "Error performing query.",
+      "description_html": null,
+      "description_raw": "Error performing query.",
+      "is_silent": false,
+      "is_transient": false,
+      "is_not_critical": false,
+      "requires_reauth": false,
+      "allow_user_retry": false,
+      "debug_info": null,
+      "query_path": null,
+      "fbtrace_id": "GVn9AnKH3z6",
+      "www_request_id": "AQLqLOtGUGiv7e2gvAxB-mY",
+      "path": ["xig_user_by_username"]
+    }
+  ],
+  "extensions": {
+    "server_metadata": {
+      "request_start_time_ms": 1791105930094,
+      "time_at_flush_ms": 1791105930122
+    },
+    "is_final": true
+  }
+}

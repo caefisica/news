@@ -61,6 +61,9 @@ describe("source migrations", () => {
 
   it("leaves the expected set of sources", () => {
     expect(sources(migrate()).map((row) => row.name)).toEqual([
+      "@asdfpucp",
+      "@gft.unmsm",
+      "@uni_oficial",
       "CERN",
       "CONCYTEC",
       "IGP",
