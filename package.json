@@ -13,14 +13,14 @@
   ],
   "type": "module",
   "scripts": {
-    "dev": "nuxt dev",
-    "build": "nuxt build",
-    "preview": "nuxt preview",
-    "types": "wrangler types -c wrangler.json && wrangler types -c workers/consumer/wrangler.json workers/consumer/worker-configuration.d.ts && wrangler types -c workers/coordinator/wrangler.json workers/coordinator/worker-configuration.d.ts",
+    "dev": "cf-wrangler dev",
+    "build": "nuxt build && cf-wrangler build",
+    "deploy": "bun run build && cf deploy --prebuilt",
+    "types": "cf workers types && bun run --filter './workers/*' types",
     "typecheck": "bun run types && nuxt typecheck && tsc -p packages/feeds && tsc -p workers/consumer && tsc -p workers/coordinator",
     "ingest": "bun run scripts/ingest.ts",
-    "db:migrate": "wrangler d1 migrations apply news-reader --remote",
-    "db:migrate:local": "wrangler d1 migrations apply news-reader --local",
+    "db:migrate": "cf d1 migrations apply 80dc5943-d28a-4c4b-91dd-6bbf712bfae6 --dir server/db/migrations",
+    "db:migrate:local": "cf d1 migrations apply 80dc5943-d28a-4c4b-91dd-6bbf712bfae6 --dir server/db/migrations --local --persist-to .wrangler/state",
     "lint": "oxlint .",
     "lint:fix": "oxlint --fix .",
     "format": "oxfmt ."
@@ -34,11 +34,12 @@
   "devDependencies": {
     "@nuxt/fonts": "^0.14.0",
     "@nuxtjs/color-mode": "^4.0.1",
-    "nitro-cloudflare-dev": "^0.2.2",
+    "cf": "^1.0.0-beta.12",
+    "miniflare": "5.20261001.0-alpha",
     "oxfmt": "^0.71.0",
     "oxlint": "^1.86.0",
-    "typescript": "npm:typescript-native-bridge@6.0.3-bridge.17.tsgo.7.0.2",
-    "vue-tsc": "^3.3.11",
+    "typescript": "npm:typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2",
+    "vue-tsc": "^3.3.12",
     "wrangler": "^4.147.0"
   },
   "engines": {

@@ -12,6 +12,6 @@ node_modules
 .env.local
 .env.*.local
 
-# wrangler
-worker-configuration.d.ts
+# Cloudflare tooling
+.cloudflare
 .wrangler
