@@ -1,5 +1,7 @@
 import { bindings, defineConfig, triggers } from "cf/config";
 
+import database from "../../server/db/database.json" with { type: "json" };
+
 export default defineConfig({
   worker: {
     name: "news-reader-coordinator",
@@ -15,10 +17,7 @@ export default defineConfig({
       }),
     ],
     env: {
-      DB: bindings.d1({
-        name: "news-reader",
-        id: "80dc5943-d28a-4c4b-91dd-6bbf712bfae6",
-      }),
+      DB: bindings.d1(database),
       FEED_QUEUE: bindings.queue({
         name: "feed-ingestion",
       }),
