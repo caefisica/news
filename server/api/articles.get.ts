@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
   let sql = `
     SELECT
       a.id, a.title, a.link, a.description, a.author, a.published_at,
-      s.id AS source_id, s.name AS source_name, s.category
+      s.id AS source_id, s.name AS source_name, s.category, s.language
     FROM articles a
     JOIN sources s ON a.source_id = s.id
     WHERE s.enabled = 1

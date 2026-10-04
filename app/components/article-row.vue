@@ -40,7 +40,7 @@ const mainAttrs = computed(() =>
       @click="emit('select')"
     >
       <span class="dot" :class="dotClass(article.source_id)" />
-      <span class="row-title">
+      <span class="row-title" :lang="article.language">
         <span class="sr-only">{{ article.source_name }}: </span>{{ article.title }}
         <span v-if="!wide" class="sr-only">(se abre en una pestaña nueva)</span>
       </span>

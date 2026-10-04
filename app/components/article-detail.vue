@@ -24,7 +24,7 @@ const iso = computed(() => isoDate(props.article?.published_at ?? null) ?? undef
       </span>
     </div>
 
-    <h2 id="detalle-titulo" class="detail-title">{{ article.title }}</h2>
+    <h2 id="detalle-titulo" class="detail-title" :lang="article.language">{{ article.title }}</h2>
 
     <p v-if="date || article.author" class="detail-byline">
       <time v-if="date" :datetime="iso">{{ date }}</time>
@@ -57,7 +57,9 @@ const iso = computed(() => isoDate(props.article?.published_at ?? null) ?? undef
       </button>
     </div>
 
-    <p v-if="article.description" class="detail-description">{{ article.description }}</p>
+    <p v-if="article.description" class="detail-description" :lang="article.language">
+      {{ article.description }}
+    </p>
     <p v-else class="detail-empty">Esta fuente no incluye un resumen.</p>
   </section>
 

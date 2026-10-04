@@ -17,6 +17,12 @@ const formatter = new Intl.DateTimeFormat("es-PE", {
   timeZone: "America/Lima",
 });
 
+const languages = new Intl.DisplayNames("es", { type: "language" });
+
+function languageName(code: string): string {
+  return languages.of(code) ?? code;
+}
+
 function fetched(ts: number | null): string {
   return ts ? formatter.format(new Date(ts * 1000)) : "Todavía no";
 }
@@ -73,6 +79,9 @@ function fetched(ts: number | null): string {
                 <span class="dot" :class="dotClass(source.id)" />
                 {{ source.name }}
               </NuxtLink>
+              <span v-if="source.language !== 'es'" class="tag language">
+                {{ languageName(source.language) }}
+              </span>
             </th>
             <td class="col-category">
               <span v-if="categoryLabel(source.category)" class="tag">
@@ -143,6 +152,10 @@ tbody tr:hover {
   color: var(--accent);
   text-decoration: underline;
   text-underline-offset: var(--underline-offset);
+}
+
+.language {
+  margin-left: var(--space-2);
 }
 
 .col-number {
