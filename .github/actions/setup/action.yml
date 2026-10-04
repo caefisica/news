@@ -1,0 +1,14 @@
+name: setup
+description: Install Node, Bun and the workspace dependencies.
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v7
+      with:
+        node-version: "24"
+
+    - uses: oven-sh/setup-bun@v2
+
+    - run: bun install --frozen-lockfile
+      shell: bash
