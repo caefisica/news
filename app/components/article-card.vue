@@ -34,7 +34,7 @@ const published = computed(() => {
       class="btn btn-ghost btn-icon bookmark"
       type="button"
       :aria-pressed="saved"
-      :aria-label="`Guardar: ${article.title}`"
+      :aria-label="`${saved ? 'Quitar de guardados' : 'Guardar'}: ${article.title}`"
       @click="toggle(article)"
     >
       <Icon :name="saved ? 'solar:bookmark-bold' : 'solar:bookmark-linear'" size="16" />
