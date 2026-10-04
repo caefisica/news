@@ -1,38 +1,39 @@
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+
 import { processSource } from "@news-reader/feeds";
 import type { Source } from "@news-reader/feeds";
-import { Miniflare } from "miniflare";
+import { getPlatformProxy } from "wrangler";
 
 import config from "../cloudflare.config";
+import database from "../server/db/database.json" with { type: "json" };
+
+// getPlatformProxy reads Wrangler config files, so provide the DB binding through a temporary config.
+const configPath = join(tmpdir(), "news-ingest.wrangler.json");
+await Bun.write(
+  configPath,
+  JSON.stringify({
+    compatibility_date: config.worker.compatibilityDate,
+    d1_databases: [{ binding: "DB", database_name: database.name, database_id: database.id }],
+  }),
+);
 
 // Use the local state shared by `bun run dev` and `bun run db:migrate:local`.
-const mf = new Miniflare({
-  workers: [
-    {
-      config: {
-        name: "ingest",
-        compatibilityDate: config.worker.compatibilityDate,
-        manifest: {
-          mainModule: "index.js",
-          modules: { "index.js": { type: "esm", contents: "export default {}" } },
-        },
-        env: { DB: config.worker.env.DB },
-      },
-    },
-  ],
-  resourcePersistencePath: ".wrangler/state/v3",
+const { env, dispose } = await getPlatformProxy<{ DB: D1Database }>({
+  configPath,
+  persist: { path: ".wrangler/state/v3" },
+  remoteBindings: false,
 });
 
-const db = (await mf.getD1Database("DB")) as unknown as D1Database;
-
-const { results: sources } = await db
-  .prepare("SELECT id, name, url, parser, category FROM sources WHERE enabled = 1")
-  .all<Source>();
+const { results: sources } = await env.DB.prepare(
+  "SELECT id, name, url, parser, category FROM sources WHERE enabled = 1",
+).all<Source>();
 
 if (sources.length === 0) {
   console.log("No enabled sources found. Run `bun run db:migrate:local` first.");
 } else {
   console.log(`Processing ${sources.length} source(s)…`);
-  await Promise.allSettled(sources.map((s) => processSource(s, db)));
+  await Promise.allSettled(sources.map((s) => processSource(s, env.DB)));
 }
 
-await mf.dispose();
+await dispose();
