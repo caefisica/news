@@ -33,8 +33,8 @@ local database. See [Local development](docs/local-development.md) for details.
 
 ## Features
 
-- RSS and Atom feeds and public Instagram accounts as sources. Each source has a
-  category and a language.
+- RSS and Atom feeds and public Instagram accounts as sources. Each source has
+  an optional category and a language.
 - Four parsers: standard feeds, Blogger, `gob.pe` and Instagram.
 - A `/sources` page that shows the last successful check of each source, and the
   reason when a check fails.

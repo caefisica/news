@@ -57,12 +57,12 @@ and `docId` needs an update.
 The registry is in [`parsers/index.ts`](../packages/feeds/src/parsers/index.ts).
 A null or unknown key uses `identity`.
 
-| Parser      | Use it for                                                               |
-| ----------- | ------------------------------------------------------------------------ |
-| `identity`  | Standard RSS and Atom feeds.                                             |
-| `blogspot`  | Blogger feeds. It strips the "Posted by" and "No comments" footers.      |
-| `gobpe`     | `gob.pe` feeds. It skips collection pages and links to the article.      |
-| `instagram` | Instagram posts. It builds the title from the first line of the caption. |
+| Parser      | Use it for                                                                  |
+| ----------- | --------------------------------------------------------------------------- |
+| `identity`  | Standard RSS and Atom feeds.                                                |
+| `blogspot`  | Blogger feeds. It strips the "Posted by" and "No comments" footers.         |
+| `gobpe`     | `gob.pe` feeds. It skips collection pages and links to the article.         |
+| `instagram` | Instagram posts. It builds the title from the first non-empty caption line. |
 
 Every parser returns a normalized article (`guid`, `title`, `link`,
 `description`, `author`, `image`, `published_at`).
