@@ -56,7 +56,7 @@ function formatDate(ts: number | null): string {
 
     <footer class="suggest-footer">
       <a
-        href="https://github.com/caefisica/rss-reader/issues/new?template=suggest-source.md"
+        href="https://github.com/caefisica/news/issues/new?template=suggest-source.md"
         target="_blank"
         rel="noopener noreferrer"
         class="suggest-link label"

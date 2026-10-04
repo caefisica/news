@@ -55,14 +55,14 @@ useSeoMeta({
 
     <footer class="about-footer">
       <a
-        href="https://github.com/caefisica/rss-reader"
+        href="https://github.com/caefisica/news"
         target="_blank"
         rel="noopener noreferrer"
         class="footer-link label"
         >GitHub</a
       >
       <a
-        href="https://github.com/caefisica/rss-reader/issues/new?template=suggest-source.md"
+        href="https://github.com/caefisica/news/issues/new?template=suggest-source.md"
         target="_blank"
         rel="noopener noreferrer"
         class="footer-link label"
