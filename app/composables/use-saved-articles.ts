@@ -1,8 +1,9 @@
 import type { Article } from "~/types/news";
+import { isValidTimestamp } from "~/utils/dates";
 
 const STORAGE_KEY = "nr:saved-articles";
 
-// Storage is user-editable, so keep only entries a card can render.
+// Storage is user-editable, so keep only entries a row can render.
 function isArticle(value: unknown): value is Article {
   if (typeof value !== "object" || value === null) return false;
   const item = value as Record<string, unknown>;
@@ -10,14 +11,24 @@ function isArticle(value: unknown): value is Article {
     typeof item.id === "number" &&
     typeof item.title === "string" &&
     typeof item.link === "string" &&
-    (item.published_at == null || Number.isFinite(item.published_at))
+    typeof item.source_id === "number" &&
+    typeof item.source_name === "string" &&
+    (item.published_at === null || isValidTimestamp(item.published_at))
   );
+}
+
+export function parseSaved(raw: string | null): Article[] {
+  try {
+    const parsed: unknown = JSON.parse(raw ?? "[]");
+    return Array.isArray(parsed) ? parsed.filter((item) => isArticle(item)) : [];
+  } catch {
+    return [];
+  }
 }
 
 function load(): Article[] {
   try {
-    const parsed: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
-    return Array.isArray(parsed) ? parsed.filter(isArticle) : [];
+    return parseSaved(localStorage.getItem(STORAGE_KEY));
   } catch {
     return [];
   }
