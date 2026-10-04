@@ -2,10 +2,22 @@ import type { Article } from "~/types/news";
 
 const STORAGE_KEY = "nr:saved-articles";
 
+// Storage is user-editable, so keep only entries a card can render.
+function isArticle(value: unknown): value is Article {
+  if (typeof value !== "object" || value === null) return false;
+  const item = value as Record<string, unknown>;
+  return (
+    typeof item.id === "number" &&
+    typeof item.title === "string" &&
+    typeof item.link === "string" &&
+    (item.published_at == null || Number.isFinite(item.published_at))
+  );
+}
+
 function load(): Article[] {
   try {
     const parsed: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
-    return Array.isArray(parsed) ? parsed : [];
+    return Array.isArray(parsed) ? parsed.filter(isArticle) : [];
   } catch {
     return [];
   }
