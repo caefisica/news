@@ -1,56 +1,48 @@
 <script setup lang="ts">
-interface Source {
-  id: number;
-  name: string;
-  category: string | null;
-}
+import type { Source } from "~/types/news";
 
-interface Article {
-  id: number;
-  title: string;
-  link: string;
-  description: string | null;
-  author: string | null;
-  published_at: number | null;
-  source_name: string;
-  category: string | null;
-}
+useSeoMeta({
+  title: "Becas y noticias de física",
+  description: "Becas, convocatorias y lecturas de física para estudiantes en Perú.",
+});
 
 // SSR uses request-scoped fetch to forward Cloudflare bindings to API handlers.
 const requestFetch = useRequestFetch();
 
-const { data, refresh } = await useAsyncData("feed-init", () =>
-  Promise.all([
-    requestFetch<{ sources: Source[] }>("/api/sources"),
-    requestFetch<{ articles: Article[] }>("/api/articles?page=1"),
-  ]),
+const { data, error, refresh } = await useAsyncData("sources-filter", () =>
+  requestFetch<{ sources: Source[] }>("/api/sources"),
 );
 
-const sources = computed(() => data.value?.[0].sources ?? []);
-const initialArticles = computed(() => data.value?.[1].articles ?? []);
-
-const { visibleIds } = useSourcePrefs();
-const activeSourceIds = computed(() => visibleIds(sources.value.map((s) => s.id)));
-
-onMounted(async () => {
-  if (!data.value) {
-    await refresh();
-  }
-});
+const sources = computed(() => data.value?.sources ?? []);
 </script>
 
 <template>
-  <div class="container feed-page">
-    <SourceFilter v-if="sources.length > 0" :sources="sources" />
-    <ArticleFeed :initial-articles="initialArticles" :active-source-ids="activeSourceIds" />
+  <div class="container page">
+    <header class="page-header">
+      <h1 class="page-title">Becas y noticias de física</h1>
+      <p class="page-lead">Convocatorias, becas y lecturas para estudiantes de física en Perú.</p>
+    </header>
+
+    <StatePanel
+      v-if="error"
+      tone="danger"
+      title="No se pudo cargar la lista de fuentes"
+      text="Revisa tu conexión e inténtalo de nuevo."
+    >
+      <button type="button" class="btn btn-primary" @click="refresh()">Reintentar</button>
+    </StatePanel>
+
+    <div v-else class="feed-page">
+      <FeedToolbar :sources="sources" />
+      <ArticleFeed :sources="sources" />
+    </div>
   </div>
 </template>
 
 <style scoped>
 .feed-page {
-  padding-block: var(--spacing-3xl);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2xl);
+  gap: var(--space-5);
 }
 </style>
