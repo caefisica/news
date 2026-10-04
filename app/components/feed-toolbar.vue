@@ -11,7 +11,7 @@ const input = ref<HTMLInputElement | null>(null);
 const sourcesOpen = ref(sourceIds.value.length > 0);
 let timer: ReturnType<typeof setTimeout> | undefined;
 
-// The URL is the source of truth; follow it unless the user is mid-typing.
+// The URL is authoritative. Do not replace text while the user is typing.
 watch(q, (value) => {
   if (timer === undefined) text.value = value;
 });
