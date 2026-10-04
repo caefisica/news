@@ -16,10 +16,13 @@ interface Article {
   category: string | null;
 }
 
+// SSR uses request-scoped fetch to forward Cloudflare bindings to API handlers.
+const requestFetch = useRequestFetch();
+
 const { data, refresh } = await useAsyncData("feed-init", () =>
   Promise.all([
-    $fetch<{ sources: Source[] }>("/api/sources"),
-    $fetch<{ articles: Article[] }>("/api/articles?page=1"),
+    requestFetch<{ sources: Source[] }>("/api/sources"),
+    requestFetch<{ articles: Article[] }>("/api/articles?page=1"),
   ]),
 );
 
