@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { CRON_INTERVAL_MINUTES, INSTAGRAM_INTERVAL_MINUTES } from "@news-reader/feeds/schedule";
+
 import { dotClass } from "~/utils/sources";
 
 useSeoMeta({
@@ -26,6 +28,12 @@ function languageName(code: string): string {
 function fetched(ts: number | null): string {
   return ts ? formatter.format(new Date(ts * 1000)) : "Todavía no";
 }
+
+function every(minutes: number): string {
+  return minutes === 60 ? "cada hora" : `cada ${minutes} minutos`;
+}
+
+const cadence = `Revisamos las fuentes web ${every(CRON_INTERVAL_MINUTES)} y las cuentas de Instagram ${every(INSTAGRAM_INTERVAL_MINUTES)}.`;
 </script>
 
 <template>
@@ -62,7 +70,9 @@ function fetched(ts: number | null): string {
 
       <table v-else class="table">
         <caption class="sr-only">
-          Fuentes revisadas cada 15 minutos
+          {{
+            cadence
+          }}
         </caption>
         <thead>
           <tr>
@@ -82,6 +92,9 @@ function fetched(ts: number | null): string {
               <span v-if="source.language !== 'es'" class="tag language">
                 {{ languageName(source.language) }}
               </span>
+              <p v-if="source.last_error" class="failure">
+                No se pudo revisar: {{ source.last_error }}
+              </p>
             </th>
             <td class="col-category">
               <span v-if="categoryLabel(source.category)" class="tag">
@@ -94,7 +107,7 @@ function fetched(ts: number | null): string {
         </tbody>
       </table>
 
-      <p class="table-note">Revisamos cada fuente cada 15 minutos.</p>
+      <p class="table-note">{{ cadence }}</p>
     </div>
   </div>
 </template>
@@ -156,6 +169,12 @@ tbody tr:hover {
 
 .language {
   margin-left: var(--space-2);
+}
+
+.failure {
+  padding-bottom: var(--space-2);
+  color: var(--danger);
+  font-size: var(--text-xs);
 }
 
 .col-number {

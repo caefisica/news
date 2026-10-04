@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
   const { results } = await DB.prepare(`
       SELECT
         id, name, category, language,
-        last_fetched_at,
+        last_fetched_at, last_error,
         (SELECT COUNT(*) FROM articles WHERE source_id = sources.id) AS article_count
       FROM sources
       WHERE enabled = 1

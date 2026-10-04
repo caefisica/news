@@ -8,8 +8,9 @@ export interface Article {
   source_id: number;
   source_name: string;
   category: string | null;
-  // Optional because saved articles in localStorage predate the column.
+  // Optional because saved articles in localStorage predate these columns.
   language?: string;
+  image?: string | null;
 }
 
 export interface Source {
@@ -18,5 +19,6 @@ export interface Source {
   category: string | null;
   language: string;
   last_fetched_at: number | null;
+  last_error: string | null;
   article_count: number;
 }

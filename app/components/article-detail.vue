@@ -10,6 +10,15 @@ const saved = computed(() => (props.article ? isSaved(props.article.id) : false)
 const category = computed(() => categoryLabel(props.article?.category ?? null));
 const date = computed(() => longDate(props.article?.published_at ?? null));
 const iso = computed(() => isoDate(props.article?.published_at ?? null) ?? undefined);
+
+// Instagram signs image URLs and stops serving them after a few days.
+const imageFailed = ref(false);
+watch(
+  () => props.article?.id,
+  () => {
+    imageFailed.value = false;
+  },
+);
 </script>
 
 <template>
@@ -56,6 +65,15 @@ const iso = computed(() => isoDate(props.article?.published_at ?? null) ?? undef
         <kbd class="kbd" aria-hidden="true">s</kbd>
       </button>
     </div>
+
+    <img
+      v-if="article.image && !imageFailed"
+      :src="article.image"
+      alt=""
+      class="detail-image"
+      referrerpolicy="no-referrer"
+      @error="imageFailed = true"
+    />
 
     <p v-if="article.description" class="detail-description" :lang="article.language">
       {{ article.description }}
@@ -118,8 +136,19 @@ const iso = computed(() => isoDate(props.article?.published_at ?? null) ?? undef
   color: var(--accent);
 }
 
+.detail-image {
+  max-width: var(--measure);
+  max-height: 24rem;
+  width: auto;
+  height: auto;
+  border-radius: var(--radius-md);
+  object-fit: contain;
+  align-self: flex-start;
+}
+
 .detail-description {
   max-width: var(--measure);
+  white-space: pre-line;
   padding-top: var(--space-4);
   border-top: 1px solid var(--border);
   color: var(--text-2);
