@@ -1,6 +1,6 @@
 # RSS para físicxs
 
-[![deploy](https://github.com/caefisica/news-reader/actions/workflows/deploy.yml/badge.svg)](https://github.com/caefisica/news-reader/actions/workflows/deploy.yml)
+[![deploy](https://github.com/caefisica/news/actions/workflows/deploy.yml/badge.svg)](https://github.com/caefisica/news/actions/workflows/deploy.yml)
 
 RSS para físicxs reúne becas, convocatorias, eventos y oportunidades académicas
 para estudiantes e investigadores de física en Perú. El proyecto consume feeds
@@ -41,8 +41,8 @@ El frontend usa Nuxt 4 sobre Cloudflare Workers (`cloudflare_module`). Las rutas
 ## Desarrollo local
 
 ```sh
-git clone https://github.com/caefisica/rss-reader.git
-cd rss-reader
+git clone https://github.com/caefisica/news.git
+cd news
 
 bun install
 bun run db:migrate:local
@@ -57,7 +57,11 @@ bun run ingest
 
 `bun run dev` vuelve a compilar la app en cada cambio y la sirve con los
 bindings locales. La base local se guarda en `.wrangler/state`, la misma que
-usan `db:migrate:local` e `ingest`.
+usan `db:migrate:local` e `ingest`. La ingesta local procesa las fuentes
+directamente, sin pasar por la cola.
+
+El nombre y el id de la base D1 están en `server/db/database.json`. Los tres
+`cloudflare.config.ts` y `scripts/migrate.ts` los leen de ahí.
 
 El proyecto usa el CLI [`cf`](https://developers.cloudflare.com/cf/) de
 Cloudflare. Cada worker tiene su propio `cloudflare.config.ts`: el de la raíz
@@ -69,10 +73,10 @@ compilar Nuxt. Los tipos del runtime y de los bindings se generan con
 
 ## Despliegue
 
-GitHub Actions despliega los tres workers con `cf deploy` en cada push a
-`master`. Necesita los secretos `CLOUDFLARE_API_TOKEN` y
-`CLOUDFLARE_ACCOUNT_ID`. Para aplicar las migraciones en D1 remoto:
+GitHub Actions despliega en cada push a `master`, un despliegue a la vez:
 
-```sh
-bun run db:migrate
-```
+1. comprueba los tipos y el lint (`bun run typecheck`, `bun run lint`);
+2. aplica las migraciones pendientes en D1 remoto (`bun run db:migrate`);
+3. despliega los tres workers con `cf deploy`.
+
+Necesita los secretos `CLOUDFLARE_API_TOKEN` y `CLOUDFLARE_ACCOUNT_ID`.
