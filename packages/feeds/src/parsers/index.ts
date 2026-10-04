@@ -1,14 +1,14 @@
 import type { Parser, RawItem, NormalizedArticle } from "../types";
 import { blogspotParser } from "./blogspot";
+import { gobpeParser } from "./gobpe";
 import { identityParser } from "./identity";
-import { pronabecParser } from "./pronabec";
 
 export type { RawItem, NormalizedArticle };
 
 const registry: Record<string, Parser> = {
   identity: identityParser,
   blogspot: blogspotParser,
-  pronabec: pronabecParser,
+  gobpe: gobpeParser,
 };
 
 export function parseItem(item: RawItem, parserKey: string | null): NormalizedArticle {
