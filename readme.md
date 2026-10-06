@@ -38,16 +38,9 @@ local database. See [Local development](docs/local-development.md) for details.
 - Four parsers: standard feeds, Blogger, `gob.pe` and Instagram.
 - A `/sources` page that shows the last successful check of each source, and the
   reason when a check fails.
-- Articles saved in the browser, and keyboard shortcuts.
+- Keyboard shortcuts and articles saved only in the browser. Saved articles do
+  not follow you to another browser or device.
 - A read-only API with two routes: `/api/articles` and `/api/sources`.
-
-## Non-goals
-
-- No accounts and no user data. Saved articles live in the browser's
-  `localStorage`.
-- No copy of the full article. The app stores the title, summary, author, image
-  and link. The reader opens the original.
-- No Instagram login. Every request is anonymous.
 
 ## Documentation
 
