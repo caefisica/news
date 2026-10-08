@@ -28,7 +28,7 @@ export function identityParser(item: RawItem): NormalizedArticle {
   const description = truncate(stripHtml(raw));
 
   const guid = item.guid ?? item.id ?? item.link ?? "";
-  const published = item.pubDate ?? item.published ?? item.updated ?? null;
+  const published = Date.parse(item.pubDate ?? item.published ?? item.updated ?? "");
 
   return {
     guid,
@@ -37,6 +37,6 @@ export function identityParser(item: RawItem): NormalizedArticle {
     description: description || null,
     author: item.author ?? item["dc:creator"] ?? null,
     image: null,
-    published_at: published ? Math.floor(new Date(published).getTime() / 1000) : null,
+    published_at: Number.isNaN(published) ? null : Math.floor(published / 1000),
   };
 }
