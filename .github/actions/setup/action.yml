@@ -8,7 +8,10 @@ runs:
       with:
         node-version: "24"
 
-    - uses: oven-sh/setup-bun@v2
+    # Use the Bun version pinned in mise.toml.
+    - uses: jdx/mise-action@v5
+      with:
+        install_args: bun
 
     - run: bun install --frozen-lockfile
       shell: bash

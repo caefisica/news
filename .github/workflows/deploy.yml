@@ -90,13 +90,16 @@ jobs:
           echo "migrate=$(jq -c 'index("migrations") != null' <<< "$changed")" >> "$GITHUB_OUTPUT"
 
   check:
-    name: typecheck and lint
+    name: typecheck, lint, format and test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
+      # The tests read the tsconfig that `typecheck` generates, so it runs first.
       - run: bun run typecheck
       - run: bun run lint
+      - run: bun run format:check
+      - run: bun run test
 
   # A skipped `migrate` job would skip `deploy` through `needs`. This condition
   # allows an intentional skip but not a failure.

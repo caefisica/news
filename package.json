@@ -24,7 +24,8 @@
     "test": "vitest run",
     "lint": "oxlint .",
     "lint:fix": "oxlint --fix .",
-    "format": "oxfmt ."
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check ."
   },
   "dependencies": {
     "@news-reader/feeds": "workspace:*",

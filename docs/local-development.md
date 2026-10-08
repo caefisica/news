@@ -48,6 +48,7 @@ run. It prints one line per source.
 | `bun run lint`             | Lints the code with oxlint.                                                 |
 | `bun run lint:fix`         | Applies oxlint's automatic fixes.                                           |
 | `bun run format`           | Formats the code and the Markdown with oxfmt.                               |
+| `bun run format:check`     | Fails when a file needs formatting. Writes nothing.                         |
 | `bun run ingest`           | Ingests every source into the local database.                               |
 | `bun run db:migrate:local` | Applies the pending migrations to the local database.                       |
 | `bun run db:migrate`       | Applies the pending migrations to the remote database.                      |
