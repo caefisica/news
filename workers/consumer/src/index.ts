@@ -8,9 +8,18 @@ interface QueueMessage {
 export default {
   async queue(batch: MessageBatch<QueueMessage>, env: Env): Promise<void> {
     for (const message of batch.messages) {
-      /* eslint-disable-next-line no-await-in-loop -- sequential per-message processing prevents overwhelming D1 */
-      await Promise.allSettled(message.body.sources.map((s) => processSource(s, env.DB)));
-      message.ack();
+      // Process queue messages sequentially to avoid overwhelming D1.
+      // oxlint-disable-next-line no-await-in-loop
+      const results = await Promise.allSettled(
+        message.body.sources.map((s) => processSource(s, env.DB)),
+      );
+      // Retry the whole message when a database write rejects. Stored articles
+      // are ignored when the message runs again.
+      if (results.some((result) => result.status === "rejected")) {
+        message.retry();
+      } else {
+        message.ack();
+      }
     }
   },
 };
