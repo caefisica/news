@@ -125,7 +125,8 @@ const emptyText = computed(() => {
     );
     parts.push(`${names.length === 1 ? "la fuente" : "las fuentes"} ${listFormat.format(names)}`);
   }
-  if (parts.length === 0) return "Las fuentes se actualizan cada 15 minutos.";
+  if (parts.length === 0)
+    return "Los feeds se actualizan cada 15 minutos y las cuentas de Instagram cada hora.";
   const hint =
     parts.length === 1 && q.value ? "Prueba con otras palabras." : "Prueba con menos filtros.";
   return `No hay artículos para ${listFormat.format(parts)}. ${hint}`;

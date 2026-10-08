@@ -18,9 +18,9 @@ useSeoMeta({
 
         <h2>Cómo funciona</h2>
         <p>
-          Un sistema automático revisa las fuentes cada 15 minutos, lee los artículos y los guarda
-          en una base de datos. La página principal los muestra directamente, sin que tu navegador
-          tenga que contactar cada fuente por separado.
+          Un sistema automático revisa los feeds cada 15 minutos y las cuentas de Instagram cada
+          hora, lee los artículos y los guarda en una base de datos. La página principal los muestra
+          directamente, sin que tu navegador tenga que contactar cada fuente por separado.
         </p>
 
         <h2>Las fuentes</h2>
