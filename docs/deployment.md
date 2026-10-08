@@ -1,31 +1,57 @@
 # Deployment
 
-[`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml) deploys on
-every push to `master`. Only one deployment runs at a time. A new one waits for
-the running one and does not cancel it.
+[`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml) runs on every
+push to `master` and deploys only what the push changed. Only one deployment
+runs at a time. A new one waits for the running one and does not cancel it.
 
 ```mermaid
 flowchart LR
+    X[changes<br/>which files changed] --> B
     A[check<br/>typecheck and lint] --> B[migrate<br/>remote D1]
     B --> C[deploy news]
     B --> D[deploy coordinator]
     B --> E[deploy consumer]
 ```
 
-| Job       | What it does                                                        |
-| --------- | ------------------------------------------------------------------- |
-| `check`   | Runs `bun run typecheck` and `bun run lint`.                        |
-| `migrate` | Runs `bun run db:migrate` and applies the pending migrations to D1. |
-| `deploy`  | Runs `bun run deploy` for each worker in the matrix.                |
+| Job       | What it does                                                         |
+| --------- | -------------------------------------------------------------------- |
+| `changes` | Compares the push with the last successful run and selects the jobs. |
+| `check`   | Runs `bun run typecheck` and `bun run lint`. Runs on every push.     |
+| `migrate` | Runs `bun run db:migrate` and applies the pending migrations to D1.  |
+| `deploy`  | Runs `bun run deploy` for each selected worker in the matrix.        |
 
-Each job waits for the previous one (`needs`). The `deploy` matrix has three
-workers. The failure of one does not cancel the others (`fail-fast: false`):
+`migrate` and `deploy` wait for `check`. `deploy` also waits for `migrate`, but
+runs when `migrate` is skipped. A failure in any earlier job stops them. The
+failure of one worker does not cancel the others (`fail-fast: false`).
 
-| Worker                    | Folder                |
-| ------------------------- | --------------------- |
-| `news`                    | `.`                   |
-| `news-reader-coordinator` | `workers/coordinator` |
-| `news-reader-consumer`    | `workers/consumer`    |
+## What each push runs
+
+The filter in the `changes` job lists the files each worker is built from:
+
+| Worker                    | Folder                | Also rebuilt when these change                                                      |
+| ------------------------- | --------------------- | ----------------------------------------------------------------------------------- |
+| `news`                    | `.`                   | `app`, `server` (except `server/db/migrations`), the root config files and manifest |
+| `news-reader-coordinator` | `workers/coordinator` | `packages/feeds`                                                                    |
+| `news-reader-consumer`    | `workers/consumer`    | `packages/feeds`                                                                    |
+
+`bun.lock`, `server/db/database.json` and the
+[setup action](../.github/actions/setup/action.yml) rebuild all three. `migrate`
+runs when `server/db/migrations`, `server/db/database.json` or
+`scripts/migrate.ts` change. A push that changes none of these (documentation,
+tests) runs `check` and nothing else.
+
+A worker that gains a workspace dependency needs that package added to its list
+in the filter.
+
+The push is compared with the head commit of the last successful run of the
+workflow on `master`, not with the commit before the push. A run that fails or
+that a newer push replaces in the queue is not successful, so the next run
+deploys its changes too. When no successful run exists, everything deploys.
+
+To deploy all three workers and apply the migrations without a change, run the
+workflow by hand from the Actions tab (`workflow_dispatch`). The `migrate` and
+`deploy` jobs run only on `master`, so a manual run on another branch does
+nothing but `check`.
 
 At the root, `bun run deploy` builds Nuxt and runs `cf deploy --prebuilt`. In
 the ingest workers, it runs `cf deploy`.
