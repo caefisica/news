@@ -23,14 +23,12 @@ docs/                   this documentation
 | `pages/`       | The routes `/` (articles), `/guardados`, `/sources` and `/about`.                       |
 | `components/`  | Interface components, such as the sidebar, the article list and detail, and the search. |
 | `composables/` | View filters, sources, saved articles and a media-query helper.                         |
-| `utils/`       | Dates, source colors and keyboard shortcuts.                                            |
+| `utils/`       | Dates, source colors and the guard that keeps shortcuts out of typing.                  |
 | `layouts/`     | The layout with the sidebar.                                                            |
 | `types/`       | The `Article` and `Source` types of the interface.                                      |
 | `assets/css/`  | Global styles and design tokens.                                                        |
 
-Saved articles are stored in the browser's `localStorage`, under the key
-`nr:saved-articles`
-([`use-saved-articles.ts`](../app/composables/use-saved-articles.ts)).
+[Web app](app.md) describes how these pieces behave.
 
 ## `packages/feeds/src/`
 
@@ -46,9 +44,16 @@ Saved articles are stored in the browser's `localStorage`, under the key
 | `types.ts`    | `Source`, `RawItem` and `NormalizedArticle`.                                |
 | `index.ts`    | The package's public exports.                                               |
 
-[Architecture](architecture.md) explains how these pieces fit together.
+The package also exposes `@news-reader/feeds/schedule` as a standalone import.
+The app uses it so the `/sources` page can show the cadence.
+[Architecture](architecture.md) explains how the other pieces fit together.
 
-## Root configuration
+## Configuration
+
+Each worker has its own `cloudflare.config.ts`: the root one for `news`, and one
+in [`workers/coordinator`](../workers/coordinator) and
+[`workers/consumer`](../workers/consumer). The coordinator configures the cron.
+The consumer configures the queue settings. These files configure the project:
 
 | File                                              | Purpose                                                      |
 | ------------------------------------------------- | ------------------------------------------------------------ |

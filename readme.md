@@ -1,18 +1,18 @@
-# RSS para físicxs
+# RSS para Físicos
 
 A news reader for physics students and researchers in Peru.
 
 [![deploy](https://github.com/caefisica/news/actions/workflows/deploy.yml/badge.svg)](https://github.com/caefisica/news/actions/workflows/deploy.yml)
 
-RSS para físicxs collects scholarships, calls for applications, events and
+RSS para Físicos collects scholarships, calls for applications, events and
 science news in one place. It reads RSS and Atom feeds from universities,
 journals, blogs and public portals. It also reads the Instagram accounts of
 institutions that publish only there. It stores each article in a database and
 shows it on a simple website with category and source filters, search and saved
 articles. The site is in Spanish.
 
-The whole project runs on Cloudflare: a Nuxt 4 app, two ingest workers, and a D1
-database.
+The whole project runs on Cloudflare: a Nuxt 4 app, two ingest workers, a queue
+and a D1 database.
 
 ## Quick start
 
@@ -44,19 +44,8 @@ local database. See [Local development](docs/local-development.md) for details.
 
 ## Documentation
 
-The full manual is in [docs](docs/readme.md):
-
-- [Architecture](docs/architecture.md): how an article reaches the database.
-- [Sources](docs/sources.md): source kinds, parsers and polling cadence.
-- [Adding a source](docs/adding-a-source.md): the migration and the tests.
-- [Database](docs/database.md): the tables and the migration rules.
-- [API](docs/api.md): the `/api/articles` and `/api/sources` routes.
-- [Local development](docs/local-development.md): commands and tests.
-- [Deployment](docs/deployment.md): the workflow and its secrets.
-- [Repository layout](docs/layout.md): what each folder holds.
-
-To contribute, read [CONTRIBUTING](.github/CONTRIBUTING.md). To suggest a
-source, open an
+The [manual](docs/readme.md) lists every document. To contribute, read
+[CONTRIBUTING](.github/CONTRIBUTING.md). To suggest a source, open an
 [issue](https://github.com/caefisica/news/issues/new?template=suggest-source.md).
 
 ## License
