@@ -18,7 +18,7 @@ no date come last. A page holds 20 articles.
 | `source_id` | Comma-separated source ids, such as `10,11`. An invalid id is dropped. With no valid id, the filter does not apply. |
 | `q`         | Text that must appear in the title or the summary (`LIKE`).                                                         |
 
-`q` does not escape `%` or `_`, which `LIKE` treats as wildcards.
+`q` matches literally: `%`, `_` and `\` stand for themselves, not for wildcards.
 
 ```sh
 curl 'http://localhost:8787/api/articles?source_id=8&page=1'

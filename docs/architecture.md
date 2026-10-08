@@ -46,8 +46,9 @@ folders.
 3. **Consumer.**
    [`workers/consumer/src/index.ts`](../workers/consumer/src/index.ts) receives
    one message per invocation (`maxBatchSize: 1`). It processes the message's
-   sources in parallel with `Promise.allSettled` and acknowledges the message
-   (`ack`) after every source finishes.
+   sources in parallel with `Promise.allSettled`, so one failing source does not
+   stop the others. It acknowledges the message (`ack`) when every source
+   resolves and asks the queue to deliver it again (`retry`) when one rejects.
 4. **Source.** [`processSource`](../packages/feeds/src/process.ts) does the work
    for one source:
 
@@ -67,6 +68,10 @@ folders.
    - A failed check is recorded instead. See [failures](sources.md#failures).
 
 A source that fails is logged as `fetch failed` and stored in `last_error`. A
-message that fails as a whole is retried up to the queue's `maxRetries` (3).
-`processSource` logs one line per source and the coordinator logs how many
-sources it dispatched. All three workers have Cloudflare observability enabled.
+source that cannot be downloaded or parsed resolves, so its message is
+acknowledged and the source waits for its next scheduled check. A failure to
+write to the database rejects, so the message is delivered again, up to the
+queue's `maxRetries` (3). The retry runs every source of the message again, and
+the articles already stored are ignored. `processSource` logs one line per
+source and the coordinator logs how many sources it dispatched. All three
+workers have Cloudflare observability enabled.
