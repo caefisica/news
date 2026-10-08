@@ -28,8 +28,9 @@ export default defineEventHandler(async (event) => {
   }
 
   if (search) {
-    sql += ` AND (a.title LIKE ? OR a.description LIKE ?)`;
-    bindings.push(`%${search}%`, `%${search}%`);
+    const pattern = `%${search.replaceAll(/[\\%_]/gu, "\\$&")}%`;
+    sql += ` AND (a.title LIKE ? ESCAPE '\\' OR a.description LIKE ? ESCAPE '\\')`;
+    bindings.push(pattern, pattern);
   }
 
   sql += ` ORDER BY a.published_at DESC LIMIT ? OFFSET ?`;
