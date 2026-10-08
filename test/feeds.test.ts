@@ -1,8 +1,9 @@
 import { createServer } from "node:http";
 import type { Server } from "node:http";
 import type { AddressInfo } from "node:net";
+import type { DatabaseSync } from "node:sqlite";
 
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 
 import { fetchFeed, parseItem, processSource } from "../packages/feeds/src/index";
 import type { Source } from "../packages/feeds/src/index";
@@ -46,11 +47,18 @@ const gobpe = `<?xml version="1.0" encoding="UTF-8"?>
 const challenge = `<html><head><title>Checking your browser before accessing. Just a moment...</title></head></html>`;
 const empty = `<?xml version="1.0"?><rss version="2.0"><channel><title>#PBV34</title></channel></rss>`;
 
+// `&#99999999999;` is not a code point, so the parser throws on it.
+const unparsable = `<?xml version="1.0"?>
+<rss version="2.0"><channel><title>Roto</title>
+  <item><title>Artículo</title><link>https://example.org/a</link><description>&#99999999999;</description></item>
+</channel></rss>`;
+
 const routes: Record<string, string> = {
   "/wordpress": wordpress,
   "/gobpe": gobpe,
   "/challenge": challenge,
   "/empty": empty,
+  "/unparsable": unparsable,
 };
 let server: Server;
 let base: string;
@@ -71,15 +79,22 @@ afterAll(() => {
   server.close();
 });
 
-function ingest(path: string) {
-  const db = migrate();
+function addSource(db: DatabaseSync, path: string) {
   db.prepare(
     "INSERT INTO sources (name, url, parser, category) VALUES ('Prueba', ?, 'gobpe', 'institucional')",
   ).run(`${base}${path}`);
-  const source = db
+  return db
     .prepare("SELECT id, name, url, kind, parser, category FROM sources WHERE name = 'Prueba'")
-    .get();
-  return processSource(source as unknown as Source, d1(db)).then(() => db);
+    .get() as unknown as Source;
+}
+
+function ingestInto(db: DatabaseSync, path: string) {
+  return processSource(addSource(db, path), d1(db));
+}
+
+function ingest(path: string) {
+  const db = migrate();
+  return ingestInto(db, path).then(() => db);
 }
 
 describe("gobpe parser", () => {
@@ -111,6 +126,63 @@ describe("gobpe parser", () => {
     );
 
     expect(collection?.guid).not.toBe("");
+  });
+});
+
+describe("identity parser", () => {
+  it("gives no date for a date that cannot be read", () => {
+    for (const field of ["pubDate", "published", "updated"]) {
+      const article = parseItem({ title: "T", link: "https://example.org", [field]: "ayer" }, null);
+
+      expect(article.published_at).toBeNull();
+    }
+  });
+});
+
+describe("processSource", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("logs how many articles were inserted, already stored and skipped", async () => {
+    const log = vi.spyOn(console, "log").mockImplementation(() => {});
+    const db = migrate();
+    const source = addSource(db, "/gobpe");
+
+    await processSource(source, d1(db));
+    await processSource(source, d1(db));
+
+    expect(log.mock.calls.map(([line]) => line)).toEqual([
+      "[Prueba] inserted 1, ignored 0 already stored, skipped 1 without guid, title or link",
+      "[Prueba] inserted 0, ignored 1 already stored, skipped 1 without guid, title or link",
+    ]);
+  });
+
+  it("logs and stores a failure to parse an item", async () => {
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    const db = await ingest("/unparsable");
+
+    expect(error).toHaveBeenCalledWith(expect.stringContaining("[Prueba] fetch failed"));
+    expect(
+      db.prepare("SELECT last_error, last_fetched_at FROM sources WHERE name = 'Prueba'").get(),
+    ).toEqual({
+      last_error: "No se pudo revisar la fuente por un error inesperado.",
+      last_fetched_at: null,
+    });
+  });
+
+  it("logs and stores a failure to save articles, then rejects so it can be retried", async () => {
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    const db = migrate();
+    db.exec("CREATE TRIGGER full BEFORE INSERT ON articles BEGIN SELECT RAISE(ABORT, 'full'); END");
+
+    await expect(ingestInto(db, "/gobpe")).rejects.toThrow("full");
+
+    expect(error).toHaveBeenCalledWith(expect.stringContaining("[Prueba] fetch failed"));
+    expect(db.prepare("SELECT last_error FROM sources WHERE name = 'Prueba'").get()).toEqual({
+      last_error: "No se pudo revisar la fuente por un error inesperado.",
+    });
   });
 });
 

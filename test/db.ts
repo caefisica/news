@@ -18,8 +18,8 @@ export function migrate(): DatabaseSync {
   return db;
 }
 
-// The part of D1Database that processSource uses, backed by a real SQLite
-// database.
+// This adapter covers the D1 methods used by the ingest code and API. A failing
+// statement rejects, as D1 does.
 class Statement {
   constructor(
     private readonly db: DatabaseSync,
@@ -32,12 +32,24 @@ class Statement {
   }
 
   exec() {
-    this.db.prepare(this.sql).run(...this.values);
+    const { changes } = this.db.prepare(this.sql).run(...this.values);
+    return { meta: { changes: Number(changes) } };
   }
 
   run() {
-    this.exec();
-    return Promise.resolve();
+    return this.settle(() => this.exec());
+  }
+
+  all() {
+    return this.settle(() => ({ results: this.db.prepare(this.sql).all(...this.values) }));
+  }
+
+  private settle<T>(work: () => T): Promise<T> {
+    try {
+      return Promise.resolve(work());
+    } catch (err) {
+      return Promise.reject(err);
+    }
   }
 }
 
@@ -45,10 +57,11 @@ export function d1(db: DatabaseSync): D1Database {
   return {
     prepare: (sql: string) => new Statement(db, sql),
     batch: (statements: Statement[]) => {
-      for (const statement of statements) {
-        statement.exec();
+      try {
+        return Promise.resolve(statements.map((statement) => statement.exec()));
+      } catch (err) {
+        return Promise.reject(err);
       }
-      return Promise.resolve();
     },
   } as unknown as D1Database;
 }
