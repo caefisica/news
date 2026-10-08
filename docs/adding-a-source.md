@@ -13,12 +13,9 @@ the parser already exists. Before you start, read the
 | `gob.pe` RSS search       | `feed`      | `gobpe`                |
 | Public Instagram account  | `instagram` | `instagram`            |
 
-`kind` is `feed` when you omit it. A null or unknown `parser` uses `identity`.
-[Sources](sources.md#parsers) describes each one.
-
-If the feed needs another parser, write one in
-[`packages/feeds/src/parsers/`](../packages/feeds/src/parsers) and register it
-in [`parsers/index.ts`](../packages/feeds/src/parsers/index.ts).
+[Sources](sources.md#parsers) describes each parser. If the feed needs another
+one, write it in [`packages/feeds/src/parsers/`](../packages/feeds/src/parsers)
+and register it in [`parsers/index.ts`](../packages/feeds/src/parsers/index.ts).
 
 ## 2. Write the migration
 
@@ -40,12 +37,8 @@ INSERT OR IGNORE INTO sources (name, url, kind, parser, category, language) VALU
   ('@account', 'https://www.instagram.com/account/', 'instagram', 'instagram', 'institucional', 'es');
 ```
 
-| Column     | What to put                                                                                                                 |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `name`     | The name the reader sees. For Instagram, `@account`.                                                                        |
-| `url`      | The feed or profile URL. It is unique. `INSERT OR IGNORE` skips it if it already exists.                                    |
-| `category` | `becas`, `institucional`, `divulgacion` or `ciencia`. Any other value shows as is, and the sidebar offers no filter for it. |
-| `language` | ISO 639-1 code of the source's language. It is `es` when you omit it.                                                       |
+[Database](database.md#sources) describes the columns. For an Instagram source,
+`name` is `@account`.
 
 ## 3. Update the tests
 
@@ -66,10 +59,25 @@ bun run ingest
 bun run test
 ```
 
-`ingest` prints one `upserted` line per source with the number of stored
-articles. When a source fails, it prints `fetch failed` instead and stores the
-reason in `sources.last_error`. You can see it on `/sources` when you open
-`bun run dev`. See [failures](sources.md#failures).
+`ingest` prints one line per source, `[name] upserted N/M articles`. `M` is the
+number of items in the response, and `N` is the number with a `guid`, a `title`
+and a `link`. `N` includes articles the database already had. When a source
+fails, `ingest` prints `fetch failed` instead and stores the reason in
+`sources.last_error`. You can see it on `/sources` when you open `bun run dev`.
+See [failures](sources.md#failures).
 
 When the change merges into `master`, [deployment](deployment.md) applies the
 migration to the remote database.
+
+## Disable or remove a source
+
+Use a new migration to disable or remove a source. Update the test lists from
+step 3 if the source is in them.
+
+```sql
+UPDATE sources SET enabled = 0 WHERE url = 'https://example.org/feed.xml';
+```
+
+A disabled source is no longer checked, and the API hides it and its articles.
+`DELETE FROM sources WHERE url = ...` also deletes the source's articles, which
+cascade with it.

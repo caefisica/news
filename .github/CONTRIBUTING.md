@@ -13,7 +13,8 @@ first start.
 
 ## Checks
 
-These checks are defined as scripts in [`package.json`](../package.json):
+Run these scripts from [`package.json`](../package.json) before you open a pull
+request:
 
 ```sh
 bun run typecheck
@@ -21,9 +22,6 @@ bun run lint
 bun run test
 bun run format
 ```
-
-The [deployment](../docs/deployment.md) workflow runs `typecheck` and `lint` on
-every push to `master`. It does not run the tests or the formatter.
 
 If you change the database, read the
 [migrations](../docs/database.md#migrations) section first.

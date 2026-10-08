@@ -59,10 +59,8 @@ run. It prints one line per source.
 ## Tooling
 
 The project uses Cloudflare's [`cf`](https://developers.cloudflare.com/cf/) CLI.
-Each worker has its own `cloudflare.config.ts`. The one at the root configures
-the web app, and the ones in [`workers/`](../workers) configure the ingest
-workers. The root [`wrangler.config.ts`](../wrangler.config.ts) says how to
-build Nuxt.
+Each worker has its own `cloudflare.config.ts`
+([layout](layout.md#configuration)).
 
 The types in `.cloudflare/types` are in `.gitignore`. `bun run typecheck`
 regenerates them before it checks.

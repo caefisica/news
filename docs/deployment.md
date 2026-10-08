@@ -7,7 +7,7 @@ runs at a time. A new one waits for the running one and does not cancel it.
 ```mermaid
 flowchart LR
     X[changes<br/>which files changed] --> B
-    A[check<br/>typecheck and lint] --> B[migrate<br/>remote D1]
+    A[check<br/>typecheck, lint, tests, format] --> B[migrate<br/>remote D1]
     B --> C[deploy news]
     B --> D[deploy coordinator]
     B --> E[deploy consumer]
@@ -16,7 +16,7 @@ flowchart LR
 | Job       | What it does                                                         |
 | --------- | -------------------------------------------------------------------- |
 | `changes` | Compares the push with the last successful run and selects the jobs. |
-| `check`   | Runs `bun run typecheck` and `bun run lint`. Runs on every push.     |
+| `check`   | Runs the typecheck, lint, tests and format check on every push.      |
 | `migrate` | Runs `bun run db:migrate` and applies the pending migrations to D1.  |
 | `deploy`  | Runs `bun run deploy` for each selected worker in the matrix.        |
 
@@ -26,22 +26,20 @@ failure of one worker does not cancel the others (`fail-fast: false`).
 
 ## What each push runs
 
-The filter in the `changes` job lists the files each worker is built from:
+The filter in the `changes` job lists the files each worker is built from. A
+worker is deployed when any of them changed:
 
-| Worker                    | Folder                | Also rebuilt when these change                                                      |
-| ------------------------- | --------------------- | ----------------------------------------------------------------------------------- |
-| `news`                    | `.`                   | `app`, `server` (except `server/db/migrations`), the root config files and manifest |
-| `news-reader-coordinator` | `workers/coordinator` | `packages/feeds`                                                                    |
-| `news-reader-consumer`    | `workers/consumer`    | `packages/feeds`                                                                    |
+- `news` (root): `app`, `server` except `server/db`, `packages/feeds`,
+  `package.json`, `tsconfig.json`, `nuxt.config.ts`, `cloudflare.config.ts` and
+  `wrangler.config.ts`.
+- `news-reader-coordinator`: `workers/coordinator` and `packages/feeds`.
+- `news-reader-consumer`: `workers/consumer` and `packages/feeds`.
 
 `bun.lock`, `server/db/database.json` and the
 [setup action](../.github/actions/setup/action.yml) rebuild all three. `migrate`
 runs when `server/db/migrations`, `server/db/database.json` or
 `scripts/migrate.ts` change. A push that changes none of these (documentation,
 tests) runs `check` and nothing else.
-
-A worker that gains a workspace dependency needs that package added to its list
-in the filter.
 
 The push is compared with the head commit of the last successful run of the
 workflow on `master`, not with the commit before the push. A run that fails or
@@ -57,7 +55,8 @@ At the root, `bun run deploy` builds Nuxt and runs `cf deploy --prebuilt`. In
 the ingest workers, it runs `cf deploy`.
 
 Every job prepares its environment with the local action
-[`.github/actions/setup`](../.github/actions/setup/action.yml): Node 24, Bun and
+[`.github/actions/setup`](../.github/actions/setup/action.yml): Node 24, the Bun
+version pinned in [`mise.toml`](../mise.toml) and
 `bun install --frozen-lockfile`.
 
 ## Secrets
@@ -76,10 +75,10 @@ Migrations run before the workers. See the
 workflow, run `bun run db:migrate` with the same two variables in the
 environment.
 
-## Other workflows
+## Other automation
 
 - [`analisis_codeql.yml`](../.github/workflows/analisis_codeql.yml) runs
   GitHub's code analysis on every pull request, on every push to `master`, on
-  Fridays at 11:00 and on demand.
+  Fridays at 11:00 UTC and on demand.
 - [`dependabot.yml`](../.github/dependabot.yml) checks the Bun dependencies and
   the GitHub Actions daily.

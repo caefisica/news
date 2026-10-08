@@ -5,7 +5,7 @@ articles. The third is the web app, which only reads.
 
 ```mermaid
 flowchart LR
-    A[cron<br/>every 15 min]
+    A[cron]
     B[coordinator]
     Q[queue<br/>feed-ingestion]
     C[consumer]
@@ -13,7 +13,7 @@ flowchart LR
     W[news<br/>Nuxt]
 
     A --> B
-    B -->|due sources,<br/>in groups of 40| Q
+    B -->|due sources| Q
     Q --> C
     C -->|fetch, parse, insert| D
     D --> W
@@ -24,6 +24,12 @@ flowchart LR
 | `news-reader-coordinator` | [`workers/coordinator`](../workers/coordinator) | Picks the sources that are due and queues them.       |
 | `news-reader-consumer`    | [`workers/consumer`](../workers/consumer)       | Fetches, parses and stores each source.               |
 | `news`                    | root                                            | Serves the interface and the read-only [API](api.md). |
+
+The ingest logic is in the package [`packages/feeds`](../packages/feeds)
+(`@news-reader/feeds`). The two workers only orchestrate it.
+[`scripts/ingest.ts`](../scripts/ingest.ts) uses the same package to ingest
+locally, without a queue. [Repository layout](layout.md) lists the other
+folders.
 
 ## The ingest flow
 
@@ -58,24 +64,9 @@ flowchart LR
      article is never updated.
    - When everything works, `last_fetched_at` takes the current time and
      `last_error` becomes `NULL`.
-   - When the download fails, `last_error` holds the reason. The articles and
-     `last_fetched_at` stay as they were.
+   - A failed check is recorded instead. See [failures](sources.md#failures).
 
-The consumer catches the error of each source, so a failure does not retry the
-message. The queue's retries (`maxRetries: 3`) apply only if the handler itself
-throws.
-
-## Where each piece lives
-
-The ingest logic is in the package [`packages/feeds`](../packages/feeds)
-(`@news-reader/feeds`). The two workers only orchestrate it. The script
-[`scripts/ingest.ts`](../scripts/ingest.ts) uses the same package to ingest
-locally, without a queue.
-
-The web app is in [`app/`](../app) and [`server/`](../server). Nuxt builds with
-the `cloudflare_module` preset. The routes in [`server/api`](../server/api) read
-the `DB` binding.
-
-The three workers share one D1 database. Its name and id are in
-[`server/db/database.json`](../server/db/database.json), and each
-`cloudflare.config.ts` reads them from there.
+A source that fails is logged as `fetch failed` and stored in `last_error`. A
+message that fails as a whole is retried up to the queue's `maxRetries` (3).
+`processSource` logs one line per source and the coordinator logs how many
+sources it dispatched. All three workers have Cloudflare observability enabled.

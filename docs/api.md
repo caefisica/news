@@ -9,14 +9,14 @@ Dates are Unix seconds.
 
 ## `GET /api/articles`
 
-Returns one page of articles, newest first (`published_at DESC`). A page holds
-20 articles.
+Returns one page of articles, newest first (`published_at DESC`). Articles with
+no date come last. A page holds 20 articles.
 
-| Parameter   | Meaning                                                                |
-| ----------- | ---------------------------------------------------------------------- |
-| `page`      | Page number, from 1. A missing or invalid value counts as 1.           |
-| `source_id` | Comma-separated source ids, such as `10,11`. An invalid id is dropped. |
-| `q`         | Text that must appear in the title or the summary (`LIKE`).            |
+| Parameter   | Meaning                                                                                                             |
+| ----------- | ------------------------------------------------------------------------------------------------------------------- |
+| `page`      | Page number, from 1. A missing or invalid value counts as 1.                                                        |
+| `source_id` | Comma-separated source ids, such as `10,11`. An invalid id is dropped. With no valid id, the filter does not apply. |
+| `q`         | Text that must appear in the title or the summary (`LIKE`).                                                         |
 
 `q` does not escape `%` or `_`, which `LIKE` treats as wildcards.
 
@@ -46,7 +46,8 @@ curl 'http://localhost:8787/api/articles?source_id=8&page=1'
 }
 ```
 
-The response has no total. A page with fewer than 20 articles is the last one.
+The response has no total. A page with fewer articles than `pageSize` is the
+last one.
 
 ## `GET /api/sources`
 

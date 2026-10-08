@@ -23,7 +23,8 @@ of 10 seconds. It fails in these cases:
 
 The XML is read with regular expressions and no external dependency. A response
 containing `<entry` is an Atom feed. Otherwise the reader takes the RSS `<item>`
-elements.
+elements. The item's `guid` is its `<guid>`, else its `<id>`, else its link.
+That value, with the source, is the article's unique key.
 
 ## Instagram accounts
 
@@ -69,7 +70,8 @@ Every parser returns a normalized article (`guid`, `title`, `link`,
 
 - `identity` strips HTML tags from the summary. A summary longer than 300
   characters is cut there and ends with `…`. The date comes from `pubDate`,
-  `published` or `updated`, in Unix seconds. It sets no image.
+  `published` or `updated`, in Unix seconds. When the item has none, the date is
+  `NULL`. It sets no image.
 - `gobpe` drops the items without a `pubDate`, because they are collection
   pages. It gives them an empty `guid`, so they are not stored. It uses the
   `guid` as the link when that is a URL, because the feed's `<link>` points to
@@ -80,7 +82,7 @@ Every parser returns a normalized article (`guid`, `title`, `link`,
   - At the last sentence end within the first 120 characters, if at least 40
     characters come before it. A sentence end is `.`, `!`, `?` or `…` followed
     by whitespace. The title keeps that mark and gets no `…`. A full stop after
-    an abbreviation such as `Dr.` or `Ing.` does not count.
+    one to three letters, such as `Dr.` or `Ing.`, does not count.
   - Otherwise at the last space, with trailing spaces, commas, semicolons,
     colons and dashes removed. The title then ends with `…`. A line with no
     space is cut at 120 characters.
@@ -90,7 +92,7 @@ Every parser returns a normalized article (`guid`, `title`, `link`,
 
 ## Polling cadence
 
-The coordinator's cron runs every 15 minutes.
+The coordinator runs every 15 minutes (see [architecture](architecture.md)).
 [`schedule.ts`](../packages/feeds/src/schedule.ts) decides which sources are due
 on each run:
 
@@ -106,20 +108,15 @@ are checked less often.
 due when that interval number is divisible by the number of intervals in its
 period: 1 for a feed and 4 for Instagram. So accounts are checked on the hour
 (UTC). `dueSources` keeps no state. A failed check is not retried until the
-source's next turn.
-
-Two constants must stay in step:
-
-- `CRON_INTERVAL_MINUTES` must equal the coordinator's cron.
-- `INSTAGRAM_INTERVAL_MINUTES` must be a multiple of `CRON_INTERVAL_MINUTES`.
-
-`bun run ingest` ignores the cadence. It checks every enabled source.
+source's next scheduled check. The constants that set the periods are in
+`schedule.ts`, with the rules they must follow.
 
 ## Failures
 
-A failed download deletes no articles and does not count as a successful check.
-[`process.ts`](../packages/feeds/src/process.ts) stores the reason in
-`sources.last_error` and leaves `last_fetched_at` at the last successful check.
+A failed check deletes no articles and does not count as a successful check.
+[`process.ts`](../packages/feeds/src/process.ts) logs `fetch failed` with the
+reason, stores the reason in `sources.last_error` and leaves `last_fetched_at`
+at the last successful check.
 
 The reasons are Spanish messages for the reader, thrown as `SourceError`
 ([`errors.ts`](../packages/feeds/src/errors.ts)). Any other error stores
@@ -141,9 +138,6 @@ The reasons are Spanish messages for the reader, thrown as `SourceError`
   format.
 - Instagram, in the posts: the account returns no posts of its own, a post has
   no code or no image, or a post code is not a valid shortcode.
-
-A feed that does not answer or that times out stores the generic message,
-because `fetch` throws an ordinary error there.
 
 The `/sources` page ([`app/pages/sources.vue`](../app/pages/sources.vue)) lists
 the enabled sources with their category, their article count and the last
