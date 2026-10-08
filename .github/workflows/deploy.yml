@@ -3,6 +3,8 @@ name: deploy
 on:
   push:
     branches: [master]
+  # Allow a manual run to redeploy workers and apply migrations.
+  workflow_dispatch:
 
 # Queue deployments so a newer push does not cancel an in-progress deploy.
 concurrency:
@@ -16,6 +18,77 @@ env:
   CF_SEND_TELEMETRY: "false"
 
 jobs:
+  changes:
+    name: changed workers
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+    outputs:
+      workers: ${{ steps.select.outputs.workers }}
+      migrate: ${{ steps.select.outputs.migrate }}
+    steps:
+      - uses: actions/checkout@v7
+      # A push is compared with the head of the last successful run, so a run a newer
+      # one superseded still deploys its changes. With no such run, everything deploys.
+      - id: base
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sha=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy.yml/runs?status=success&branch=master&per_page=1" \
+            --jq '.workflow_runs[0].head_sha // empty')
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+      - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
+        id: filter
+        if: github.event_name == 'push' && steps.base.outputs.sha != ''
+        with:
+          base: ${{ steps.base.outputs.sha }}
+          # Each worker lists the files its bundle is built from. A worker that
+          # gains a workspace dependency must list that package here.
+          filters: |
+            shared: &shared
+              - bun.lock
+              - server/db/database.json
+              - .github/actions/setup/**
+            news:
+              - *shared
+              - package.json
+              - tsconfig.json
+              - nuxt.config.ts
+              - cloudflare.config.ts
+              - wrangler.config.ts
+              - app/**
+              - server/*
+              - server/!(db)/**
+              - packages/feeds/**
+            news-reader-coordinator:
+              - *shared
+              - workers/coordinator/**
+              - packages/feeds/**
+            news-reader-consumer:
+              - *shared
+              - workers/consumer/**
+              - packages/feeds/**
+            migrations:
+              - server/db/migrations/**
+              - server/db/database.json
+              - scripts/migrate.ts
+      - id: select
+        env:
+          CHANGED: ${{ steps.filter.outputs.changes }}
+        run: |
+          all='["news","news-reader-coordinator","news-reader-consumer","migrations"]'
+          changed=${CHANGED:-$all}
+          workers='[
+            {"worker": "news", "directory": "."},
+            {"worker": "news-reader-coordinator", "directory": "workers/coordinator"},
+            {"worker": "news-reader-consumer", "directory": "workers/consumer"}
+          ]'
+          echo "workers=$(jq -c --argjson changed "$changed" \
+            "map(select(.worker as \$w | \$changed | index(\$w)))" <<< "$workers")" >> "$GITHUB_OUTPUT"
+          echo "migrate=$(jq -c 'index("migrations") != null' <<< "$changed")" >> "$GITHUB_OUTPUT"
+
   check:
     name: typecheck and lint
     runs-on: ubuntu-latest
@@ -25,9 +98,12 @@ jobs:
       - run: bun run typecheck
       - run: bun run lint
 
+  # A skipped `migrate` job would skip `deploy` through `needs`. This condition
+  # allows an intentional skip but not a failure.
   migrate:
     name: d1 migrations
-    needs: check
+    needs: [changes, check]
+    if: ${{ github.ref == 'refs/heads/master' && !failure() && !cancelled() && needs.changes.outputs.migrate == 'true' }}
     runs-on: ubuntu-latest
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -39,18 +115,13 @@ jobs:
 
   deploy:
     name: deploy ${{ matrix.worker }}
-    needs: migrate
+    needs: [changes, check, migrate]
+    if: ${{ github.ref == 'refs/heads/master' && !failure() && !cancelled() && needs.changes.outputs.workers != '[]' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - worker: news
-            directory: .
-          - worker: news-reader-coordinator
-            directory: workers/coordinator
-          - worker: news-reader-consumer
-            directory: workers/consumer
+        include: ${{ fromJSON(needs.changes.outputs.workers) }}
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
