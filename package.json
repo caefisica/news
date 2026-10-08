@@ -30,7 +30,7 @@
   "dependencies": {
     "@news-reader/feeds": "workspace:*",
     "@nuxt/icon": "^2.5.1",
-    "nuxt": "^4.5.2"
+    "nuxt": "^4.6.0"
   },
   "devDependencies": {
     "@nuxt/fonts": "^0.14.0",
