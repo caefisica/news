@@ -55,13 +55,13 @@ in [`workers/coordinator`](../workers/coordinator) and
 [`workers/consumer`](../workers/consumer). The coordinator configures the cron.
 The consumer configures the queue settings. These files configure the project:
 
-| File                                              | Purpose                                                      |
-| ------------------------------------------------- | ------------------------------------------------------------ |
-| [`cloudflare.config.ts`](../cloudflare.config.ts) | The `news` worker: bindings `ASSETS`, `DB` and `FEED_QUEUE`. |
-| [`wrangler.config.ts`](../wrangler.config.ts)     | How to build Nuxt for `cf-wrangler dev`.                     |
-| [`nuxt.config.ts`](../nuxt.config.ts)             | Modules, the `cloudflare_module` preset and metadata.        |
-| [`oxlint.config.ts`](../oxlint.config.ts)         | Lint rules.                                                  |
-| [`oxfmt.config.ts`](../oxfmt.config.ts)           | Code and Markdown formatting.                                |
-| [`vitest.config.ts`](../vitest.config.ts)         | Which files are tests.                                       |
-| [`mise.toml`](../mise.toml)                       | The Bun version.                                             |
-| [`tsconfig.json`](../tsconfig.json)               | Extends the config that Nuxt generates.                      |
+| File                                              | Purpose                                               |
+| ------------------------------------------------- | ----------------------------------------------------- |
+| [`cloudflare.config.ts`](../cloudflare.config.ts) | The `news` worker: bindings `ASSETS` and `DB`.        |
+| [`wrangler.config.ts`](../wrangler.config.ts)     | How to build Nuxt for `cf-wrangler dev`.              |
+| [`nuxt.config.ts`](../nuxt.config.ts)             | Modules, the `cloudflare_module` preset and metadata. |
+| [`oxlint.config.ts`](../oxlint.config.ts)         | Lint rules.                                           |
+| [`oxfmt.config.ts`](../oxfmt.config.ts)           | Code and Markdown formatting.                         |
+| [`vitest.config.ts`](../vitest.config.ts)         | Which files are tests.                                |
+| [`mise.toml`](../mise.toml)                       | The Bun version.                                      |
+| [`tsconfig.json`](../tsconfig.json)               | Extends the config that Nuxt generates.               |

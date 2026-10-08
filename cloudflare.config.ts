@@ -16,9 +16,6 @@ export default defineConfig({
     env: {
       ASSETS: bindings.assets(),
       DB: bindings.d1(database),
-      FEED_QUEUE: bindings.queue({
-        name: "feed-ingestion",
-      }),
     },
   },
 });
