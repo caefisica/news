@@ -28,7 +28,7 @@ jobs:
       workers: ${{ steps.select.outputs.workers }}
       migrate: ${{ steps.select.outputs.migrate }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       # A push is compared with the head of the last successful run, so a run a newer
       # one superseded still deploys its changes. With no such run, everything deploys.
       - id: base
@@ -93,7 +93,7 @@ jobs:
     name: typecheck, lint, format and test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - uses: ./.github/actions/setup
       # The tests read the tsconfig that `typecheck` generates, so it runs first.
       - run: bun run typecheck
@@ -112,7 +112,7 @@ jobs:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - uses: ./.github/actions/setup
       - run: bun run db:migrate
 
@@ -129,7 +129,7 @@ jobs:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - uses: ./.github/actions/setup
       - run: bun run deploy
         working-directory: ${{ matrix.directory }}
