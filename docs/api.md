@@ -12,11 +12,11 @@ Dates are Unix seconds.
 Returns one page of articles, newest first (`published_at DESC`). Articles with
 no date come last. A page holds 20 articles.
 
-| Parameter   | Meaning                                                                                                             |
-| ----------- | ------------------------------------------------------------------------------------------------------------------- |
-| `page`      | Page number, from 1. A missing or invalid value counts as 1.                                                        |
-| `source_id` | Comma-separated source ids, such as `10,11`. An invalid id is dropped. With no valid id, the filter does not apply. |
-| `q`         | Text that must appear in the title or the summary (`LIKE`).                                                         |
+| Parameter   | Meaning                                                                                                                                       |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `page`      | Page number, from 1. A missing value, text, or a number below 1 counts as 1.                                                                  |
+| `source_id` | Comma-separated source ids, such as `10,11`. A value that is not a number, or is `0`, is dropped. With no id left, the filter does not apply. |
+| `q`         | Text that must appear in the title or the summary (`LIKE`).                                                                                   |
 
 `q` matches literally: `%`, `_` and `\` stand for themselves, not for wildcards.
 

@@ -107,9 +107,10 @@ are checked less often.
 `dueSources` divides the scheduled time into 15-minute intervals. A source is
 due when that interval number is divisible by the number of intervals in its
 period: 1 for a feed and 4 for Instagram. So accounts are checked on the hour
-(UTC). `dueSources` keeps no state. A source that cannot be downloaded or parsed
-is not checked again until its next scheduled check. A failed write to the
-database is [retried by the queue](architecture.md#the-ingest-flow). The
+(UTC). `dueSources` keeps no state, so a source that cannot be downloaded or
+parsed is checked again when it is next due: 15 minutes later for a feed, on the
+next hour for Instagram. A failed write to the database is the exception. The
+queue [retries](architecture.md#the-ingest-flow) the whole message at once. The
 constants that set the periods are in `schedule.ts`, with the rules they must
 follow.
 

@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- [Bun](https://bun.sh) 1.4.2, the version in [`mise.toml`](../mise.toml). With
+- [Bun](https://bun.sh), the version in [`mise.toml`](../mise.toml). With
   [mise](https://mise.jdx.dev) installed, `mise install` downloads it.
 - Node 24 or later (`engines` in [`package.json`](../package.json)). The tests
   use `node:sqlite`.
@@ -11,13 +11,7 @@ You do not need a Cloudflare account to work locally.
 
 ## First start
 
-```sh
-bun install
-bun run db:migrate:local
-bun run ingest
-bun run dev
-```
-
+Run the commands of the readme's [quick start](../readme.md#quick-start).
 `db:migrate:local` creates the local database and its sources. `ingest`
 downloads the articles of every source. `dev` builds the app and serves it at
 <http://localhost:8787>.
@@ -60,9 +54,6 @@ run. It prints one line per source.
 ## Tooling
 
 The project uses Cloudflare's [`cf`](https://developers.cloudflare.com/cf/) CLI.
-Each worker has its own `cloudflare.config.ts`
-([layout](layout.md#configuration)).
-
 The types in `.cloudflare/types` are in `.gitignore`. `bun run typecheck`
 regenerates them before it checks.
 

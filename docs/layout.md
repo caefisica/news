@@ -6,14 +6,14 @@ The repository is a Bun workspace (`workspaces` in
 ```text
 app/                    Nuxt 4 interface
 server/api/             API routes
-server/db/              migrations and D1 database data
+server/db/              migrations and the D1 database name and id
 packages/feeds/         shared ingest logic (@news-reader/feeds)
 workers/coordinator/    cron that queues the sources that are due
 workers/consumer/       queue that fetches and stores each source
 scripts/                migration and ingest from the terminal
 test/                   Vitest tests
 docs/                   this documentation
-.github/                workflows, issue template and CONTRIBUTING
+.github/                workflows, actions, issue template and CONTRIBUTING
 ```
 
 ## `app/`

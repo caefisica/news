@@ -8,7 +8,7 @@ RSS para Físicos collects scholarships, calls for applications, events and
 science news in one place. It reads RSS and Atom feeds from universities,
 journals, blogs and public portals. It also reads the Instagram accounts of
 institutions that publish only there. It stores each article in a database and
-shows it on a simple website with category and source filters, search and saved
+shows it on a website with category and source filters, search and saved
 articles. The site is in Spanish.
 
 The whole project runs on Cloudflare: a Nuxt 4 app, two ingest workers, a queue
@@ -16,7 +16,8 @@ and a D1 database.
 
 ## Quick start
 
-You need [Bun](https://bun.sh) 1.4.2 and Node 24 or later.
+You need [Bun](https://bun.sh), the version in [`mise.toml`](mise.toml), and
+Node 24 or later.
 
 ```sh
 git clone https://github.com/caefisica/news.git
@@ -33,9 +34,8 @@ local database. See [Local development](docs/local-development.md) for details.
 
 ## Features
 
-- RSS and Atom feeds and public Instagram accounts as sources. Each source has
-  an optional category and a language.
-- Four parsers: standard feeds, Blogger, `gob.pe` and Instagram.
+- RSS and Atom feeds (including Blogger and `gob.pe`) and public Instagram
+  accounts as sources. Each source has an optional category and a language.
 - A `/sources` page that shows the last successful check of each source, and the
   reason when a check fails.
 - Keyboard shortcuts and articles saved only in the browser. Saved articles do

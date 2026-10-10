@@ -67,11 +67,11 @@ folders.
      `last_error` becomes `NULL`.
    - A failed check is recorded instead. See [failures](sources.md#failures).
 
-A source that fails is logged as `fetch failed` and stored in `last_error`. A
-source that cannot be downloaded or parsed resolves, so its message is
-acknowledged and the source waits for its next scheduled check. A failure to
-write to the database rejects, so the message is delivered again, up to the
-queue's `maxRetries` (3). The retry runs every source of the message again, and
-the articles already stored are ignored. `processSource` logs one line per
-source and the coordinator logs how many sources it dispatched. All three
-workers have Cloudflare observability enabled.
+A source that cannot be downloaded or parsed resolves. When no source of the
+message rejects, the message is acknowledged and that source waits for its next
+scheduled check. A failure to write to the database rejects, so the message is
+delivered again, up to the queue's `maxRetries` (3). The retry runs every source
+of the message again, including those that failed to download, and the articles
+already stored are ignored. `processSource` logs one line per source and the
+coordinator logs how many sources it dispatched. All three workers have
+Cloudflare observability enabled.
