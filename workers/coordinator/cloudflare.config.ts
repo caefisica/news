@@ -5,7 +5,7 @@ import database from "../../server/db/database.json" with { type: "json" };
 export default defineConfig({
   worker: {
     name: "news-reader-coordinator",
-    compatibilityDate: "2026-09-25",
+    compatibilityDate: "2026-10-12",
     entrypoint: "src/index.ts",
     observability: {
       enabled: true,

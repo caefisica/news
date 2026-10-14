@@ -5,7 +5,7 @@ import database from "./server/db/database.json" with { type: "json" };
 export default defineConfig({
   worker: {
     name: "news",
-    compatibilityDate: "2026-09-25",
+    compatibilityDate: "2026-10-12",
     // Nitro's cloudflare_module preset uses unenv and requires the v1 compatibility layer.
     compatibilityFlags: ["nodejs_compat", "no_nodejs_compat_v2"],
     entrypoint: "./.output/server/index.mjs",
