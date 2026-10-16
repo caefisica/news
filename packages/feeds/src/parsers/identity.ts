@@ -1,22 +1,46 @@
+import { decodeNumericReference } from "../entities";
 import type { RawItem, NormalizedArticle } from "../types";
 
 function decodeEntities(text: string): string {
   return text
-    .replaceAll("&amp;", "&")
     .replaceAll("&lt;", "<")
     .replaceAll("&gt;", ">")
     .replaceAll("&quot;", '"')
-    .replaceAll(/&apos;|&#39;/gu, "'")
+    .replaceAll("&apos;", "'")
     .replaceAll("&nbsp;", " ")
-    .replaceAll(/&#(\d+);/gu, (_, code) => String.fromCodePoint(Number(code)))
-    .replaceAll(/&#x([0-9a-f]+);/giu, (_, hex) => String.fromCodePoint(parseInt(hex, 16)));
+    .replaceAll(/&#(?:\d+|x[0-9a-f]+);/giu, decodeNumericReference)
+    .replaceAll("&amp;", "&");
+}
+
+function isTagStart(character: string | undefined): boolean {
+  if (character === "/" || character === "!" || character === "?") {
+    return true;
+  }
+
+  const code = character?.codePointAt(0) ?? 0;
+  return (code >= 65 && code <= 90) || (code >= 97 && code <= 122);
 }
 
 function stripHtml(html: string): string {
-  return decodeEntities(html)
-    .replaceAll(/<[^>]+>/gu, "")
-    .replaceAll(/\s+/gu, " ")
-    .trim();
+  const text: string[] = [];
+
+  for (let index = 0; index < html.length; index += 1) {
+    if (html[index] === "<" && isTagStart(html[index + 1])) {
+      const end = html.indexOf(">", index + 2);
+      if (end !== -1) {
+        index = end;
+        continue;
+      }
+    }
+
+    text.push(html[index]);
+  }
+
+  return text.join("").replaceAll(/\s+/gu, " ").trim();
+}
+
+function cleanText(text: string): string {
+  return decodeEntities(stripHtml(text));
 }
 
 function truncate(text: string, max = 300): string {
@@ -25,14 +49,14 @@ function truncate(text: string, max = 300): string {
 
 export function identityParser(item: RawItem): NormalizedArticle {
   const raw = item.description ?? item.summary ?? item.content ?? "";
-  const description = truncate(stripHtml(raw));
+  const description = truncate(cleanText(raw));
 
   const guid = item.guid ?? item.id ?? item.link ?? "";
   const published = Date.parse(item.pubDate ?? item.published ?? item.updated ?? "");
 
   return {
     guid,
-    title: stripHtml(item.title ?? "").trim(),
+    title: cleanText(item.title ?? "").trim(),
     link: item.link ?? "",
     description: description || null,
     author: item.author ?? item["dc:creator"] ?? null,
