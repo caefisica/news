@@ -15,16 +15,9 @@ const feed = (title: string) => `<?xml version="1.0"?>
     <pubDate>Thu, 01 Oct 2026 13:05:59 +0000</pubDate></item>
 </channel></rss>`;
 
-// `&#99999999999;` is not a code point, so the parser throws on it.
-const unparsable = `<?xml version="1.0"?>
-<rss version="2.0"><channel><title>Roto</title>
-  <item><title>Roto</title><link>https://example.org/roto</link><description>&#99999999999;</description></item>
-</channel></rss>`;
-
 const routes: Record<string, string> = {
   "/a": feed("a"),
   "/b": feed("b"),
-  "/unparsable": unparsable,
 };
 let server: Server;
 let base: string;
@@ -105,17 +98,17 @@ describe("queue handler", () => {
 });
 
 describe("queue handler with a failing source", () => {
-  it("records a source whose items cannot be parsed and still stores the others", async () => {
+  it("records a source that fails to fetch and still stores the others", async () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
     const db = migrate();
-    const sources = [addSource(db, "Roto", "/unparsable"), addSource(db, "B", "/b")];
+    const sources = [addSource(db, "Roto", "/missing"), addSource(db, "B", "/b")];
 
     // Parse failures resolve, so the message is acknowledged.
     expect(await deliver(db, sources)).toEqual(["ack"]);
 
     expect(stored(db, "B")).toEqual([{ title: "b" }]);
     expect(db.prepare("SELECT last_error FROM sources WHERE name = 'Roto'").get()).toEqual({
-      last_error: "No se pudo revisar la fuente por un error inesperado.",
+      last_error: "La fuente respondió con el código 404.",
     });
   });
 

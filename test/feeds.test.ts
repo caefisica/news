@@ -44,21 +44,138 @@ const gobpe = `<?xml version="1.0" encoding="UTF-8"?>
   </channel>
 </rss>`;
 
+const longLessThanRun = "<".repeat(100_000);
+const entityBoundaries = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <item>
+      <title>XML entities</title>
+      <link>https://example.org/xml?a=1&amp;b=2</link>
+      <guid>https://example.org/xml?id=1&amp;view=full</guid>
+      <author>Ana &amp; José</author>
+      <description>&amp;lt;em&amp;gt;literal&amp;lt;/em&amp;gt;</description>
+    </item>
+    <item>
+      <title>CDATA entities</title>
+      <link>https://example.org/cdata</link>
+      <description><![CDATA[&amp;lt;em&amp;gt;literal&amp;lt;/em&amp;gt;]]></description>
+    </item>
+    <item>
+      <title>Comparison</title>
+      <link>https://example.org/comparison</link>
+      <description>price &lt; 3 and rising</description>
+    </item>
+    <item>
+      <title>Hostile markup</title>
+      <link>https://example.org/hostile</link>
+      <description><![CDATA[<scr<script>alert(1)</script>]]></description>
+    </item>
+    <item>
+      <title>Long hostile markup</title>
+      <link>https://example.org/long-hostile</link>
+      <description><![CDATA[${longLessThanRun}script>alert(1)</script>]]></description>
+    </item>
+    <item>
+      <title>Mixed text and CDATA</title>
+      <link>https://example.org/mixed</link>
+      <description>pre <![CDATA[<b>x</b>]]> post</description>
+    </item>
+  </channel>
+</rss>`;
+
+const numericReferences = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <item>
+      <title>Bad &#99999999; and &#x110000;</title>
+      <link>https://example.org/bad-numeric</link>
+    </item>
+    <item>
+      <title>Valid &#8230;</title>
+      <link>https://example.org/valid-numeric</link>
+    </item>
+  </channel>
+</rss>`;
+
+const malformedItems = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <item>
+      <title>First valid item</title>
+      <link>https://example.org/first</link>
+    </item>
+    <item>
+      <unsupported-field><nested>cannot map</nested></unsupported-field>
+    </item>
+    <item>
+      <title>Last valid item</title>
+      <link>https://example.org/last</link>
+    </item>
+  </channel>
+</rss>`;
+
+const cdataWhitespace = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <item>
+      <title>CDATA whitespace</title>
+      <description>
+        <![CDATA[
+          &amp;lt;em&amp;gt;literal&amp;lt;/em&amp;gt;
+        ]]>
+      </description>
+    </item>
+  </channel>
+</rss>`;
+
+const doctypeEntities = `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rss [
+  <!-- [ apostrophe ' and > must stay inside this comment -->
+  <!ENTITY declared "<b>must stay literal</b>">
+]>
+<rss version="2.0">
+  <channel>
+    <item>
+      <title>&declared;</title>
+      <link>https://example.org/doctype</link>
+    </item>
+  </channel>
+</rss>`;
+
+const doctypeFakeItem = `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rss [<!ENTITY fake "<item><title>Fake item</title><link>https://example.org/fake</link></item>">]>
+<rss version="2.0">
+  <channel>
+    <item>
+      <title>Real item</title>
+      <link>https://example.org/real</link>
+    </item>
+  </channel>
+</rss>`;
+
 const challenge = `<html><head><title>Checking your browser before accessing. Just a moment...</title></head></html>`;
 const empty = `<?xml version="1.0"?><rss version="2.0"><channel><title>#PBV34</title></channel></rss>`;
-
-// `&#99999999999;` is not a code point, so the parser throws on it.
-const unparsable = `<?xml version="1.0"?>
-<rss version="2.0"><channel><title>Roto</title>
-  <item><title>Artículo</title><link>https://example.org/a</link><description>&#99999999999;</description></item>
-</channel></rss>`;
+const atom = `<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <entry>
+    <title>Atom entry</title>
+    <id>atom-entry</id>
+    <link href="https://example.org/atom-entry" />
+  </entry>
+</feed>`;
 
 const routes: Record<string, string> = {
   "/wordpress": wordpress,
   "/gobpe": gobpe,
+  "/entity-boundaries": entityBoundaries,
+  "/numeric-references": numericReferences,
+  "/malformed-items": malformedItems,
+  "/cdata-whitespace": cdataWhitespace,
+  "/doctype-entities": doctypeEntities,
+  "/doctype-fake-item": doctypeFakeItem,
+  "/atom": atom,
   "/challenge": challenge,
   "/empty": empty,
-  "/unparsable": unparsable,
 };
 let server: Server;
 let base: string;
@@ -137,6 +254,74 @@ describe("identity parser", () => {
       expect(article.published_at).toBeNull();
     }
   });
+
+  it("decodes XML and HTML entities at their separate boundaries", async () => {
+    const articles = (await fetchFeed(`${base}/entity-boundaries`)).map((item) =>
+      parseItem(item, "identity"),
+    );
+
+    expect(articles.map((article) => article.description)).toEqual([
+      "<em>literal</em>",
+      "&lt;em&gt;literal&lt;/em&gt;",
+      "price < 3 and rising",
+      "alert(1)",
+      `${"<".repeat(300)}…`,
+      "pre x post",
+    ]);
+    expect(articles[0]?.link).toBe("https://example.org/xml?a=1&b=2");
+    expect(articles[0]?.guid).toBe("https://example.org/xml?id=1&view=full");
+    expect(articles[0]?.author).toBe("Ana & José");
+  });
+
+  it("keeps invalid numeric references literal", async () => {
+    const articles = (await fetchFeed(`${base}/numeric-references`)).map((item) =>
+      parseItem(item, "identity"),
+    );
+
+    expect(articles).toHaveLength(2);
+    expect(articles.map((article) => article.title)).toEqual([
+      "Bad &#99999999; and &#x110000;",
+      "Valid …",
+    ]);
+  });
+
+  it("keeps CDATA literal when whitespace surrounds the section", async () => {
+    const [article] = (await fetchFeed(`${base}/cdata-whitespace`)).map((item) =>
+      parseItem(item, "identity"),
+    );
+
+    expect(article?.description).toBe("&lt;em&gt;literal&lt;/em&gt;");
+  });
+
+  it("does not expand entities declared in a DOCTYPE", async () => {
+    const [article] = (await fetchFeed(`${base}/doctype-entities`)).map((item) =>
+      parseItem(item, "identity"),
+    );
+
+    expect(article?.title).toBe("&declared;");
+  });
+
+  it("keeps Atom links that are stored as href attributes", async () => {
+    const [item] = await fetchFeed(`${base}/atom`);
+
+    expect(item).toMatchObject({
+      guid: "atom-entry",
+      link: "https://example.org/atom-entry",
+      title: "Atom entry",
+    });
+  });
+
+  it("keeps valid siblings when one item cannot be mapped", async () => {
+    const items = await fetchFeed(`${base}/malformed-items`);
+
+    expect(items.map((item) => item.title)).toEqual(["First valid item", "Last valid item"]);
+  });
+
+  it("does not create items from entities declared in a DOCTYPE", async () => {
+    const items = await fetchFeed(`${base}/doctype-fake-item`);
+
+    expect(items.map((item) => item.title)).toEqual(["Real item"]);
+  });
 });
 
 describe("processSource", () => {
@@ -158,16 +343,16 @@ describe("processSource", () => {
     ]);
   });
 
-  it("logs and stores a failure to parse an item", async () => {
+  it("logs and stores a fetch failure", async () => {
     const error = vi.spyOn(console, "error").mockImplementation(() => {});
 
-    const db = await ingest("/unparsable");
+    const db = await ingest("/missing");
 
     expect(error).toHaveBeenCalledWith(expect.stringContaining("[Prueba] fetch failed"));
     expect(
       db.prepare("SELECT last_error, last_fetched_at FROM sources WHERE name = 'Prueba'").get(),
     ).toEqual({
-      last_error: "No se pudo revisar la fuente por un error inesperado.",
+      last_error: "La fuente respondió con el código 404.",
       last_fetched_at: null,
     });
   });
