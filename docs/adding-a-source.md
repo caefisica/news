@@ -40,18 +40,7 @@ INSERT OR IGNORE INTO sources (name, url, kind, parser, category, language) VALU
 [Database](database.md#sources) describes the columns. For an Instagram source,
 `name` is `@account`.
 
-## 3. Update the tests
-
-The tests apply every migration on SQLite and compare the resulting sources. Add
-the new source to these lists:
-
-- `leaves the expected set of sources` in
-  [`test/migrations.test.ts`](../test/migrations.test.ts).
-- `the seeded accounts` in
-  [`test/instagram.test.ts`](../test/instagram.test.ts), if the source is an
-  Instagram account.
-
-## 4. Try it locally
+## 3. Try it locally
 
 ```sh
 bun run db:migrate:local
@@ -70,8 +59,7 @@ migration to the remote database.
 
 ## Disable or remove a source
 
-Use a new migration to disable or remove a source. Update the test lists from
-step 3 if the source is in them.
+Use a new migration to disable or remove a source.
 
 ```sql
 UPDATE sources SET enabled = 0 WHERE url = 'https://example.org/feed.xml';

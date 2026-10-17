@@ -18,11 +18,11 @@ downloads the URL with the user agent `caefisica-news-reader/1.0` and a timeout
 of 10 seconds. It fails in these cases:
 
 - The source answers with a status code that is not 2xx.
-- The response contains none of `<rss`, `<feed` or `<rdf:RDF`. This rejects the
-  HTML challenge pages that answer 200.
+- The response is not XML, or its root element is not `rss`, `feed` or
+  `rdf:RDF`. This rejects the HTML challenge pages that answer 200.
 
-The XML is read with regular expressions and no external dependency. A response
-containing `<entry` is an Atom feed. Otherwise the reader takes the RSS `<item>`
+The XML is read with `fast-xml-parser`, with entity expansion off. An Atom
+`feed` yields its `<entry>` elements. Any other root yields its `<item>`
 elements. The item's `guid` is its `<guid>`, else its `<id>`, else its link.
 That value, with the source, is the article's unique key.
 
