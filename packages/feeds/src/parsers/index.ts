@@ -4,8 +4,6 @@ import { gobpeParser } from "./gobpe";
 import { identityParser } from "./identity";
 import { instagramParser } from "./instagram";
 
-export type { RawItem, NormalizedArticle };
-
 const registry: Record<string, Parser> = {
   identity: identityParser,
   blogspot: blogspotParser,
