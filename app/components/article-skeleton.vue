@@ -1,7 +1,6 @@
 <script setup lang="ts">
 defineProps<{ rows: number }>();
 
-// Vary the title length so the placeholder reads as a list, not a block.
 const widths = ["72%", "54%", "64%", "48%", "68%", "58%"];
 </script>
 

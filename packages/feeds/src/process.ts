@@ -23,7 +23,6 @@ async function recordFailure(source: Source, db: D1Database, err: unknown): Prom
   await db.prepare("UPDATE sources SET last_error = ? WHERE id = ?").bind(reason, source.id).run();
 }
 
-// Return the number of rows inserted by the database.
 async function store(source: Source, db: D1Database, articles: NormalizedArticle[]) {
   const stmt = db.prepare(
     `INSERT OR IGNORE INTO articles (source_id, guid, title, link, description, author, image, published_at)

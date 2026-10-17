@@ -17,7 +17,6 @@ const params = computed(() => ({
   source_id: allowedSourceIds.value?.join(","),
 }));
 
-// If the active category and source filters have no intersection, skip the API request.
 const nothingAllowed = computed(() => allowedSourceIds.value?.length === 0);
 
 function fetchPage(page: number, query = params.value) {
@@ -30,7 +29,6 @@ const { data, status, error, refresh } = useAsyncData(
   { watch: [params] },
 );
 
-// useAsyncData provides the server-rendered first page. Later pages are appended here.
 const laterArticles = ref<Article[]>([]);
 const nextPage = ref(2);
 const exhausted = ref(false);
@@ -109,7 +107,6 @@ const plural = (count: number) => `${count} ${count === 1 ? "artículo" : "artí
 
 const listFormat = new Intl.ListFormat("es", { style: "long", type: "conjunction" });
 
-// Names the filters that produced no results, e.g. «la categoría Becas y la fuente Naukas».
 const emptyText = computed(() => {
   const parts: string[] = [];
   if (q.value) parts.push(`la búsqueda «${q.value}»`);

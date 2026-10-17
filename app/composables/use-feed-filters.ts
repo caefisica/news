@@ -72,7 +72,6 @@ export function useFeedFilters(sources: Ref<Source[]>) {
     allowedSources(sources.value, categories.value, sourceIds.value),
   );
 
-  // Names the open view: one source, one category, or everything.
   const title = computed(() => {
     const names = [
       ...categories.value.map((id) => categoryLabel(id) ?? id),

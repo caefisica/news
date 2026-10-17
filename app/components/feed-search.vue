@@ -32,7 +32,6 @@ function clearText() {
   input.value?.focus();
 }
 
-// Escape empties the field first, then hands focus back to the list.
 function onEscape() {
   if (text.value) clearText();
   else input.value?.blur();
