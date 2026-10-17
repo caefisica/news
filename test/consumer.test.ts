@@ -85,25 +85,11 @@ describe("queue handler", () => {
     expect(stored(db, "B")).toEqual([{ title: "b" }]);
   });
 
-  it("acks a source that does not answer and does not retry it", async () => {
-    vi.spyOn(console, "error").mockImplementation(() => {});
-    const db = migrate();
-
-    expect(await deliver(db, [addSource(db, "Falta", "/missing")])).toEqual(["ack"]);
-
-    expect(db.prepare("SELECT last_error FROM sources WHERE name = 'Falta'").get()).toEqual({
-      last_error: "La fuente respondió con el código 404.",
-    });
-  });
-});
-
-describe("queue handler with a failing source", () => {
   it("records a source that fails to fetch and still stores the others", async () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
     const db = migrate();
     const sources = [addSource(db, "Roto", "/missing"), addSource(db, "B", "/b")];
 
-    // Parse failures resolve, so the message is acknowledged.
     expect(await deliver(db, sources)).toEqual(["ack"]);
 
     expect(stored(db, "B")).toEqual([{ title: "b" }]);

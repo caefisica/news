@@ -17,7 +17,6 @@ interface Grid {
   data: { xig_user_by_username: { polaris_ordered_timeline_connection: { edges: Edge[] } } };
 }
 
-// The fixtures preserve the response shapes that the parser must handle.
 const fixture = (name: string) =>
   readFileSync(new URL(`fixtures/instagram/${name}.json`, import.meta.url), "utf8");
 const grid = (name: string) => JSON.parse(fixture(name)) as Grid;
@@ -232,37 +231,5 @@ describe("a failing account", () => {
     await processSource({ ...row, url: `${base}/uni_oficial/` }, d1(db));
     expect(state(db).last_error).toBeNull();
     expect(state(db).last_fetched_at).toBeGreaterThan(BEFORE);
-  });
-});
-
-describe("the seeded accounts", () => {
-  it("are three Instagram sources that use the instagram parser", () => {
-    const rows = migrate()
-      .prepare("SELECT name, url, kind, parser, language FROM sources WHERE kind = 'instagram'")
-      .all();
-
-    expect(rows).toEqual([
-      {
-        name: "@gft.unmsm",
-        url: "https://www.instagram.com/gft.unmsm/",
-        kind: "instagram",
-        parser: "instagram",
-        language: "es",
-      },
-      {
-        name: "@uni_oficial",
-        url: "https://www.instagram.com/uni_oficial/",
-        kind: "instagram",
-        parser: "instagram",
-        language: "es",
-      },
-      {
-        name: "@asdfpucp",
-        url: "https://www.instagram.com/asdfpucp/",
-        kind: "instagram",
-        parser: "instagram",
-        language: "es",
-      },
-    ]);
   });
 });

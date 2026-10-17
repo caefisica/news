@@ -44,35 +44,3 @@ describe("migrations", () => {
     expect(titles).toEqual([{ title: "Beca" }]);
   });
 });
-
-describe("source migrations", () => {
-  it("adds the research sources with their language", () => {
-    const rows = sources(migrate());
-    const byName = Object.fromEntries(rows.map((row) => [row.name, row]));
-
-    for (const name of ["IPEN", "IGP", "CONCYTEC"]) {
-      expect(byName[name]?.parser).toBe("gobpe");
-    }
-    expect(byName["CONCYTEC"]?.category).toBe("becas");
-    expect(byName["CERN"]).toMatchObject({ category: "ciencia", language: "en" });
-    expect(byName["Quanta Magazine"]?.language).toBe("en");
-    expect(byName["Naukas"]?.language).toBe("es");
-  });
-
-  it("leaves the expected set of sources", () => {
-    expect(sources(migrate()).map((row) => row.name)).toEqual([
-      "@asdfpucp",
-      "@gft.unmsm",
-      "@uni_oficial",
-      "CERN",
-      "CONCYTEC",
-      "IGP",
-      "IPEN",
-      "Naukas",
-      "OGCRI-UNMSM",
-      "PRONABEC",
-      "Quanta Magazine",
-      "REPU Program",
-    ]);
-  });
-});

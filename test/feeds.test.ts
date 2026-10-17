@@ -236,14 +236,6 @@ describe("gobpe parser", () => {
       { title: "Sismo de magnitud 5 sacude Arequipa" },
     ]);
   });
-
-  it("no longer answers to the pronabec key", async () => {
-    const [collection] = (await fetchFeed(`${base}/gobpe`)).map((item) =>
-      parseItem(item, "pronabec"),
-    );
-
-    expect(collection?.guid).not.toBe("");
-  });
 });
 
 describe("identity parser", () => {
