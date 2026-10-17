@@ -81,15 +81,16 @@ export function groupByDay<T extends { published_at: number | null }>(
 ): ArticleGroup<T>[] {
   const groups: ArticleGroup<T>[] = [];
   for (const item of items) {
-    const group = dayGroup(item.published_at, now);
+    const ts = item.published_at;
+    const group = dayGroup(ts, now);
     let key: string = group;
     let label: string;
     if (group === "today") label = "Hoy";
     else if (group === "yesterday") label = "Ayer";
     else if (group === "week") label = "Esta semana";
-    else if (group === "none") label = "Sin fecha";
+    else if (group === "none" || !isValidTimestamp(ts)) label = "Sin fecha";
     else {
-      const date = new Date((item.published_at as number) * 1000);
+      const date = new Date(ts * 1000);
       label = capitalize(monthFormat.format(date));
       key = `month-${dayFormat.format(date).slice(0, 7)}`;
     }

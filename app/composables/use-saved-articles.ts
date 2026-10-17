@@ -6,14 +6,14 @@ const STORAGE_KEY = "nr:saved-articles";
 // Storage is user-editable, so keep only entries a row can render.
 function isArticle(value: unknown): value is Article {
   if (typeof value !== "object" || value === null) return false;
-  const item = value as Record<string, unknown>;
+  const field = (key: string): unknown => Reflect.get(value, key);
   return (
-    typeof item.id === "number" &&
-    typeof item.title === "string" &&
-    typeof item.link === "string" &&
-    typeof item.source_id === "number" &&
-    typeof item.source_name === "string" &&
-    (item.published_at === null || isValidTimestamp(item.published_at))
+    typeof field("id") === "number" &&
+    typeof field("title") === "string" &&
+    typeof field("link") === "string" &&
+    typeof field("source_id") === "number" &&
+    typeof field("source_name") === "string" &&
+    (field("published_at") === null || isValidTimestamp(field("published_at")))
   );
 }
 

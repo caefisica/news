@@ -33,7 +33,7 @@ function stripHtml(html: string): string {
       }
     }
 
-    text.push(html[index]);
+    text.push(html.charAt(index));
   }
 
   return text.join("").replaceAll(/\s+/gu, " ").trim();

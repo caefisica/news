@@ -112,7 +112,7 @@ async function request(origin: string, username: string): Promise<string> {
 export async function profilePosts(origin: string, username: string): Promise<MediaNode[]> {
   let json: GraphqlResponse;
   try {
-    json = JSON.parse(await request(origin, username)) as GraphqlResponse;
+    json = JSON.parse(await request(origin, username));
   } catch (err) {
     if (err instanceof SyntaxError) {
       throw new SourceError("Instagram devolvió una respuesta que no es JSON.", { cause: err });

@@ -128,7 +128,8 @@ function rootElement(parsed: unknown): { name: string; value: unknown } | undefi
 
 function parseDocument(xml: string): unknown[] | undefined {
   try {
-    return xmlParser.parse(xml) as unknown[];
+    const parsed: unknown = xmlParser.parse(xml);
+    return Array.isArray(parsed) ? parsed : undefined;
   } catch {
     return undefined;
   }

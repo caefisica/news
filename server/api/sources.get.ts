@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  const { DB } = event.context.cloudflare.env as { DB: D1Database };
+  const { DB }: { DB: D1Database } = event.context.cloudflare.env;
 
   const { results } = await DB.prepare(`
       SELECT

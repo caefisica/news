@@ -2,9 +2,7 @@ export function decodeNumericReference(reference: string): string {
   const body = reference.slice(2, -1).toLowerCase();
   const hexadecimal = body.startsWith("x");
   const digits = hexadecimal ? body.slice(1) : body;
-  const validDigits =
-    digits.length > 0 &&
-    [...digits].every((digit) => (hexadecimal ? /[0-9a-f]/u.test(digit) : /[0-9]/u.test(digit)));
+  const validDigits = (hexadecimal ? /^[0-9a-f]+$/u : /^[0-9]+$/u).test(digits);
   if (!validDigits) return reference;
 
   const codePoint = hexadecimal ? Number.parseInt(digits, 16) : Math.trunc(Number(digits));

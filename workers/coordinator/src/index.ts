@@ -23,7 +23,10 @@ export default {
 
     const batches = chunk(sources, BATCH_SIZE);
     await Promise.all(
-      batches.map((batch) => env.FEED_QUEUE.send({ sources: batch } as QueueMessage)),
+      batches.map((batch) => {
+        const message: QueueMessage = { sources: batch };
+        return env.FEED_QUEUE.send(message);
+      }),
     );
 
     console.log(`Dispatched ${sources.length} sources in ${batches.length} batch(es)`);

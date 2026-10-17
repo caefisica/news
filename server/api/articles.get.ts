@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  const { DB } = event.context.cloudflare.env as { DB: D1Database };
+  const { DB }: { DB: D1Database } = event.context.cloudflare.env;
 
   const query = getQuery(event);
   const page = Math.max(1, Number(query.page) || 1);
