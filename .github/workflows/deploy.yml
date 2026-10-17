@@ -51,7 +51,7 @@ jobs:
               - bun.lock
               - server/cloudflare.json
               - server/db/database.json
-              - .github/actions/setup/**
+              - mise.toml
             news:
               - *shared
               - package.json
@@ -82,41 +82,40 @@ jobs:
           all='["news","news-reader-coordinator","news-reader-consumer","migrations"]'
           changed=${CHANGED:-$all}
           workers='[
-            {"worker": "news", "directory": "."},
-            {"worker": "news-reader-coordinator", "directory": "workers/coordinator"},
-            {"worker": "news-reader-consumer", "directory": "workers/consumer"}
+            {"worker": "news", "task": "deploy:news"},
+            {"worker": "news-reader-coordinator", "task": "deploy:coordinator"},
+            {"worker": "news-reader-consumer", "task": "deploy:consumer"}
           ]'
           echo "workers=$(jq -c --argjson changed "$changed" \
             "map(select(.worker as \$w | \$changed | index(\$w)))" <<< "$workers")" >> "$GITHUB_OUTPUT"
           echo "migrate=$(jq -c 'index("migrations") != null' <<< "$changed")" >> "$GITHUB_OUTPUT"
 
   check:
-    name: typecheck, lint, format and test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7.0.1
-      - uses: ./.github/actions/setup
-      # The tests read the tsconfig that `typecheck` generates, so it runs first.
-      - run: mise run check
+    uses: ./.github/workflows/ci.yml
 
   # A skipped `migrate` job would skip `deploy` through `needs`. This condition
   # allows an intentional skip but not a failure.
   migrate:
     name: d1 migrations
     needs: [changes, check]
-    if: ${{ github.ref == 'refs/heads/master' && !failure() && !cancelled() && needs.changes.outputs.migrate == 'true' }}
+    if:
+      ${{ github.ref == 'refs/heads/master' && !failure() && !cancelled() &&
+      needs.changes.outputs.migrate == 'true' }}
     runs-on: ubuntu-latest
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: ./.github/actions/setup
-      - run: bun run db:migrate
+      - uses: jdx/mise-action@v5.1.2
+      - run: mise run install
+      - run: mise run db:migrate
 
   deploy:
     name: deploy ${{ matrix.worker }}
     needs: [changes, check, migrate]
-    if: ${{ github.ref == 'refs/heads/master' && !failure() && !cancelled() && needs.changes.outputs.workers != '[]' }}
+    if:
+      ${{ github.ref == 'refs/heads/master' && !failure() && !cancelled() &&
+      needs.changes.outputs.workers != '[]' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -126,6 +125,6 @@ jobs:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: ./.github/actions/setup
-      - run: bun run deploy
-        working-directory: ${{ matrix.directory }}
+      - uses: jdx/mise-action@v5.1.2
+      - run: mise run install
+      - run: mise run ${{ matrix.task }}
