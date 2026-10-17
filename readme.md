@@ -16,17 +16,18 @@ and a D1 database.
 
 ## Quick start
 
-You need [Bun](https://bun.sh), the version in [`mise.toml`](mise.toml), and
-Node 24 or later.
+You need [mise](https://mise.jdx.dev). It installs the Bun and Node versions
+pinned in [`mise.toml`](mise.toml).
 
 ```sh
 git clone https://github.com/caefisica/news.git
 cd news
 
-bun install
-bun run db:migrate:local
-bun run ingest
-bun run dev
+mise install
+mise run install
+mise run db:migrate:local
+mise run ingest
+mise run dev
 ```
 
 The app runs at <http://localhost:8787> with every source already loaded into a

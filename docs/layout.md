@@ -61,8 +61,9 @@ The consumer configures the queue settings. These files configure the project:
 | [`cloudflare.config.ts`](../cloudflare.config.ts) | The `news` worker: bindings `ASSETS` and `DB`.        |
 | [`wrangler.config.ts`](../wrangler.config.ts)     | How to build Nuxt for `cf-wrangler dev`.              |
 | [`nuxt.config.ts`](../nuxt.config.ts)             | Modules, the `cloudflare_module` preset and metadata. |
-| [`oxlint.config.ts`](../oxlint.config.ts)         | Lint rules.                                           |
-| [`oxfmt.config.ts`](../oxfmt.config.ts)           | Code and Markdown formatting.                         |
+| [`.oxlintrc.json`](../.oxlintrc.json)             | Lint rules.                                           |
+| [`.oxfmtrc.json`](../.oxfmtrc.json)               | Code, Markdown, JSON and YAML formatting.             |
 | [`vitest.config.ts`](../vitest.config.ts)         | Which files are tests.                                |
-| [`mise.toml`](../mise.toml)                       | The Bun version.                                      |
+| [`mise.toml`](../mise.toml)                       | The Bun and Node versions, and every task.            |
 | [`tsconfig.json`](../tsconfig.json)               | Extends the config that Nuxt generates.               |
+| [`test/tsconfig.json`](../test/tsconfig.json)     | Type-checks the tests and `scripts`.                  |

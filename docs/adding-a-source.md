@@ -43,16 +43,16 @@ INSERT OR IGNORE INTO sources (name, url, kind, parser, category, language) VALU
 ## 3. Try it locally
 
 ```sh
-bun run db:migrate:local
-bun run ingest
-bun run test
+mise run db:migrate:local
+mise run ingest
+mise run test
 ```
 
 `ingest` prints one line per source,
 `[name] inserted N, ignored M already stored, skipped K without guid, title or link`.
 When a source fails, `ingest` prints `fetch failed` instead and stores the
 reason in `sources.last_error`. You can see it on `/sources` when you open
-`bun run dev`. See [failures](sources.md#failures).
+`mise run dev`. See [failures](sources.md#failures).
 
 When the change merges into `master`, [deployment](deployment.md) applies the
 migration to the remote database.

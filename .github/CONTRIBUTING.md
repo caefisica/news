@@ -13,14 +13,12 @@ first start.
 
 ## Checks
 
-Run these scripts from [`package.json`](../package.json) before you open a pull
-request:
+Run the checks before you open a pull request. They are the tasks of
+[`mise.toml`](../mise.toml), and CI runs the same ones:
 
 ```sh
-bun run typecheck
-bun run lint
-bun run test
-bun run format
+mise run fix
+mise run check
 ```
 
 If you change the database, read the

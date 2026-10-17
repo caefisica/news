@@ -66,13 +66,13 @@ also the sources.
 - The tests apply every file, in order, on SQLite, so the SQL must be valid
   SQLite. See [tests](local-development.md#tests).
 - The linter ignores this folder (`migrations/**` in
-  [`oxlint.config.ts`](../oxlint.config.ts)).
+  [`.oxlintrc.json`](../.oxlintrc.json)).
 
 To apply them:
 
 ```sh
-bun run db:migrate:local
-bun run db:migrate
+mise run db:migrate:local
+mise run db:migrate
 ```
 
 The first command applies them to the local database in `.wrangler/state`. The

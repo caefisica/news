@@ -3,11 +3,13 @@
 [`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml) runs on every
 push to `master` and deploys only what the push changed. Only one deployment
 runs at a time. A new one waits for the running one and does not cancel it.
+[`ci.yml`](../.github/workflows/ci.yml) runs the same checks alone on every pull
+request.
 
 ```mermaid
 flowchart LR
     X[changes<br/>which files changed] --> B
-    A[check<br/>typecheck, lint, tests, format] --> B[migrate<br/>remote D1]
+    A[check<br/>lint, typecheck, tests, build] --> B[migrate<br/>remote D1]
     B --> C[deploy news]
     B --> D[deploy coordinator]
     B --> E[deploy consumer]
@@ -16,9 +18,9 @@ flowchart LR
 | Job       | What it does                                                         |
 | --------- | -------------------------------------------------------------------- |
 | `changes` | Compares the push with the last successful run and selects the jobs. |
-| `check`   | Runs the typecheck, lint, tests and format check on every push.      |
-| `migrate` | Runs `bun run db:migrate` and applies the pending migrations to D1.  |
-| `deploy`  | Runs `bun run deploy` for each selected worker in the matrix.        |
+| `check`   | Calls [`ci.yml`](../.github/workflows/ci.yml) on every push.         |
+| `migrate` | Runs `mise run db:migrate` and applies the pending migrations to D1. |
+| `deploy`  | Runs the `deploy:<worker>` task of each selected worker.             |
 
 `migrate` and `deploy` wait for `check`. `deploy` also waits for `migrate`, but
 runs when `migrate` is skipped. A failure in any earlier job stops them. The
@@ -35,11 +37,11 @@ worker is deployed when any of them changed:
 - `news-reader-coordinator`: `workers/coordinator` and `packages/feeds`.
 - `news-reader-consumer`: `workers/consumer` and `packages/feeds`.
 
-`bun.lock`, `server/cloudflare.json`, `server/db/database.json` and the
-[setup action](../.github/actions/setup/action.yml) rebuild all three. `migrate`
-runs when `server/db/migrations`, `server/db/database.json` or
-`scripts/migrate.ts` change. A push that changes none of these (documentation,
-tests) runs `check` and nothing else.
+`bun.lock`, `server/cloudflare.json`, `server/db/database.json` and
+[`mise.toml`](../mise.toml) rebuild all three. `migrate` runs when
+`server/db/migrations`, `server/db/database.json` or `scripts/migrate.ts`
+change. A push that changes none of these (documentation, tests) runs `check`
+and nothing else.
 
 The push is compared with the head commit of the last successful run of the
 workflow on `master`, not with the commit before the push. A run that fails or
@@ -51,13 +53,13 @@ workflow by hand from the Actions tab (`workflow_dispatch`). The `migrate` and
 `deploy` jobs run only on `master`, so a manual run on another branch does
 nothing but `check`.
 
-At the root, `bun run deploy` builds Nuxt and runs `cf deploy --prebuilt`. In
-the ingest workers, it runs `cf deploy`.
+`mise run deploy:news` builds Nuxt and runs `cf deploy --prebuilt`.
+`deploy:coordinator` and `deploy:consumer` run `cf deploy` in their folders.
 
-Every job prepares its environment with the local action
-[`.github/actions/setup`](../.github/actions/setup/action.yml): Node 24, the Bun
-version pinned in [`mise.toml`](../mise.toml) and
-`bun install --frozen-lockfile`.
+The `check` job runs [`ci.yml`](../.github/workflows/ci.yml). The `migrate` and
+`deploy` jobs install the tools pinned in [`mise.toml`](../mise.toml) with
+`jdx/mise-action` and run `mise run install` before their task. The `changes`
+job needs only `gh` and `jq`.
 
 ## Cloudflare setup
 
@@ -84,7 +86,7 @@ and scope it to the target account. Grant these account permissions:
 - **Workers Scripts Edit** (the Workers **Editor** role) for existing Workers. A
   first deployment that creates the Workers needs product-level Workers
   **Admin** access; reduce it to **Editor** after the first deployment.
-- **D1 Edit** for `bun run db:migrate` and database creation.
+- **D1 Edit** for `mise run db:migrate` and database creation.
 - **Queues Edit** for queue creation and consumer configuration.
 
 Store the token as the GitHub repository secret `CLOUDFLARE_API_TOKEN` in
@@ -105,7 +107,7 @@ The workflow sets `CF_SEND_TELEMETRY: "false"` for the `cf` CLI.
 
 Migrations run before the workers. See the
 [migration rules](database.md#migrations). To apply migrations outside the
-workflow, run `bun run db:migrate` from the repository root with
+workflow, run `mise run db:migrate` from the repository root with
 `CLOUDFLARE_API_TOKEN` set in the environment. The root
 [`cloudflare.config.ts`](../cloudflare.config.ts) supplies the account ID.
 
