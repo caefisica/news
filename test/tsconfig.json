@@ -1,0 +1,12 @@
+{
+  "extends": "../.nuxt/tsconfig.app.json",
+  "compilerOptions": { "types": ["node", "bun"] },
+  "include": [
+    "./**/*",
+    "../scripts/**/*",
+    "../.cloudflare/types",
+    "../.nuxt/nuxt.d.ts",
+    "../.nuxt/types/nitro-nuxt.d.ts"
+  ],
+  "exclude": []
+}
