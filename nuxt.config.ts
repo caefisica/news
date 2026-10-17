@@ -1,10 +1,6 @@
 export default defineNuxtConfig({
   compatibilityDate: "2026-10-12",
 
-  future: {
-    compatibilityVersion: 4,
-  },
-
   modules: ["@nuxt/fonts", "@nuxtjs/color-mode", "@nuxt/icon"],
 
   nitro: {
