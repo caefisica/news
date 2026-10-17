@@ -1,8 +1,10 @@
 import { bindings, defineConfig, triggers } from "cf/config";
 
+import cloudflare from "../../server/cloudflare.json" with { type: "json" };
 import database from "../../server/db/database.json" with { type: "json" };
 
 export default defineConfig({
+  accountId: cloudflare.accountId,
   worker: {
     name: "news-reader-consumer",
     compatibilityDate: "2026-10-12",

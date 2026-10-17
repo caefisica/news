@@ -2,8 +2,11 @@
 
 The project uses one Cloudflare D1 database. Its name and id are in
 [`server/db/database.json`](../server/db/database.json). The three
-`cloudflare.config.ts` files, [`scripts/migrate.ts`](../scripts/migrate.ts) and
-[`scripts/ingest.ts`](../scripts/ingest.ts) read them from there.
+`cloudflare.config.ts` files read the D1 details from there. The shared
+Cloudflare account ID is in
+[`server/cloudflare.json`](../server/cloudflare.json).
+[`scripts/migrate.ts`](../scripts/migrate.ts) and
+[`scripts/ingest.ts`](../scripts/ingest.ts) read the D1 details from there.
 
 ## Tables
 

@@ -6,6 +6,7 @@ The repository is a Bun workspace (`workspaces` in
 ```text
 app/                    Nuxt 4 interface
 server/api/             API routes
+server/cloudflare.json  shared Cloudflare account configuration
 server/db/              migrations and the D1 database name and id
 packages/feeds/         shared ingest logic (@news-reader/feeds)
 workers/coordinator/    cron that queues the sources that are due
