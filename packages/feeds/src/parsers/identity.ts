@@ -48,10 +48,10 @@ function truncate(text: string, max = 300): string {
 }
 
 export function identityParser(item: RawItem): NormalizedArticle {
-  const raw = item.description ?? item.summary ?? item.content ?? "";
+  const raw = item.description ?? item.content ?? "";
   const description = truncate(cleanText(raw));
 
-  const guid = item.guid ?? item.id ?? item.link ?? "";
+  const guid = item.guid ?? item.link ?? "";
   const published = Date.parse(item.pubDate ?? item.published ?? item.updated ?? "");
 
   return {
@@ -59,7 +59,7 @@ export function identityParser(item: RawItem): NormalizedArticle {
     title: cleanText(item.title ?? "").trim(),
     link: item.link ?? "",
     description: description || null,
-    author: item.author ?? item["dc:creator"] ?? null,
+    author: item.author ?? null,
     image: null,
     published_at: Number.isNaN(published) ? null : Math.floor(published / 1000),
   };
