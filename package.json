@@ -12,37 +12,25 @@
     "workers/*"
   ],
   "type": "module",
-  "scripts": {
-    "dev": "cf-wrangler dev",
-    "build": "nuxt build && cf-wrangler build",
-    "deploy": "bun run build && cf deploy --prebuilt",
-    "types": "cf workers types && bun run --filter './workers/*' types",
-    "typecheck": "bun run types && nuxt typecheck && tsc -p packages/feeds && tsc -p workers/consumer && tsc -p workers/coordinator",
-    "ingest": "bun run scripts/ingest.ts",
-    "db:migrate": "bun run scripts/migrate.ts",
-    "db:migrate:local": "bun run scripts/migrate.ts --local --persist-to .wrangler/state",
-    "test": "vitest run",
-    "lint": "oxlint .",
-    "lint:fix": "oxlint --fix .",
-    "format": "oxfmt .",
-    "format:check": "oxfmt --check ."
-  },
   "dependencies": {
     "@news-reader/feeds": "workspace:*",
-    "@nuxt/icon": "^2.5.1",
-    "nuxt": "^4.6.1",
-    "vue-router": "^5.4.0"
+    "@nuxt/icon": "2.5.1",
+    "nuxt": "4.6.1",
+    "vue-router": "5.4.0"
   },
   "devDependencies": {
-    "@nuxt/fonts": "^1.0.1",
-    "@nuxtjs/color-mode": "^4.0.1",
-    "cf": "^1.0.0-beta.17",
-    "oxfmt": "^0.73.0",
-    "oxlint": "^1.88.0",
+    "@nuxt/fonts": "1.0.1",
+    "@nuxtjs/color-mode": "4.0.1",
+    "@types/bun": "1.4.3",
+    "@types/node": "24.19.2",
+    "cf": "1.0.0-beta.17",
+    "oxfmt": "0.73.0",
+    "oxlint": "1.88.0",
+    "oxlint-tsgolint": "7.0.2004",
     "typescript": "npm:typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2",
-    "vitest": "^5.0.4",
-    "vue-tsc": "^3.3.13",
-    "wrangler": "^4.151.0"
+    "vitest": "5.0.4",
+    "vue-tsc": "3.3.13",
+    "wrangler": "4.151.0"
   },
   "engines": {
     "node": ">=24.0.0"

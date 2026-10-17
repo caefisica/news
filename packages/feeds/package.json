@@ -8,6 +8,6 @@
     "./schedule": "./src/schedule.ts"
   },
   "dependencies": {
-    "fast-xml-parser": "^5.11.2"
+    "fast-xml-parser": "5.11.2"
   }
 }

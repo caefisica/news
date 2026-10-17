@@ -1,5 +1,91 @@
 [tools]
 bun = "1.4.3"
+node = "24.22.0"
+
+[env]
+_.path = ["{{config_root}}/node_modules/.bin"]
+
+[tasks.install]
+description = "Install dependencies from bun.lock without resolving"
+run = "bun install --frozen-lockfile"
+
+[tasks.prepare]
+description = "Generate the Nuxt tsconfig and types that lint and test read"
+depends = ["types"]
+run = "nuxt prepare"
+
+[tasks.types]
+description = "Generate the Cloudflare runtime and binding types of the app and both workers"
+run = [
+  "cf workers types",
+  "cd workers/consumer && cf workers types",
+  "cd workers/coordinator && cf workers types",
+]
+
+[tasks.lint]
+description = "Check code and Markdown with oxlint and oxfmt, leaving tracked files unchanged"
+depends = ["prepare"]
+run = ["oxlint --deny-warnings", "oxfmt --check ."]
+
+[tasks.fix]
+description = "Apply oxlint's safe fixes and format code and Markdown with oxfmt"
+depends = ["prepare"]
+run = ["oxlint --fix", "oxfmt ."]
+
+[tasks.typecheck]
+description = "Type-check the app, packages/feeds, both workers, the tests and the scripts"
+depends = ["types"]
+wait_for = ["lint"]
+run = [
+  "nuxt typecheck",
+  "tsc -p test",
+  "tsc -p packages/feeds",
+  "tsc -p workers/consumer",
+  "tsc -p workers/coordinator",
+]
+
+[tasks.test]
+description = "Run the Vitest suite"
+depends = ["prepare"]
+wait_for = ["typecheck"]
+run = "vitest run"
+
+[tasks.build]
+description = "Build Nuxt and prepare the news worker for deployment"
+wait_for = ["test"]
+run = ["nuxt build", "cf-wrangler build"]
 
 [tasks.check]
-run = "bun run typecheck && bun run lint && bun run format:check && bun run test"
+description = "Lint, type-check, test and build, leaving tracked files unchanged"
+depends = ["lint", "typecheck", "test", "build"]
+
+[tasks.dev]
+description = "Build and serve the app locally with Cloudflare bindings"
+run = "cf-wrangler dev"
+
+[tasks.ingest]
+description = "Ingest every source into the local database"
+run = "bun scripts/ingest.ts"
+
+[tasks."db:migrate"]
+description = "Apply the pending migrations to the remote D1 database"
+run = "bun scripts/migrate.ts"
+
+[tasks."db:migrate:local"]
+description = "Apply the pending migrations to the local database"
+run = "bun scripts/migrate.ts --local --persist-to .wrangler/state"
+
+[tasks."deploy:news"]
+description = "Build and deploy the news worker"
+depends = ["build"]
+run = "cf deploy --prebuilt"
+
+[tasks."deploy:coordinator"]
+description = "Deploy the coordinator worker"
+dir = "{{config_root}}/workers/coordinator"
+run = "cf deploy"
+
+[tasks."deploy:consumer"]
+description = "Deploy the consumer worker"
+dir = "{{config_root}}/workers/consumer"
+run = "cf deploy"
