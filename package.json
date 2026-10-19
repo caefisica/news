@@ -15,7 +15,7 @@
   "dependencies": {
     "@news-reader/feeds": "workspace:*",
     "@nuxt/icon": "2.5.1",
-    "nuxt": "4.6.1",
+    "nuxt": "4.6.2",
     "vue-router": "5.4.0"
   },
   "devDependencies": {
