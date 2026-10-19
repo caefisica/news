@@ -106,7 +106,7 @@ jobs:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: jdx/mise-action@v5.1.2
+      - uses: jdx/mise-action@v5.2.0
       - run: mise run install
       - run: mise run db:migrate
 
@@ -125,6 +125,6 @@ jobs:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: jdx/mise-action@v5.1.2
+      - uses: jdx/mise-action@v5.2.0
       - run: mise run install
       - run: mise run ${{ matrix.task }}
