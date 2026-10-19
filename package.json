@@ -28,7 +28,7 @@
     "oxlint": "1.88.0",
     "oxlint-tsgolint": "7.0.2004",
     "typescript": "npm:typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2",
-    "vitest": "5.0.4",
+    "vitest": "5.0.5",
     "vue-tsc": "3.3.13",
     "wrangler": "4.151.0"
   },
