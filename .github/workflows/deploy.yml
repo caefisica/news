@@ -28,7 +28,7 @@ jobs:
       workers: ${{ steps.select.outputs.workers }}
       migrate: ${{ steps.select.outputs.migrate }}
     steps:
-      - uses: actions/checkout@v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       # A push is compared with the head of the last successful run, so a run a newer
       # one superseded still deploys its changes. With no such run, everything deploys.
       - id: base
@@ -105,8 +105,8 @@ jobs:
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
-      - uses: actions/checkout@v7.0.1
-      - uses: jdx/mise-action@v5.1.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: jdx/mise-action@fc42bcc7ddbf51124c30f95a877a0c5168a3bfde # v5.2.1
       - run: mise run install
       - run: mise run db:migrate
 
@@ -124,7 +124,7 @@ jobs:
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
-      - uses: actions/checkout@v7.0.1
-      - uses: jdx/mise-action@v5.1.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: jdx/mise-action@fc42bcc7ddbf51124c30f95a877a0c5168a3bfde # v5.2.1
       - run: mise run install
       - run: mise run ${{ matrix.task }}
