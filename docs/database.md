@@ -71,8 +71,8 @@ also the sources.
 To apply them:
 
 ```sh
-mise run db:migrate:local
-mise run db:migrate
+bun run db:migrate:local
+bun run db:migrate
 ```
 
 The first command applies them to the local database in `.wrangler/state`. The

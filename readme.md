@@ -24,10 +24,10 @@ git clone https://github.com/caefisica/news.git
 cd news
 
 mise install
-mise run install
-mise run db:migrate:local
-mise run ingest
-mise run dev
+bun install --frozen-lockfile
+bun run db:migrate:local
+bun run ingest
+bun run dev
 ```
 
 The app runs at <http://localhost:8787> with every source already loaded into a

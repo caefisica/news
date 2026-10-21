@@ -64,6 +64,6 @@ The consumer configures the queue settings. These files configure the project:
 | [`.oxlintrc.json`](../.oxlintrc.json)             | Lint rules.                                           |
 | [`.oxfmtrc.json`](../.oxfmtrc.json)               | Code, Markdown, JSON and YAML formatting.             |
 | [`vitest.config.ts`](../vitest.config.ts)         | Which files are tests.                                |
-| [`mise.toml`](../mise.toml)                       | The Bun and Node versions, and every task.            |
+| [`mise.toml`](../mise.toml)                       | The Bun and Node versions.                            |
 | [`tsconfig.json`](../tsconfig.json)               | Extends the config that Nuxt generates.               |
 | [`test/tsconfig.json`](../test/tsconfig.json)     | Type-checks the tests and `scripts`.                  |
