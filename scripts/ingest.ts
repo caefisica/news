@@ -17,7 +17,7 @@ await Bun.write(
   }),
 );
 
-// Use the local state shared by `mise run dev` and `mise run db:migrate:local`.
+// Use the local state shared by `bun run dev` and `bun run db:migrate:local`.
 const { env, dispose } = await getPlatformProxy<{ DB: D1Database }>({
   configPath,
   persist: { path: ".wrangler/state/v3" },
@@ -27,7 +27,7 @@ const { env, dispose } = await getPlatformProxy<{ DB: D1Database }>({
 const sources = await listEnabledSources(env.DB);
 
 if (sources.length === 0) {
-  console.log("No enabled sources found. Run `mise run db:migrate:local` first.");
+  console.log("No enabled sources found. Run `bun run db:migrate:local` first.");
 } else {
   console.log(`Processing ${sources.length} source(s)…`);
   await Promise.allSettled(sources.map((s) => processSource(s, env.DB)));

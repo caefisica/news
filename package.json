@@ -12,6 +12,22 @@
     "workers/*"
   ],
   "type": "module",
+  "scripts": {
+    "dev": "cf-wrangler dev",
+    "ingest": "bun scripts/ingest.ts",
+    "types": "cf workers types && (cd workers/consumer && cf workers types) && (cd workers/coordinator && cf workers types) && nuxt prepare",
+    "lint": "bun run types && oxlint --deny-warnings && oxfmt --check .",
+    "fix": "bun run types && oxlint --fix && oxfmt .",
+    "typecheck": "bun run types && nuxt typecheck && tsc -p test && tsc -p packages/feeds && tsc -p workers/consumer && tsc -p workers/coordinator",
+    "test": "bun run types && vitest run",
+    "build": "nuxt build && cf-wrangler build",
+    "check": "bun run lint && bun run typecheck && bun run test && bun run build",
+    "db:migrate": "bun scripts/migrate.ts",
+    "db:migrate:local": "bun scripts/migrate.ts --local --persist-to .wrangler/state",
+    "deploy:news": "bun run build && cf deploy --prebuilt",
+    "deploy:coordinator": "cd workers/coordinator && cf deploy",
+    "deploy:consumer": "cd workers/consumer && cf deploy"
+  },
   "dependencies": {
     "@news-reader/feeds": "workspace:*",
     "@nuxt/icon": "2.5.1",
