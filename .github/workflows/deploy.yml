@@ -52,9 +52,9 @@ jobs:
               - server/cloudflare.json
               - server/db/database.json
               - mise.toml
+              - package.json
             news:
               - *shared
-              - package.json
               - tsconfig.json
               - nuxt.config.ts
               - cloudflare.config.ts
@@ -107,8 +107,8 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: jdx/mise-action@fc42bcc7ddbf51124c30f95a877a0c5168a3bfde # v5.2.1
-      - run: mise run install
-      - run: mise run db:migrate
+      - run: bun install --frozen-lockfile
+      - run: bun run db:migrate
 
   deploy:
     name: deploy ${{ matrix.worker }}
@@ -126,5 +126,5 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: jdx/mise-action@fc42bcc7ddbf51124c30f95a877a0c5168a3bfde # v5.2.1
-      - run: mise run install
-      - run: mise run ${{ matrix.task }}
+      - run: bun install --frozen-lockfile
+      - run: bun run ${{ matrix.task }}
