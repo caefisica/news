@@ -4,12 +4,6 @@ node_modules
 # build output
 /.output
 /.nuxt
-/dist
-/build
-
-# env
-.env
-.env.*
 
 # Cloudflare tooling
 .cloudflare
