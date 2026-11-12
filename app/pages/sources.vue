@@ -70,9 +70,7 @@ const cadence = `Revisamos las fuentes web ${every(CRON_INTERVAL_MINUTES)} y las
 
       <table v-else class="table">
         <caption class="sr-only">
-          {{
-            cadence
-          }}
+          {{ cadence }}
         </caption>
         <thead>
           <tr>
